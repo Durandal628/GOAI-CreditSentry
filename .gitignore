@@ -7,4 +7,8 @@ __pycache__/
 *.py[cod]
 .venv/
 
+# 演示材料（PPT/PDF）的构建中间产物
+tmp/
+*.inspect.ndjson
+
 # 说明：poc/out/ 是运行证据，需要随代码包一并提交，故不忽略。
