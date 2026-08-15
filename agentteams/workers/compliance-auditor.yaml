@@ -1,0 +1,65 @@
+# 由 tools/gen_agentteams.py 自动生成，请勿手工编辑。
+# 真源：poc/creditsentry/permissions.py
+
+apiVersion: agentteams.io/v1
+kind: Worker
+metadata:
+  name: compliance-auditor
+  labels:
+    team: credit-sentry
+    equivalence-class: 唯一 Trace 读 + 知识库写
+    pii-touchpoint: false
+spec:
+  runtime: openclaw
+  soul: souls/compliance-auditor/SOUL.md
+  env:
+    - name: AGENT_ID
+      value: compliance-auditor
+    - name: TEAM
+      value: credit-sentry
+    - name: CASE_STATE_DSN
+      valueFrom: { secretKeyRef: { name: creditsentry-db, key: dsn } }
+  llm:
+    enabled: true
+    profile: auditor-narrate   # 档位定义见 config/models.yaml
+    # 凭证由 Higress 统一签发 consumer token，Worker 侧无长期密钥
+    gateway: higress-ai-gateway
+  mcp:
+    - server: credit-core-mcp
+      allowedTools:
+        - name: get_exposure
+          mode: read
+        - name: get_facility
+          mode: read
+      auth:
+        type: consumer-token
+        consumer: compliance-auditor
+  skills:
+    - name: ComplianceCheck
+      version: 1.5.0
+      source: nacos://creditsentry/skills
+    - name: PostmortemDistill
+      version: 1.1.0
+      source: nacos://creditsentry/skills
+    - name: ReportCompose
+      version: 1.7.0
+      source: nacos://creditsentry/skills
+    - name: QueryRewrite
+      version: 1.0.0
+      source: nacos://creditsentry/skills
+    - name: PolicyRag
+      version: 2.0.0
+      source: nacos://creditsentry/skills
+    - name: CaseMemory
+      version: 1.4.0
+      source: nacos://creditsentry/skills
+  policy:
+    piiAccess: false
+    prohibited: >-
+      不得执行或修改任何处置动作；发现合规缺失只报告不修复，由 Commander 升级人工
+    decisionBoundary: >-
+      全自主（只读业务系统 + 写知识库）
+  observability:
+    tracing: otel-genai
+    notes: >-
+      读取全链路 Trace 生成审计视图；沉淀动作落 knowledge.write Span，可追溯「哪次案件产生了哪条规则」

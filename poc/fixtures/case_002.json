@@ -1,0 +1,129 @@
+{
+  "case_id": "CASE-2026-0821-002",
+  "label": "链路 B · 误报 → 被质疑官驳回",
+  "expected_outcome": {
+    "adjudication": "RISK_REFUTED",
+    "suggested_grade": null,
+    "action_tier": "L0",
+    "note": "定性官依聚合信号断言风险成立，质疑官下钻个案层面逐条推翻，最终出具「维持原状 + 加强监测」并留痕"
+  },
+  "_data_notice": "全部为合成数据，企业主体、账号、金额、案号均为构造值，不含任何真实客户信息。",
+  "_design_note": "本案与 CASE-001 为同一主体的不同观察窗口。信号类型完全相同（涉诉 + 集中转出 + 法代变更），差别只在个案细节。用于验证系统能否区分「表面相似」的真实风险与误报——这是防误杀的核心能力。",
+
+  "subject": {
+    "subject_id": "SUB-330100-88217",
+    "name": "浙XX精密机械有限公司",
+    "industry": "通用设备制造",
+    "region": "浙江杭州",
+    "current_grade": "正常",
+    "manager": "客户经理-林"
+  },
+
+  "alerts": [
+    {"alert_id": "AL-20260821-0001", "source": "内部预警平台", "type": "judicial_new_case", "ts": "2026-08-21T09:05:00", "detail": "新增涉诉信息 2 条"},
+    {"alert_id": "AL-20260821-0002", "source": "内部预警平台", "type": "judicial_new_case", "ts": "2026-08-21T09:06:00", "detail": "新增涉诉信息 2 条（重复推送）"},
+    {"alert_id": "AL-20260821-0003", "source": "资金监控", "type": "txn_concentrated_outflow", "ts": "2026-08-21T09:18:00", "detail": "近 30 日集中转出 210 万"},
+    {"alert_id": "AL-20260821-0004", "source": "工商监控", "type": "registration_change", "ts": "2026-08-21T09:26:00", "detail": "法定代表人变更"},
+    {"alert_id": "AL-20260821-0005", "source": "舆情监控", "type": "media_mention", "ts": "2026-08-21T09:28:00", "detail": "行业展会名单提及（无实质内容）"},
+    {"alert_id": "AL-20260821-0006", "source": "内部预警平台", "type": "rating_periodic", "ts": "2026-08-21T09:35:00", "detail": "季度评级例行复核提醒"}
+  ],
+
+  "credit_core": {
+    "facility": {
+      "subject_id": "SUB-330100-88217",
+      "total_limit": 8000000,
+      "products": [
+        {"product": "流动资金贷款", "limit": 6000000, "outstanding": 5200000},
+        {"product": "银行承兑汇票", "limit": 2000000, "outstanding": 1000000}
+      ],
+      "current_classification": "正常"
+    },
+    "total_exposure": 6200000,
+    "related_subjects": [
+      {"subject_id": "SUB-330100-91043", "name": "杭州XX贸易有限公司", "relation": "互保", "amount": 3000000, "depth": 1},
+      {"subject_id": "SUB-330100-77320", "name": "浙XX智能装备有限公司", "relation": "同一实控人", "amount": 4500000, "depth": 1}
+    ],
+    "guarantee_ring": ["SUB-330100-88217", "SUB-330100-91043", "SUB-330100-77320"],
+    "collateral": {
+      "items": [{"type": "厂房抵押", "appraised_value": 4200000, "status": "有效", "ltv": 0.62}],
+      "total_value": 4200000
+    },
+    "source_doc_uri": "s3://mock-core/facility/SUB-330100-88217.json"
+  },
+
+  "bureau": {
+    "simulate_rate_limit": false,
+    "report": {
+      "subject_id": "SUB-330100-88217",
+      "report_date": "2026-08-21",
+      "legal_rep_id_no": "330106198504121234",
+      "contact_phone": "13858001234",
+      "total_liability": 9500000,
+      "overdue_records": 0,
+      "external_guarantee": 5000000,
+      "watch_flag": false,
+      "source_doc_uri": "s3://mock-bureau/report/SUB-330100-88217-20260821.pdf"
+    },
+    "diff": {
+      "baseline_date": "2026-05-21",
+      "report_date": "2026-08-21",
+      "new_liability": 0,
+      "new_overdue": 0,
+      "external_guarantee_delta": 0,
+      "query_count_delta": 2,
+      "source_doc_uri": "s3://mock-bureau/diff/SUB-330100-88217-0821.pdf"
+    },
+    "query_history": {"months": 6, "query_count": 3, "institutions": 2}
+  },
+
+  "judicial": {
+    "cases": [
+      {"case_no": "(2026)浙0106民初4901号", "cause": "买卖合同纠纷", "amount": 32000, "amount_ratio": 0.005, "closed": true, "our_role": "原告", "filed_at": "2026-06-11"},
+      {"case_no": "(2026)浙0106民初4933号", "cause": "买卖合同纠纷", "amount": 18000, "amount_ratio": 0.003, "closed": true, "our_role": "原告", "filed_at": "2026-06-24"}
+    ],
+    "total_amount_ratio": 0.008,
+    "documents": {
+      "(2026)浙0106民初4901号": {"case_no": "(2026)浙0106民初4901号", "text": "……原告浙XX精密机械有限公司诉请被告支付拖欠货款……本院judgment支持原告诉请，案件已结……", "source_doc_uri": "s3://mock-judicial/doc/4901.pdf"},
+      "(2026)浙0106民初4933号": {"case_no": "(2026)浙0106民初4933号", "text": "……原告浙XX精密机械有限公司诉请被告支付货款……双方达成调解，案件已结……", "source_doc_uri": "s3://mock-judicial/doc/4933.pdf"}
+    },
+    "registration": {
+      "subject_id": "SUB-330100-88217",
+      "established_at": "2015-03-11",
+      "registered_capital": 10000000,
+      "status": "存续",
+      "source_doc_uri": "s3://mock-judicial/reg/SUB-330100-88217.json"
+    },
+    "change_history": {
+      "legal_rep_changed": true,
+      "changed_at": "2026-04-18",
+      "risk_window": ["2026-08-01", "2026-08-21"],
+      "change_overlaps_risk_window": false,
+      "equity_changed": false,
+      "detail": "法定代表人由 王XX 变更为 王XX（同名，职务调整），股权结构未变动",
+      "source_doc_uri": "s3://mock-judicial/change/SUB-330100-88217-0418.json"
+    },
+    "source_doc_uri": "s3://mock-judicial/search/SUB-330100-88217-0821.json"
+  },
+
+  "txn": {
+    "total_count": 976,
+    "coverage": 0.94,
+    "baseline_band": "180万 - 260万",
+    "within_baseline_band": true,
+    "anomalies": ["集中转出"],
+    "counterparties": [
+      {"name": "宁波XX机电有限公司", "amount": 1100000, "related_party": false, "note": "上游供应商，合作 5 年"},
+      {"name": "绍兴XX轴承有限公司", "amount": 640000, "related_party": false, "note": "上游供应商，合作 3 年"},
+      {"name": "台州XX五金有限公司", "amount": 360000, "related_party": false, "note": "上游供应商，合作 4 年"}
+    ],
+    "counterparty_related_party": false,
+    "transactions": [
+      {"ts": "2026-08-03", "account_no": "6222021001088217", "counterparty": "宁波XX机电有限公司", "counterparty_account": "6222021001010884", "amount": -1100000, "summary": "采购款"},
+      {"ts": "2026-08-09", "account_no": "6222021001088217", "counterparty": "绍兴XX轴承有限公司", "counterparty_account": "6222021001033215", "amount": -640000, "summary": "采购款"},
+      {"ts": "2026-08-15", "account_no": "6222021001088217", "counterparty": "台州XX五金有限公司", "counterparty_account": "6222021001055902", "amount": -360000, "summary": "采购款"}
+    ],
+    "source_doc_uri": "s3://mock-txn/flow/SUB-330100-88217-202607-202608b.json"
+  },
+
+  "known_gaps": []
+}

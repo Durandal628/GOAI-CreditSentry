@@ -1,0 +1,4 @@
+{"desc": "权威来源 + 原文可溯源 → 强证据", "input": {"source_system": "judicial-mcp", "extracted": {"source_doc_uri": "s3://x"}}, "expect": {"level": "强"}}
+{"desc": "采样不足 → 降为弱证据", "input": {"source_system": "txn-mcp", "extracted": {"undersampled": true}}, "expect": {"level": "弱"}}
+{"desc": "重名未消歧 → 降为弱证据", "input": {"source_system": "judicial-mcp", "extracted": {"ambiguous": true}}, "expect": {"level": "弱"}}
+{"desc": "应有而未取到 → 缺失证据", "input": {"source_system": "-", "extracted": {"gap": true, "why": "未取到"}}, "expect": {"level": "缺失"}}

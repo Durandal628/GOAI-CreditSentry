@@ -1,0 +1,46 @@
+# 由 tools/gen_agentteams.py 自动生成，请勿手工编辑。
+# 真源：poc/creditsentry/permissions.py
+
+apiVersion: agentteams.io/v1
+kind: Worker
+metadata:
+  name: risk-commander
+  labels:
+    team: credit-sentry
+    equivalence-class: 编排层（不持有任何业务工具）
+    pii-touchpoint: false
+spec:
+  runtime: openclaw
+  soul: souls/risk-commander/SOUL.md
+  env:
+    - name: AGENT_ID
+      value: risk-commander
+    - name: TEAM
+      value: credit-sentry
+    - name: CASE_STATE_DSN
+      valueFrom: { secretKeyRef: { name: creditsentry-db, key: dsn } }
+  llm:
+    enabled: true
+    profile: commander-route   # 档位定义见 config/models.yaml
+    # 凭证由 Higress 统一签发 consumer token，Worker 侧无长期密钥
+    gateway: higress-ai-gateway
+  mcp:
+    []   # 刻意为空：本 Agent 不持有任何工具权限
+  skills:
+    - name: RiskGate
+      version: 3.1.0
+      source: nacos://creditsentry/skills
+    - name: ReportCompose
+      version: 1.7.0
+      source: nacos://creditsentry/skills
+  policy:
+    piiAccess: false
+    prohibited: >-
+      不得调用任何取证或处置工具；不得修改证据账本；不得跳过 DevilsAdvocate
+    decisionBoundary: >-
+      L0/L1 自主推进；L2 必须发起审批并等待人工回调；L3 只产出方案、不派发执行。裁决遵循「证据等级优先于置信度」
+  observability:
+    tracing: otel-genai
+    notes: >-
+      每次路由决策落一条 routing Span（含 routing_key / 规则 ID / 规则版本）；每次裁决落一条
+      adjudication Span（含双方结论与采信理由）

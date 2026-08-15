@@ -1,0 +1,99 @@
+# 由 tools/gen_agentteams.py 自动生成，请勿手工编辑。
+# 真源：poc/creditsentry/permissions.py
+
+apiVersion: agentteams.io/v1
+kind: RoutingTable
+metadata:
+  name: credit-sentry-sop
+  version: v1.4.0
+spec:
+  # SOP 五阶段固定生命周期。LLM 只做阶段内判定，不决定流程走向。
+  phases: [INTAKE, EVIDENCE, ADJUDICATION, DISPOSITION, AUDIT, CLOSED, EVIDENCE_GAP]
+  routingKey:
+    - phase
+    - signal_type
+    - evidence_sufficiency
+    - risk_tier
+    - exposure_amount
+  thresholds:
+    evidenceSufficiency: 0.7
+    maxEvidenceRetries: 2
+  rules:
+    - id: R-01
+      phase: INTAKE
+      when: always
+      next: EVIDENCE
+      dispatch: [signal-hub]
+      description: 新预警进入，先做信号归并与敞口测绘
+    - id: R-02
+      phase: EVIDENCE
+      when: "evidence_sufficiency < 0.7 and evidence_retries < 2"
+      next: EVIDENCE
+      dispatch: [due-diligence]
+      description: 证据不充分，发起补充取证
+    - id: R-03
+      phase: EVIDENCE
+      when: "evidence_sufficiency < 0.7 and evidence_retries >= 2"
+      next: EVIDENCE_GAP
+      dispatch: []
+      description: 取证重试用尽仍不充分，输出取证清单转人工
+    - id: R-04
+      phase: EVIDENCE
+      when: "evidence_sufficiency >= 0.7"
+      next: ADJUDICATION
+      dispatch: [risk-analyst, devils-advocate]
+      parallel: true   # 硬约束：不可跳过任一方
+      description: 硬约束：强制并行派发定性与质疑，质疑环节不可跳过
+    - id: R-05
+      phase: ADJUDICATION
+      when: "verdict == EVIDENCE_INSUFFICIENT"
+      next: EVIDENCE
+      dispatch: [due-diligence]
+      description: 分歧源于证据缺失，回退补证（全流程唯一回退边）
+    - id: R-06
+      phase: ADJUDICATION
+      when: "verdict == RISK_REFUTED"
+      next: DISPOSITION
+      dispatch: []
+      description: 定性被推翻，仍出具「维持原状 + 加强监测」结论并留痕
+    - id: R-07
+      phase: ADJUDICATION
+      when: "verdict == RISK_CONFIRMED"
+      next: DISPOSITION
+      dispatch: []
+      description: 裁决风险成立，进入执行闸门定级
+    - id: R-08
+      phase: DISPOSITION
+      when: "action_tier == L3"
+      next: AUDIT
+      dispatch: []
+      description: L3 不可逆动作，仅生成方案，不派发执行
+    - id: R-09
+      phase: DISPOSITION
+      when: "action_tier == L2 and not approved"
+      next: DISPOSITION
+      dispatch: []
+      description: "L2 需人工审批，房间内 @风险经理并等待审批回调"
+    - id: R-10
+      phase: DISPOSITION
+      when: action_tier in (L0, L1) or approved
+      next: AUDIT
+      dispatch: [disposition-executor]
+      description: 条件满足，派发执行后进入审计
+    - id: R-11
+      phase: AUDIT
+      when: always
+      next: CLOSED
+      dispatch: [compliance-auditor]
+      description: 审计核验、合规校验与经验沉淀，案件闭环
+    - id: R-12
+      phase: ADJUDICATION
+      when: "verdict == EVIDENCE_INSUFFICIENT and evidence_retries >= 2"
+      next: EVIDENCE_GAP
+      dispatch: []
+      description: 裁决反复判定证据不足且回退次数用尽，转人工
+  audit:
+    # 路由决策本身即一条 Trace Span，「为什么走了这条分支」可举证
+    emitSpan: true
+    spanKind: routing
+    attributes: [routing_key, rule_id, rule_version]

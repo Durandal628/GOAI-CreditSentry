@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TxnFlowAnalyze",
+  "version": "1.2.3",
+  "description": "识别交易流水异常模式：回流 / 空转 / 集中转出 / 整数化",
+  "note": null,
+  "input": {
+    "type": "object",
+    "properties": {
+      "subject_id": {
+        "type": "string"
+      },
+      "account_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "subject_id",
+      "account_ids"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "anomaly_detected": {
+        "type": "boolean"
+      },
+      "anomalies": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "counterparty_related_party": {
+        "type": "boolean"
+      },
+      "within_baseline_band": {
+        "type": "boolean"
+      },
+      "baseline_band": {
+        "type": "string"
+      },
+      "coverage": {
+        "type": "number"
+      },
+      "undersampled": {
+        "type": "boolean"
+      },
+      "evidence_ids": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^EV-\\d+-\\d{4}$"
+        }
+      }
+    },
+    "required": [
+      "anomaly_detected",
+      "anomalies",
+      "coverage",
+      "evidence_ids"
+    ]
+  }
+}

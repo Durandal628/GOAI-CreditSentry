@@ -1,0 +1,186 @@
+{
+  "case_id": "CASE-2017-0401-003",
+  "label": "链路 C · 真实历史回溯 · 担保圈传染 → L3 只出方案",
+
+  "_case_kind": "retrospective_public",
+  "_data_notice": "本案为**已公开定论的历史事件回溯**，非对存续主体的风险预测。所用事实均取自 as_of 之前的公开信息（媒体公开报道与公开披露）。逐字段标注 provenance：real_public=真实公开事实；derived=由公开事实按比例推导；synthetic=法律上不可能公开、必须合成（征信与流水）。新闻报道仅用于定位案件与时间线，不作为证据账本中的证据。",
+  "_ethics_boundary": "只回溯已公开定论的历史事件（该主体债务风险已于 2021 年由政监银企四方推动化解，全过程公开）。系统不对当前存续且未有定论的主体输出风险结论。",
+
+  "as_of_date": "2017-04-01",
+  "_as_of_rationale": "齐星集团债务危机于 2017-03 公开爆发。把时钟冻结在其后第一个工作日，只喂入此前的公开信息，检验系统在该时点能否识别出担保圈传染风险。历史答案见 retrospective_outcome——但该字段不进入任何取证路径。",
+
+  "probe_window": {
+    "baseline_date": "2016-12-31",
+    "txn_from": "2016-10-01",
+    "txn_to": "2017-03-31"
+  },
+  "probe_accounts": ["3716****0001"],
+
+  "expected_outcome": {
+    "adjudication": "RISK_CONFIRMED",
+    "suggested_grade": "关注",
+    "action_tier": "L3",
+    "note": "净未覆盖代偿敞口达直接敞口 2 倍，风险成立；但直接敞口 6.5 亿触发大额升档，压降与追加担保均只出方案、不自动执行"
+  },
+
+  "subject": {
+    "subject_id": "SUB-370626-XW",
+    "name": "西王集团有限公司",
+    "industry": "玉米深加工与特钢",
+    "region": "山东滨州邹平",
+    "current_grade": "正常",
+    "manager": "客户经理-（回溯案例，无实际客户经理）",
+    "provenance": "real_public"
+  },
+
+  "alerts": [
+    {"alert_id": "AL-20170327-0001", "source": "舆情监控", "type": "guarantee_contagion", "ts": "2017-03-27T09:00:00", "detail": "被担保方齐星集团债务危机公开爆发", "first_public_date": "2017-03-27", "provenance": "real_public"},
+    {"alert_id": "AL-20170328-0002", "source": "内部预警平台", "type": "guarantee_contagion", "ts": "2017-03-28T09:10:00", "detail": "被担保方齐星集团债务危机公开爆发（重复推送）", "first_public_date": "2017-03-27", "provenance": "real_public"},
+    {"alert_id": "AL-20170328-0003", "source": "内部预警平台", "type": "guarantee_ring_alert", "ts": "2017-03-28T09:20:00", "detail": "本主体为该被担保方最大担保方，担保余额 29 亿元", "first_public_date": "2017-03-28", "provenance": "real_public"},
+    {"alert_id": "AL-20170330-0004", "source": "外部评级监控", "type": "rating_downgrade", "ts": "2017-03-30T10:00:00", "detail": "信用评级被下调，再融资受限", "first_public_date": "2017-03-30", "provenance": "real_public"},
+    {"alert_id": "AL-20170331-0005", "source": "舆情监控", "type": "media_mention", "ts": "2017-03-31T11:00:00", "detail": "行业资讯列表提及公司名称（无实质内容）", "first_public_date": "2017-03-31", "provenance": "synthetic"},
+    {"alert_id": "AL-20170331-0006", "source": "舆情监控", "type": "media_mention", "ts": "2017-03-31T11:05:00", "detail": "行业资讯列表提及公司名称（无实质内容·重复）", "first_public_date": "2017-03-31", "provenance": "synthetic"},
+    {"alert_id": "AL-20170331-0007", "source": "内部预警平台", "type": "rating_periodic", "ts": "2017-03-31T14:00:00", "detail": "季度评级例行复核提醒", "first_public_date": "2017-03-31", "provenance": "synthetic"},
+    {"alert_id": "AL-20170331-0008", "source": "内部预警平台", "type": "rating_periodic", "ts": "2017-03-31T14:02:00", "detail": "季度评级例行复核提醒（重复推送）", "first_public_date": "2017-03-31", "provenance": "synthetic"}
+  ],
+
+  "credit_core": {
+    "_provenance_note": "单家银行的授信与敞口从不公开披露，此处为按公开债务规模推导的**构造值**（provenance=derived），用于让比例口径可运算。担保关系、担保余额与缓释措施为公开事实（provenance=real_public）。",
+    "facility": {
+      "subject_id": "SUB-370626-XW",
+      "total_limit": 800000000,
+      "products": [
+        {"product": "流动资金贷款", "limit": 500000000, "outstanding": 450000000},
+        {"product": "银行承兑汇票", "limit": 300000000, "outstanding": 200000000}
+      ],
+      "current_classification": "正常",
+      "provenance": "derived"
+    },
+    "total_exposure": 650000000,
+    "related_subjects": [
+      {"subject_id": "SUB-370626-QX", "name": "山东齐星集团有限公司", "relation": "本主体为其提供连带责任担保", "amount": 2900000000, "depth": 1, "status": "已出险", "first_public_date": "2017-03-27", "provenance": "real_public"},
+      {"subject_id": "SUB-370626-QX", "name": "山东齐星集团有限公司", "relation": "该主体亦为本主体提供担保（互保）", "amount": 800000000, "depth": 1, "status": "已出险", "first_public_date": "2013-12-31", "provenance": "real_public"}
+    ],
+    "guarantee_ring": ["SUB-370626-XW", "SUB-370626-QX"],
+    "guarantee_ledger": {
+      "as_of": "2017-03-31",
+      "total_outstanding_guarantee": 2900000000,
+      "entries": [
+        {
+          "guaranteed_party": "山东齐星集团有限公司",
+          "guaranteed_party_id": "SUB-370626-QX",
+          "outstanding": 2900000000,
+          "guarantee_type": "连带责任保证",
+          "party_status": "已出险",
+          "status_basis": "2017-03 公开报道该主体债务危机爆发，多家债权人主张权利",
+          "mitigations": [
+            {"type": "共同担保人（邹平县供电公司）", "amount": 1027000000, "first_public_date": "2017-03-28", "provenance": "real_public"},
+            {"type": "机器设备/房产/土地资产抵押", "amount": 557000000, "first_public_date": "2017-03-28", "provenance": "real_public"}
+          ],
+          "first_public_date": "2017-03-28",
+          "provenance": "real_public",
+          "source_doc_uri": "public://media/2017-03/guarantee-ring-disclosure"
+        }
+      ],
+      "source_doc_uri": "public://media/2017-03/guarantee-ring-disclosure"
+    },
+    "collateral": {
+      "items": [{"type": "生产设备抵押", "appraised_value": 300000000, "status": "有效", "ltv": 0.72}],
+      "total_value": 300000000,
+      "provenance": "derived"
+    },
+    "source_doc_uri": "public://media/2017-03/guarantee-ring-disclosure"
+  },
+
+  "bureau": {
+    "_provenance_note": "征信数据依《征信业管理条例》不可公开，本节整体为合成（provenance=synthetic），但受公开事实约束：对外担保余额与公开披露一致，且截至 as_of 无逾期记录——与该主体首次债券违约发生在 2019-10 的历史事实一致。",
+    "simulate_rate_limit": false,
+    "report": {
+      "subject_id": "SUB-370626-XW",
+      "report_date": "2017-03-31",
+      "legal_rep_id_no": "（合成占位·不对应任何真实自然人）",
+      "contact_phone": "（合成占位）",
+      "total_liability": 8000000000,
+      "overdue_records": 0,
+      "external_guarantee": 2900000000,
+      "watch_flag": true,
+      "provenance": "synthetic",
+      "source_doc_uri": "synthetic://bureau/report/SUB-370626-XW-20170331"
+    },
+    "diff": {
+      "baseline_date": "2016-12-31",
+      "report_date": "2017-03-31",
+      "new_liability": 0,
+      "new_overdue": 0,
+      "external_guarantee_delta": 0,
+      "query_count_delta": 6,
+      "provenance": "synthetic",
+      "source_doc_uri": "synthetic://bureau/diff/SUB-370626-XW"
+    },
+    "query_history": {"months": 6, "query_count": 11, "institutions": 7}
+  },
+
+  "judicial": {
+    "_provenance_note": "as_of 时点公开渠道未检索到以本主体为被告的生效裁判文书——债权人诉讼此时指向被担保方而非担保人。刻意不构造案号：宁可让证据链在此处呈现为部分结果，也不编造可被核对的司法文书。",
+    "cases": [],
+    "total_amount_ratio": 0.0,
+    "partial": true,
+    "partial_reason": "仅检索到公开报道层面的债务纠纷信息，未取到以本主体为当事人的裁判文书原文",
+    "documents": {},
+    "registration": {
+      "subject_id": "SUB-370626-XW",
+      "established_at": "1986-01-01",
+      "registered_capital": 1000000000,
+      "status": "存续",
+      "provenance": "real_public",
+      "source_doc_uri": "public://gsxt/SUB-370626-XW"
+    },
+    "change_history": {
+      "legal_rep_changed": false,
+      "changed_at": null,
+      "risk_window": ["2017-03-27", "2017-04-01"],
+      "change_overlaps_risk_window": false,
+      "equity_changed": false,
+      "detail": "as_of 时点未发现法定代表人或股权结构变更的公开记录",
+      "provenance": "real_public",
+      "source_doc_uri": "public://gsxt/change/SUB-370626-XW"
+    },
+    "source_doc_uri": "public://gsxt/search/SUB-370626-XW"
+  },
+
+  "txn": {
+    "_provenance_note": "交易流水依法不可公开，本节整体为合成（provenance=synthetic）。刻意**不构造异常模式**：as_of 时点没有任何公开信息指向该主体资金异常，凭空造一个异常等于伪造风险信号。因此本案的结论完全由担保圈这一条真实信号驱动。",
+    "total_count": 2140,
+    "coverage": 0.94,
+    "baseline_band": "1.8亿 - 2.6亿",
+    "within_baseline_band": true,
+    "anomalies": [],
+    "counterparties": [
+      {"name": "（合成）上游玉米收储商 A", "amount": 210000000, "related_party": false, "note": "历史稳定供应商"},
+      {"name": "（合成）特钢产品经销商 B", "amount": 180000000, "related_party": false, "note": "历史稳定客户"}
+    ],
+    "counterparty_related_party": false,
+    "transactions": [
+      {"ts": "2017-01-16", "account_no": "3716****0001", "counterparty": "（合成）上游玉米收储商 A", "counterparty_account": "3716****0777", "amount": -105000000, "summary": "原料采购款"},
+      {"ts": "2017-02-20", "account_no": "3716****0001", "counterparty": "（合成）上游玉米收储商 A", "counterparty_account": "3716****0777", "amount": -105000000, "summary": "原料采购款"},
+      {"ts": "2017-03-15", "account_no": "3716****0001", "counterparty": "（合成）特钢产品经销商 B", "counterparty_account": "3716****0888", "amount": 180000000, "summary": "货款回笼"}
+    ],
+    "provenance": "synthetic",
+    "source_doc_uri": "synthetic://txn/flow/SUB-370626-XW-201610-201703"
+  },
+
+  "known_gaps": [
+    {"fact_type": "financial_statement", "why": "as_of 时点无法取得该主体最近一期经审计财务报表，无法验证经营性现金流对或有代偿的覆盖能力"},
+    {"fact_type": "guaranteed_party_financials", "why": "被担保方非本行客户，无法取得其财务数据与债务清单，代偿概率无法量化，只能按敞口净额保守估计"}
+  ],
+
+  "retrospective_outcome": {
+    "_warning": "本字段仅用于事后评分，**绝不可**进入任何取证路径或证据账本。tools/check_pit.py 会断言其内容不出现在 MCP 返回与证据中。",
+    "outcome": "DEFAULTED",
+    "outcome_date": "2019-10",
+    "lead_time_months": 31,
+    "detail": "自 as_of 起 31 个月后发生债券违约，存续债券 100.4 亿元触发违约或交叉违约，引发约 250 亿元全面债务危机；2019 年 11-12 月一个半月内二度违约；2021 年由政监银企四方推动债务风险化解。",
+    "provenance": "real_public",
+    "scoring_note": "系统在 as_of 判定为 RISK_CONFIRMED 即为方向正确。但方向正确不等于处置正确——历史上该主体在 2017 年确有阶段性风险缓释，若当时判定为不可逆的立即抽贷则属过度处置。因此本案真正检验的是**分级是否恰当**：可逆的压降与追加担保 = 恰当；不可逆动作自动执行 = 失败。"
+  }
+}

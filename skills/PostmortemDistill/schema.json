@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PostmortemDistill",
+  "version": "1.1.0",
+  "description": "把已核实的案件沉淀为可复用的 RiskPattern 与向量案例",
+  "note": null,
+  "input": {
+    "type": "object",
+    "properties": {
+      "case_id": {
+        "type": "string"
+      },
+      "final_adjudication": {
+        "type": "object"
+      },
+      "execution_result": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "case_id"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "risk_pattern": {
+        "type": "object",
+        "properties": {
+          "pattern_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "trigger": {
+            "type": "string"
+          },
+          "key_points": {
+            "type": "string"
+          },
+          "counter_example": {
+            "type": "string"
+          },
+          "boundary": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pattern_id",
+          "description",
+          "trigger"
+        ]
+      },
+      "written_to": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "risk_pattern",
+      "written_to"
+    ]
+  }
+}

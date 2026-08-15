@@ -1,0 +1,110 @@
+# Provider 注册表 —— 第 1 层：端点在哪、用什么协议、凭证怎么取。
+#
+# 这一层只回答「连到哪里」，不回答「用哪个模型」，更不回答「谁在用」。
+# 分层的意义：换云厂商不影响模型选型，换模型不影响 Agent 拓扑。
+#
+# ▲ 凭证一律是**引用**而非明文值。支持三种引用形式：
+#     env:<环境变量名>            本地与 CI
+#     k8s-secret:<secret>/<key>   集群部署
+#     higress-consumer:<consumer> 经 Higress AI 网关透传，Worker 只持 consumer token，
+#                                 真实密钥留在网关侧，Worker 拿不到也换不掉
+#     none:                       无需鉴权（本地推理服务）
+#   因此本文件可以安全进版本库，密钥永远不进配置、不进权限矩阵、不进 Trace。
+#
+# ▲ data_residency 不是装饰字段。PII 触点 Agent（due-diligence）绑定的模型，
+#   其 provider 的 data_residency 必须落在 config/models.yaml 的 pii_allowed_residency
+#   白名单内，否则 poc/test_safety.py 直接失败。这让「哪些数据会流向哪个厂商」
+#   成为静态可证的事实，而不是运行时抽查。
+
+version: 1
+
+providers:
+
+  builtin:
+    base_url: "-"
+    protocol: deterministic
+    credential_ref: "none:"
+    data_residency: local
+    note: 内置确定性推理器，不联网。用于离线门禁与影子对照组。
+
+  # ▲ 百炼有两个互不相通的地域端点，**Key 不能跨地域使用**。
+  #   拿国际站的 Key 打中国大陆端点，返回的是 401「Incorrect API key」——
+  #   这个报错看起来像 Key 写错了，实际是地域不匹配，是接入时最容易卡住的一个坑。
+  #   在控制台看不到 base_url 这个「选项」，因为它写在 API 文档里而不是控制台上。
+  dashscope:
+    base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+    protocol: openai-compatible
+    credential_ref: env:DASHSCOPE_API_KEY
+    data_residency: cn
+    note: 阿里云百炼 · 中国大陆（北京）。账号注册在国内时用这个。
+
+  dashscope-intl:
+    base_url: https://dashscope-intl.aliyuncs.com/compatible-mode/v1
+    protocol: openai-compatible
+    credential_ref: env:DASHSCOPE_API_KEY
+    # 新加坡节点对境内银行属数据出境，因此不在 pii_allowed_residency 白名单内。
+    # 这意味着唯一 PII 触点不得绑定它——不是配置疏漏，是围栏在起作用。
+    data_residency: overseas
+    note: 阿里云百炼 · 国际站（新加坡）。账号注册在国际站时用这个。
+
+  volcengine:
+    base_url: https://ark.cn-beijing.volces.com/api/v3
+    protocol: openai-compatible
+    credential_ref: env:ARK_API_KEY
+    data_residency: cn
+    note: 火山方舟。用于对抗质疑侧，与定性侧刻意不同厂商。
+
+  higress:
+    base_url: http://higress-ai-gateway.creditsentry.svc/v1
+    protocol: openai-compatible
+    credential_ref: higress-consumer:creditsentry-worker
+    data_residency: cn
+    note: 生产推荐路径。统一出口、凭证透传、PII 出站脱敏均在网关侧落地。
+
+  deepseek:
+    base_url: https://api.deepseek.com/v1
+    protocol: openai-compatible
+    credential_ref: env:DEEPSEEK_API_KEY
+    data_residency: cn
+    note: DeepSeek 官方端点。支持 response_format=json_object。
+
+  zhipu:
+    base_url: https://open.bigmodel.cn/api/paas/v4
+    protocol: openai-compatible
+    credential_ref: env:ZHIPU_API_KEY
+    data_residency: cn
+    note: 智谱开放平台。与 deepseek 组合可在不碰百炼的前提下凑出异构对抗。
+
+  moonshot:
+    base_url: https://api.moonshot.cn/v1
+    protocol: openai-compatible
+    credential_ref: env:MOONSHOT_API_KEY
+    data_residency: cn
+    note: 月之暗面。
+
+  local-vllm:
+    base_url: http://127.0.0.1:8000/v1
+    protocol: openai-compatible
+    credential_ref: "none:"
+    data_residency: local
+    note: 本地开源模型。用于验证方案不锁定闭源模型（实验 E4）。
+
+  # 本地 Ollama 的 OpenAI 兼容层。完全离线、零 token 成本，但小参数模型返回合规
+  # JSON 的稳定性明显差于云端模型，因此对应 profile 放宽了重试与修复预算。
+  ollama:
+    base_url: http://127.0.0.1:11434/v1
+    protocol: openai-compatible
+    credential_ref: "none:"
+    data_residency: local
+    note: 本地 Ollama。离线零成本，用于验证方案不锁定闭源模型（实验 E4）。
+
+  # 离线一致性验证用的伪端点（tools/mock_llm_server.py）。它不是演示道具：
+  # live 路径上的传输重试、Schema 修复轮、失败策略这三段代码，恰恰只在模型
+  # 「表现不好」时才会被执行到，而真实端点无法按需复现那些情形。故障注入端点
+  # 让这三条路径可以被离线、零成本、确定性地回归（tools/live_conformance.py）。
+  local-mock:
+    base_url: http://127.0.0.1:8077/v1
+    protocol: openai-compatible
+    credential_ref: "none:"
+    data_residency: local
+    note: 故障注入伪端点，用于离线验证 live 代码路径。不参与任何真实推理。

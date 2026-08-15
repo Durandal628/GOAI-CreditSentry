@@ -1,0 +1,55 @@
+# 由 tools/gen_agentteams.py 自动生成，请勿手工编辑。
+# 真源：poc/creditsentry/permissions.py
+
+apiVersion: agentteams.io/v1
+kind: Worker
+metadata:
+  name: signal-hub
+  labels:
+    team: credit-sentry
+    equivalence-class: 内部只读聚合
+    pii-touchpoint: false
+spec:
+  runtime: openclaw
+  soul: souls/signal-hub/SOUL.md
+  env:
+    - name: AGENT_ID
+      value: signal-hub
+    - name: TEAM
+      value: credit-sentry
+    - name: CASE_STATE_DSN
+      valueFrom: { secretKeyRef: { name: creditsentry-db, key: dsn } }
+  llm:
+    enabled: true
+    profile: worker-light   # 档位定义见 config/models.yaml
+    # 凭证由 Higress 统一签发 consumer token，Worker 侧无长期密钥
+    gateway: higress-ai-gateway
+  mcp:
+    - server: credit-core-mcp
+      allowedTools:
+        - name: get_collateral
+          mode: read
+        - name: get_exposure
+          mode: read
+        - name: get_facility
+          mode: read
+      auth:
+        type: consumer-token
+        consumer: signal-hub
+  skills:
+    - name: SignalFusion
+      version: 1.2.0
+      source: nacos://creditsentry/skills
+    - name: ExposureMapping
+      version: 1.1.0
+      source: nacos://creditsentry/skills
+  policy:
+    piiAccess: false
+    prohibited: >-
+      不得判断风险是否成立；不得访问征信 / 司法 / 流水等外部 PII 源
+    decisionBoundary: >-
+      全自主（纯只读，无外部副作用）
+  observability:
+    tracing: otel-genai
+    notes: >-
+      记录输入信号条数、归并后条数、降噪率，以及每条被丢弃信号的丢弃理由（可回溯，防止误丢高风险信号）

@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GuaranteeProbe",
+  "version": "1.0.0",
+  "description": "对外担保台账取证：识别已出险被担保方，测算净代偿敞口与缓释覆盖率",
+  "note": null,
+  "input": {
+    "type": "object",
+    "properties": {
+      "subject_id": {
+        "type": "string"
+      },
+      "direct_exposure": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "subject_id"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "has_guarantee": {
+        "type": "boolean"
+      },
+      "total_guarantee": {
+        "type": "number"
+      },
+      "distressed_guarantee": {
+        "type": "number"
+      },
+      "distressed_parties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "party": {
+              "type": "string"
+            },
+            "outstanding": {
+              "type": "number"
+            },
+            "status": {
+              "type": "string"
+            },
+            "status_basis": {
+              "type": "string"
+            },
+            "mitigation_amount": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "party",
+            "outstanding",
+            "status"
+          ]
+        }
+      },
+      "mitigation_amount": {
+        "type": "number"
+      },
+      "mitigation_coverage": {
+        "type": "number"
+      },
+      "uncovered_amount": {
+        "type": "number"
+      },
+      "uncovered_multiple": {
+        "type": "number"
+      },
+      "direct_exposure": {
+        "type": "number"
+      },
+      "evidence_ids": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^EV-\\d+-\\d{4}$"
+        }
+      }
+    },
+    "required": [
+      "has_guarantee",
+      "distressed_guarantee",
+      "evidence_ids"
+    ]
+  }
+}

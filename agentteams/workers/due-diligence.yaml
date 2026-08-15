@@ -1,0 +1,106 @@
+# 由 tools/gen_agentteams.py 自动生成，请勿手工编辑。
+# 真源：poc/creditsentry/permissions.py
+
+apiVersion: agentteams.io/v1
+kind: Worker
+metadata:
+  name: due-diligence
+  labels:
+    team: credit-sentry
+    equivalence-class: 唯一外部 PII 取证触点
+    pii-touchpoint: true
+spec:
+  runtime: openclaw
+  soul: souls/due-diligence/SOUL.md
+  env:
+    - name: AGENT_ID
+      value: due-diligence
+    - name: TEAM
+      value: credit-sentry
+    - name: CASE_STATE_DSN
+      valueFrom: { secretKeyRef: { name: creditsentry-db, key: dsn } }
+  llm:
+    enabled: true
+    profile: worker-light   # 档位定义见 config/models.yaml
+    # 凭证由 Higress 统一签发 consumer token，Worker 侧无长期密钥
+    gateway: higress-ai-gateway
+  mcp:
+    - server: bureau-mcp
+      allowedTools:
+        - name: diff_report
+          mode: read
+        - name: get_credit_report
+          mode: read
+        - name: get_query_history
+          mode: read
+      auth:
+        type: consumer-token
+        consumer: due-diligence
+      egress:
+        piiRedaction: true   # 出站脱敏由网关执行
+    - server: credit-core-mcp
+      allowedTools:
+        - name: get_collateral
+          mode: read
+        - name: get_exposure
+          mode: read
+        - name: get_facility
+          mode: read
+        - name: get_guarantee_ledger
+          mode: read
+      auth:
+        type: consumer-token
+        consumer: due-diligence
+    - server: judicial-mcp
+      allowedTools:
+        - name: get_business_registration
+          mode: read
+        - name: get_change_history
+          mode: read
+        - name: get_judgment_doc
+          mode: read
+        - name: search_litigation
+          mode: read
+      auth:
+        type: consumer-token
+        consumer: due-diligence
+    - server: txn-mcp
+      allowedTools:
+        - name: get_counterparty_summary
+          mode: read
+        - name: get_flow_pattern
+          mode: read
+        - name: query_transactions
+          mode: read
+      auth:
+        type: consumer-token
+        consumer: due-diligence
+      egress:
+        piiRedaction: true   # 出站脱敏由网关执行
+  skills:
+    - name: CreditReportProbe
+      version: 1.3.0
+      source: nacos://creditsentry/skills
+    - name: LitigationProbe
+      version: 1.4.2
+      source: nacos://creditsentry/skills
+    - name: TxnFlowAnalyze
+      version: 1.2.3
+      source: nacos://creditsentry/skills
+    - name: GuaranteeProbe
+      version: 1.0.0
+      source: nacos://creditsentry/skills
+    - name: EvidenceLedger
+      version: 2.0.0
+      source: nacos://creditsentry/skills
+  policy:
+    piiAccess: true
+    prohibited: >-
+      不得给出风险定性结论；不得提出处置方案；不得写信贷核心
+    decisionBoundary: >-
+      全自主（只读 + 写证据账本）。PII 出站强制经 Higress 脱敏——因取证触点唯一，脱敏范围可收敛、可验证
+  observability:
+    tracing: otel-genai
+    notes: >-
+      每次外部调用落 MCP Span（工具名、参数摘要、耗时、成功/失败）；每条证据落 evidence.write
+      Span 并关联 evidence_id

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CaseMemory",
+  "version": "1.4.0",
+  "description": "检索历史相似处置案例与本 Case 的决策上下文",
+  "note": "无相似案例时返回空数组，不用低相似度结果凑数",
+  "input": {
+    "type": "object",
+    "properties": {
+      "signal_types": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "top_k": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "required": [
+      "signal_types"
+    ]
+  },
+  "output": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "signal_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "conclusion": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        },
+        "verified_outcome": {
+          "type": "string"
+        },
+        "lesson": {
+          "type": "string"
+        },
+        "similarity": {
+          "type": "number"
+        }
+      },
+      "required": []
+    }
+  }
+}

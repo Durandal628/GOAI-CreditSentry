@@ -1,0 +1,57 @@
+# 由 tools/gen_agentteams.py 自动生成，请勿手工编辑。
+# 真源：poc/creditsentry/permissions.py
+
+apiVersion: agentteams.io/v1
+kind: Worker
+metadata:
+  name: disposition-executor
+  labels:
+    team: credit-sentry
+    equivalence-class: 唯一写触点
+    pii-touchpoint: false
+spec:
+  runtime: copaw
+  soul: souls/disposition-executor/SOUL.md
+  env:
+    - name: AGENT_ID
+      value: disposition-executor
+    - name: TEAM
+      value: credit-sentry
+    - name: CASE_STATE_DSN
+      valueFrom: { secretKeyRef: { name: creditsentry-db, key: dsn } }
+  llm:
+    enabled: false
+    # 仅规则驱动：执行环节不给模型发挥空间
+    profile: null   # 唯一写触点刻意不持有模型入口
+    # 凭证由 Higress 统一签发 consumer token，Worker 侧无长期密钥
+    gateway: higress-ai-gateway
+  mcp:
+    - server: credit-core-mcp
+      allowedTools:
+        - name: add_guarantee
+          mode: write
+        - name: adjust_limit
+          mode: write
+        - name: get_facility
+          mode: read
+        - name: rollback_adjustment
+          mode: write
+      auth:
+        type: consumer-token
+        consumer: disposition-executor
+  skills:
+    - name: SafeDisposition
+      version: 2.2.0
+      source: nacos://creditsentry/skills
+  policy:
+    piiAccess: false
+    prohibited: >-
+      不得自主决定是否执行；不得执行白名单外动作；不得审计自身结果
+    decisionBoundary: >-
+      零自主决策。L0/L1 凭裁决执行；L2 必须校验审批回调签名后执行；L3 永不执行，仅落方案。所有动作幂等，失败自动回滚至
+      rollback_point
+  observability:
+    tracing: otel-genai
+    notes: >-
+      落 execution Span（含幂等键、动作前后快照、回执）；写操作强制双写审计日志，TraceId
+      关联

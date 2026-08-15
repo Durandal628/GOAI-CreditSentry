@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ComplianceCheck",
+  "version": "1.5.0",
+  "description": "逐条校验贷后管理合规项并输出可举证结论",
+  "note": null,
+  "input": {
+    "type": "object",
+    "properties": {
+      "case_id": {
+        "type": "string"
+      },
+      "trace_id": {
+        "type": "string"
+      },
+      "rule_set_version": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "case_id"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "rule_id": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "result": {
+              "enum": [
+                "PASS",
+                "FAIL",
+                "N/A"
+              ]
+            },
+            "detail": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "rule_id",
+            "source",
+            "result",
+            "detail"
+          ]
+        }
+      },
+      "passed": {
+        "type": "integer"
+      },
+      "failed": {
+        "type": "integer"
+      },
+      "remediation": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "items",
+      "passed",
+      "failed"
+    ]
+  }
+}

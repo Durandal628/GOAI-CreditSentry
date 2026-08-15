@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvidenceLedger",
+  "version": "2.0.0",
+  "description": "登记证据、哈希存证并评定证据等级",
+  "note": "content_hash 由原文计算，账本 append-only，改写会产生不同 evidence_id",
+  "input": {
+    "type": "object",
+    "properties": {
+      "subject_id": {
+        "type": "string"
+      },
+      "source_system": {
+        "type": "string"
+      },
+      "fact_type": {
+        "type": "string"
+      },
+      "raw_content": {
+        "type": "string"
+      },
+      "extracted": {
+        "type": "object"
+      },
+      "collected_at": {
+        "type": "string"
+      },
+      "level": {
+        "enum": [
+          "强",
+          "弱",
+          "缺失"
+        ]
+      },
+      "level_reason": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "subject_id",
+      "source_system",
+      "fact_type",
+      "raw_content",
+      "extracted"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "evidence_id": {
+        "type": "string",
+        "pattern": "^EV-\\d+-\\d{4}$"
+      },
+      "subject_id": {
+        "type": "string"
+      },
+      "source_system": {
+        "type": "string"
+      },
+      "fact_type": {
+        "type": "string"
+      },
+      "snapshot_uri": {
+        "type": "string"
+      },
+      "content_hash": {
+        "type": "string",
+        "pattern": "^sha256:[0-9a-f]{64}$"
+      },
+      "collected_at": {
+        "type": "string"
+      },
+      "level": {
+        "enum": [
+          "强",
+          "弱",
+          "缺失"
+        ]
+      },
+      "level_reason": {
+        "type": "string"
+      },
+      "extracted": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "evidence_id",
+      "snapshot_uri",
+      "content_hash",
+      "level",
+      "level_reason"
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QueryRewrite",
+  "version": "1.0.0",
+  "description": "把一个基础检索意图改写为六维子查询，并识别需要澄清的歧义",
+  "note": null,
+  "input": {
+    "type": "object",
+    "properties": {
+      "base_query": {
+        "type": "string"
+      },
+      "stance": {
+        "enum": [
+          "PROVE",
+          "REFUTE"
+        ]
+      },
+      "signal_types": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "facts": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "as_of": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "base_query",
+      "stance"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "caller": {
+        "type": "string"
+      },
+      "stance": {
+        "type": "string"
+      },
+      "as_of": {
+        "type": "string"
+      },
+      "dimensions_used": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "subqueries": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "dimension": {
+              "enum": [
+                "stance",
+                "terminology",
+                "signal_topic",
+                "clause_ref",
+                "negation",
+                "recency"
+              ]
+            },
+            "text": {
+              "type": "string"
+            },
+            "why": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "number"
+            },
+            "filters": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          },
+          "required": [
+            "dimension",
+            "text",
+            "why"
+          ]
+        }
+      },
+      "clarifications": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "clarification_id": {
+              "type": "string"
+            },
+            "question": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "channel": {
+              "enum": [
+                "AUTO",
+                "SYSTEM_TASK",
+                "HUMAN_CHOICE"
+              ]
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "blocking": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "clarification_id",
+            "question",
+            "channel"
+          ]
+        }
+      }
+    },
+    "required": [
+      "stance",
+      "dimensions_used",
+      "subqueries",
+      "clarifications"
+    ]
+  }
+}

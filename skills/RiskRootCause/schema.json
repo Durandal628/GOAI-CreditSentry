@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RiskRootCause",
+  "version": "2.0.1",
+  "description": "基于已登记证据做风险根因归因与五级分类建议",
+  "note": "root_causes[].evidence_ids 的 minItems=1 是「无证据不决策」的 Schema 级执行点",
+  "input": {
+    "type": "object",
+    "properties": {
+      "facts": {
+        "type": "object"
+      },
+      "policy_context": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "cases": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    "required": [
+      "facts"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "conclusion": {
+        "enum": [
+          "RISK_CONFIRMED",
+          "INSUFFICIENT"
+        ]
+      },
+      "root_causes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^EV-\\d+-\\d{4}$"
+              },
+              "minItems": 1
+            },
+            "rationale": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "confidence",
+            "evidence_ids",
+            "rationale"
+          ]
+        }
+      },
+      "suggested_grade": {
+        "enum": [
+          "正常",
+          "关注",
+          "次级",
+          "可疑",
+          "损失",
+          null
+        ]
+      },
+      "summary": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "conclusion",
+      "root_causes",
+      "summary"
+    ]
+  }
+}

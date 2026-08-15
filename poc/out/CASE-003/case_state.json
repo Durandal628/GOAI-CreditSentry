@@ -1,0 +1,647 @@
+{
+  "case_id": "CASE-2017-0401-003",
+  "subject": {
+    "subject_id": "SUB-370626-XW",
+    "name": "西王集团有限公司",
+    "industry": "玉米深加工与特钢",
+    "region": "山东滨州邹平",
+    "current_grade": "正常",
+    "manager": "客户经理-（回溯案例，无实际客户经理）",
+    "provenance": "real_public"
+  },
+  "phase": "CLOSED",
+  "version": 5,
+  "risk_event": {
+    "event_id": "RE-CASE-2017-0401-003",
+    "signal_types": [
+      "guarantee_contagion",
+      "guarantee_ring_alert",
+      "rating_downgrade"
+    ],
+    "kept": [
+      {
+        "alert_id": "AL-20170327-0001",
+        "source": "舆情监控",
+        "type": "guarantee_contagion",
+        "ts": "2017-03-27T09:00:00",
+        "detail": "被担保方齐星集团债务危机公开爆发",
+        "first_public_date": "2017-03-27",
+        "provenance": "real_public"
+      },
+      {
+        "alert_id": "AL-20170328-0003",
+        "source": "内部预警平台",
+        "type": "guarantee_ring_alert",
+        "ts": "2017-03-28T09:20:00",
+        "detail": "本主体为该被担保方最大担保方，担保余额 29 亿元",
+        "first_public_date": "2017-03-28",
+        "provenance": "real_public"
+      },
+      {
+        "alert_id": "AL-20170330-0004",
+        "source": "外部评级监控",
+        "type": "rating_downgrade",
+        "ts": "2017-03-30T10:00:00",
+        "detail": "信用评级被下调，再融资受限",
+        "first_public_date": "2017-03-30",
+        "provenance": "real_public"
+      }
+    ],
+    "dropped": [
+      {
+        "alert_id": "AL-20170328-0002",
+        "source": "内部预警平台",
+        "type": "guarantee_contagion",
+        "ts": "2017-03-28T09:10:00",
+        "detail": "被担保方齐星集团债务危机公开爆发（重复推送）",
+        "first_public_date": "2017-03-27",
+        "provenance": "real_public",
+        "drop_reason": "重复推送，与既有信号归并"
+      },
+      {
+        "alert_id": "AL-20170331-0005",
+        "source": "舆情监控",
+        "type": "media_mention",
+        "ts": "2017-03-31T11:00:00",
+        "detail": "行业资讯列表提及公司名称（无实质内容）",
+        "first_public_date": "2017-03-31",
+        "provenance": "synthetic",
+        "drop_reason": "信号类型 media_mention 无实质风险指向"
+      },
+      {
+        "alert_id": "AL-20170331-0006",
+        "source": "舆情监控",
+        "type": "media_mention",
+        "ts": "2017-03-31T11:05:00",
+        "detail": "行业资讯列表提及公司名称（无实质内容·重复）",
+        "first_public_date": "2017-03-31",
+        "provenance": "synthetic",
+        "drop_reason": "重复推送，与既有信号归并"
+      },
+      {
+        "alert_id": "AL-20170331-0007",
+        "source": "内部预警平台",
+        "type": "rating_periodic",
+        "ts": "2017-03-31T14:00:00",
+        "detail": "季度评级例行复核提醒",
+        "first_public_date": "2017-03-31",
+        "provenance": "synthetic",
+        "drop_reason": "信号类型 rating_periodic 无实质风险指向"
+      },
+      {
+        "alert_id": "AL-20170331-0008",
+        "source": "内部预警平台",
+        "type": "rating_periodic",
+        "ts": "2017-03-31T14:02:00",
+        "detail": "季度评级例行复核提醒（重复推送）",
+        "first_public_date": "2017-03-31",
+        "provenance": "synthetic",
+        "drop_reason": "重复推送，与既有信号归并"
+      }
+    ],
+    "input_count": 8,
+    "denoise_rate": 0.625,
+    "first_seen": "2017-03-27T09:00:00",
+    "facts": {
+      "credit": {
+        "report": {
+          "subject_id": "SUB-370626-XW",
+          "report_date": "2017-03-31",
+          "legal_rep_id_no": "（合成***********然人）",
+          "contact_phone": "（合成占位）",
+          "total_liability": 8000000000,
+          "overdue_records": 0,
+          "external_guarantee": 2900000000,
+          "watch_flag": true,
+          "provenance": "synthetic",
+          "source_doc_uri": "synthetic://bureau/report/SUB-370626-XW-20170331",
+          "_redacted_fields": [
+            "legal_rep_id_no",
+            "contact_phone"
+          ]
+        },
+        "diff": {
+          "baseline_date": "2016-12-31",
+          "report_date": "2017-03-31",
+          "new_liability": 0,
+          "new_overdue": 0,
+          "external_guarantee_delta": 0,
+          "query_count_delta": 6,
+          "provenance": "synthetic",
+          "source_doc_uri": "synthetic://bureau/diff/SUB-370626-XW",
+          "_redacted_fields": []
+        },
+        "evidence_ids": [
+          "EV-003-0001",
+          "EV-003-0002"
+        ]
+      },
+      "litigation": {
+        "cases": [],
+        "source_doc_uri": "public://gsxt/search/SUB-370626-XW",
+        "evidence_ids": []
+      },
+      "registration": {
+        "legal_rep_changed": false,
+        "changed_at": null,
+        "risk_window": [
+          "2017-03-27",
+          "2017-04-01"
+        ],
+        "change_overlaps_risk_window": false,
+        "equity_changed": false,
+        "detail": "as_of 时点未发现法定代表人或股权结构变更的公开记录",
+        "provenance": "real_public",
+        "source_doc_uri": "public://gsxt/change/SUB-370626-XW",
+        "evidence_ids": [
+          "EV-003-0003"
+        ]
+      },
+      "transaction": {
+        "anomaly_detected": false,
+        "anomalies": [],
+        "counterparty_related_party": false,
+        "within_baseline_band": true,
+        "baseline_band": "1.8亿 - 2.6亿",
+        "coverage": 0.94,
+        "undersampled": false,
+        "evidence_ids": [
+          "EV-003-0004"
+        ]
+      },
+      "guarantee": {
+        "has_guarantee": true,
+        "total_guarantee": 2900000000.0,
+        "distressed_guarantee": 2900000000.0,
+        "distressed_parties": [
+          {
+            "party": "山东齐星集团有限公司",
+            "outstanding": 2900000000.0,
+            "status": "已出险",
+            "status_basis": "2017-03 公开报道该主体债务危机爆发，多家债权人主张权利",
+            "mitigations": [
+              {
+                "type": "共同担保人（邹平县供电公司）",
+                "amount": 1027000000,
+                "first_public_date": "2017-03-28",
+                "provenance": "real_public"
+              },
+              {
+                "type": "机器设备/房产/土地资产抵押",
+                "amount": 557000000,
+                "first_public_date": "2017-03-28",
+                "provenance": "real_public"
+              }
+            ],
+            "mitigation_amount": 1584000000.0
+          }
+        ],
+        "mitigation_amount": 1584000000.0,
+        "mitigation_coverage": 0.5462,
+        "uncovered_amount": 1316000000.0,
+        "uncovered_multiple": 2.02,
+        "direct_exposure": 650000000,
+        "evidence_ids": [
+          "EV-003-0005"
+        ]
+      }
+    }
+  },
+  "exposure": {
+    "total_exposure": 650000000,
+    "related_subjects": [
+      {
+        "subject_id": "SUB-370626-QX",
+        "name": "山东齐星集团有限公司",
+        "relation": "本主体为其提供连带责任担保",
+        "amount": 2900000000,
+        "depth": 1,
+        "status": "已出险",
+        "first_public_date": "2017-03-27",
+        "provenance": "real_public"
+      },
+      {
+        "subject_id": "SUB-370626-QX",
+        "name": "山东齐星集团有限公司",
+        "relation": "该主体亦为本主体提供担保（互保）",
+        "amount": 800000000,
+        "depth": 1,
+        "status": "已出险",
+        "first_public_date": "2013-12-31",
+        "provenance": "real_public"
+      }
+    ],
+    "guarantee_ring": [
+      "SUB-370626-XW",
+      "SUB-370626-QX"
+    ],
+    "truncated_at_depth": null,
+    "source_doc_uri": "public://media/2017-03/guarantee-ring-disclosure",
+    "contagion_amount": 3700000000,
+    "distressed_related": [
+      {
+        "subject_id": "SUB-370626-QX",
+        "name": "山东齐星集团有限公司",
+        "relation": "本主体为其提供连带责任担保",
+        "amount": 2900000000,
+        "depth": 1,
+        "status": "已出险",
+        "first_public_date": "2017-03-27",
+        "provenance": "real_public"
+      },
+      {
+        "subject_id": "SUB-370626-QX",
+        "name": "山东齐星集团有限公司",
+        "relation": "该主体亦为本主体提供担保（互保）",
+        "amount": 800000000,
+        "depth": 1,
+        "status": "已出险",
+        "first_public_date": "2013-12-31",
+        "provenance": "real_public"
+      }
+    ],
+    "contagion_multiple": 5.69
+  },
+  "assertion": {
+    "conclusion": "RISK_CONFIRMED",
+    "root_causes": [
+      {
+        "type": "担保圈代偿风险",
+        "confidence": 0.65,
+        "evidence_ids": [
+          "EV-003-0005"
+        ],
+        "rationale": "对已出险主体（山东齐星集团有限公司）存在担保余额 29.00 亿元，缓释措施覆盖 54.6%，净未覆盖代偿敞口 13.16 亿元，为本行直接敞口的 2.02 倍"
+      }
+    ],
+    "suggested_grade": "关注",
+    "summary": "主因判定为「担保圈代偿风险」（置信度 0.65）：对已出险主体（山东齐星集团有限公司）存在担保余额 29.00 亿元，缓释措施覆盖 54.6%，净未覆盖代偿敞口 13.16 亿元，为本行直接敞口的 2.02 倍。建议五级分类调整为「关注」。"
+  },
+  "rebuttal": {
+    "verdict": "SUPPORTED",
+    "rebuttals": [],
+    "attempted_but_failed": [
+      {
+        "target": "担保圈代偿风险",
+        "tried": "尝试论证共同担保人与抵押物已覆盖代偿敞口",
+        "failed_because": "缓释措施（共同担保人（邹平县供电公司） 10.27 亿、机器设备/房产/土地资产抵押 5.57 亿）合计仅覆盖代偿敞口的 54.6%，净未覆盖 13.16 亿元，仍达本行直接敞口的 2.02 倍，反驳不成立"
+      }
+    ],
+    "evidence_gaps": [],
+    "surviving_causes": [
+      "担保圈代偿风险"
+    ],
+    "checklist_resolutions": [
+      {
+        "item_id": "R1",
+        "target": "担保圈代偿风险",
+        "status": "ATTEMPTED_FAILED",
+        "resolution": "尝试论证共同担保人与抵押物已覆盖代偿敞口；缓释措施（共同担保人（邹平县供电公司） 10.27 亿、机器设备/房产/土地资产抵押 5.57 亿）合计仅覆盖代偿敞口的 54.6%，净未覆盖 13.16 亿元，仍达本行直接敞口的 2.02 倍，反驳不成立",
+        "evidence_ids": []
+      }
+    ],
+    "summary": "已尝试逐条反驳但均不成立，定性结论成立"
+  },
+  "adjudication": {
+    "verdict": "RISK_CONFIRMED",
+    "basis": "质疑方已逐条尝试反驳但均不成立，定性结论采信",
+    "final_grade": "关注",
+    "surviving_causes": [
+      "担保圈代偿风险"
+    ],
+    "rebuttal_coverage": 1.0,
+    "dissent": {
+      "analyst_conclusion": "RISK_CONFIRMED",
+      "advocate_verdict": "SUPPORTED",
+      "rebuttals": [],
+      "attempted_but_failed": [
+        {
+          "target": "担保圈代偿风险",
+          "tried": "尝试论证共同担保人与抵押物已覆盖代偿敞口",
+          "failed_because": "缓释措施（共同担保人（邹平县供电公司） 10.27 亿、机器设备/房产/土地资产抵押 5.57 亿）合计仅覆盖代偿敞口的 54.6%，净未覆盖 13.16 亿元，仍达本行直接敞口的 2.02 倍，反驳不成立"
+        }
+      ]
+    }
+  },
+  "gate": {
+    "action": "reduce_limit",
+    "params": {
+      "subject_id": "SUB-370626-XW",
+      "new_limit": 455000000
+    },
+    "label": "授信额度压降 30%",
+    "action_label": "授信额度压降",
+    "action_tier": "L3",
+    "needs_approval": true,
+    "approver_roles": [
+      "风险经理",
+      "授信审批人"
+    ],
+    "idempotency_key": "idem-6877544fc5b0218baa77",
+    "rollback_point": null,
+    "reversible": true,
+    "rule_id": "G-07",
+    "reason": "授信额度压降 基线层级 L2；敞口 650,000,000 ≥ 20,000,000 → 升档至 L3 人工决策",
+    "actions": [
+      {
+        "action": "reduce_limit",
+        "params": {
+          "subject_id": "SUB-370626-XW",
+          "new_limit": 455000000
+        },
+        "label": "授信额度压降 30%",
+        "action_label": "授信额度压降",
+        "action_tier": "L3",
+        "needs_approval": true,
+        "approver_roles": [
+          "风险经理",
+          "授信审批人"
+        ],
+        "idempotency_key": "idem-6877544fc5b0218baa77",
+        "rollback_point": null,
+        "reversible": true,
+        "rule_id": "G-07",
+        "reason": "授信额度压降 基线层级 L2；敞口 650,000,000 ≥ 20,000,000 → 升档至 L3 人工决策"
+      },
+      {
+        "action": "add_guarantee",
+        "params": {
+          "subject_id": "SUB-370626-XW",
+          "guarantee_type": "担保置换或追加反担保"
+        },
+        "label": "追加担保置换或追加反担保",
+        "action_label": "追加担保要求",
+        "action_tier": "L3",
+        "needs_approval": true,
+        "approver_roles": [
+          "风险经理",
+          "授信审批人"
+        ],
+        "idempotency_key": "idem-437a3d5ae9442fd8ba35",
+        "rollback_point": null,
+        "reversible": true,
+        "rule_id": "G-07",
+        "reason": "追加担保要求 基线层级 L2；敞口 650,000,000 ≥ 20,000,000 → 升档至 L3 人工决策"
+      }
+    ],
+    "opinion_report": {
+      "template_id": "处置意见书",
+      "markdown": "# 风险处置意见书\n\n| 项目 | 内容 |\n|---|---|\n| 案件编号 | CASE-2017-0401-003 |\n| 客户名称 | 西王集团有限公司（SUB-370626-XW） |\n| 所属行业 | 玉米深加工与特钢 · 山东滨州邹平 |\n| 当前分类 | 正常 |\n| 当前敞口 | 650,000,000 元 |\n| 担保圈规模 | 2 户，传染敞口 3,700,000,000 元 |\n\n## 一、风险信号\n本次共接收预警信号 8 条，经归并降噪后保留 3 条，降噪率 62.5%。有效信号类型：guarantee_contagion、guarantee_ring_alert、rating_downgrade。\n\n被归并或压降的信号（全部可回溯）：\n\n| 信号 | 来源 | 处理原因 |\n|---|---|---|\n| 被担保方齐星集团债务危机公开爆发（重复推送） | 内部预警平台 | 重复推送，与既有信号归并 |\n| 行业资讯列表提及公司名称（无实质内容） | 舆情监控 | 信号类型 media_mention 无实质风险指向 |\n| 行业资讯列表提及公司名称（无实质内容·重复） | 舆情监控 | 重复推送，与既有信号归并 |\n| 季度评级例行复核提醒 | 内部预警平台 | 信号类型 rating_periodic 无实质风险指向 |\n| 季度评级例行复核提醒（重复推送） | 内部预警平台 | 重复推送，与既有信号归并 |\n\n## 二、定性结论与依据\n**定性方结论**：主因判定为「担保圈代偿风险」（置信度 0.65）：对已出险主体（山东齐星集团有限公司）存在担保余额 29.00 亿元，缓释措施覆盖 54.6%，净未覆盖代偿敞口 13.16 亿元，为本行直接敞口的 2.02 倍。建议五级分类调整为「关注」。\n\n| 根因候选 | 置信度 | 依据 | 证据引用 |\n|---|---|---|---|\n| 担保圈代偿风险 | 0.65 | 对已出险主体（山东齐星集团有限公司）存在担保余额 29.00 亿元，缓释措施覆盖 54.6%，净未覆盖代偿敞口 13.16 亿元，为本行直接敞口的 2.02 倍 | [EV-003-0005] |\n\n## 三、对抗质疑结论\n**质疑方结论**：已尝试逐条反驳但均不成立，定性结论成立（verdict = `SUPPORTED`）\n\n已尝试但未能成立的反驳（记录在案以支撑处置结论）：\n\n- 针对「担保圈代偿风险」：尝试论证共同担保人与抵押物已覆盖代偿敞口 —— 未成立，原因：缓释措施（共同担保人（邹平县供电公司） 10.27 亿、机器设备/房产/土地资产抵押 5.57 亿）合计仅覆盖代偿敞口的 54.6%，净未覆盖 13.16 亿元，仍达本行直接敞口的 2.02 倍，反驳不成立\n\n## 四、裁决\n- **裁决结论**：`RISK_CONFIRMED`\n- **裁决依据**：质疑方已逐条尝试反驳但均不成立，定性结论采信\n- **裁决规则**：证据等级优先于置信度\n- **建议分类**：关注\n\n## 五、处置方案与执行闸门\n\n| 动作 | 层级 | 可逆 | 需审批 | 回滚手段 | 定级规则 | 判定理由 |\n|---|---|---|---|---|---|---|\n| 授信额度压降 30% | **L3** | 是 | 是 | — | `G-07` | 授信额度压降 基线层级 L2；敞口 650,000,000 ≥ 20,000,000 → 升档至 L3 人工决策 |\n| 追加担保置换或追加反担保 | **L3** | 是 | 是 | — | `G-07` | 追加担保要求 基线层级 L2；敞口 650,000,000 ≥ 20,000,000 → 升档至 L3 人工决策 |\n\n## 六、证据清单\n\n共登记证据 11 条，证据充分度 **0.818**。\n\n| 证据编号 | 来源 | 类型 | 等级 | 定级理由 | 内容哈希 |\n|---|---|---|---|---|---|\n| EV-003-0001 | bureau-mcp | credit_report | 强 | 来源权威且原文可溯源 | `sha256:a62dee4acdee791…` |\n| EV-003-0002 | bureau-mcp | credit_diff | 强 | 来源权威且原文可溯源 | `sha256:754399bbfd67068…` |\n| EV-003-0003 | judicial-mcp | registration_change | 强 | 来源权威且原文可溯源 | `sha256:b6839295ef524f3…` |\n| EV-003-0004 | txn-mcp | flow_pattern | 强 | 来源权威且原文可溯源 | `sha256:79733a20ac4e9be…` |\n| EV-003-0005 | credit-core-mcp | guarantee_entry | 强 | 来源权威且原文可溯源 | `sha256:ba994af39e0b96d…` |\n| EV-003-0006 | - | financial_statement | 缺失 | as_of 时点无法取得该主体最近一期经审计财务报表，无法验证经营性现金流对或有代偿的覆盖能力 | `sha256:5edf6b4bdf6ebab…` |\n| EV-003-0007 | - | guaranteed_party_financials | 缺失 | 被担保方非本行客户，无法取得其财务数据与债务清单，代偿概率无法量化，只能按敞口净额保守估计 | `sha256:94fabfd42a75e3d…` |\n| EV-003-0008 | policy-kb | policy_clause | 强 | 政策条款原文可溯源、生效日期在案件时点之前 | `sha256:f08c5405a67a44e…` |\n| EV-003-0009 | policy-kb | policy_clause | 强 | 政策条款原文可溯源、生效日期在案件时点之前 | `sha256:83940b60ad8db56…` |\n| EV-003-0010 | policy-kb | policy_clause | 强 | 政策条款原文可溯源、生效日期在案件时点之前 | `sha256:baa867b71fe2e03…` |\n| EV-003-0011 | policy-kb | policy_clause | 强 | 政策条款原文可溯源、生效日期在案件时点之前 | `sha256:f08c5405a67a44e…` |\n\n> 本意见书由信衡 CreditSentry 自动生成。所有结论均挂载可溯源证据引用，证据原文快照存于证据账本，账本 append-only 不可篡改。",
+      "archive_uri": "s3://creditsentry-reports/CASE-2017-0401-003/处置意见书.md"
+    }
+  },
+  "approval": null,
+  "execution": null,
+  "audit": {
+    "compliance": {
+      "items": [
+        {
+          "rule_id": "C-01",
+          "source": "《内部控制指引》记录留存",
+          "result": "PASS",
+          "detail": "全部结论均挂载有效证据引用"
+        },
+        {
+          "rule_id": "C-02",
+          "source": "《内部控制指引》授权审批",
+          "result": "PASS",
+          "detail": "L3 不可逆/大额动作仅生成方案交人工决策，系统未执行任何处置——符合闸门约束"
+        },
+        {
+          "rule_id": "C-03",
+          "source": "《内部控制指引》不相容职务分离",
+          "result": "PASS",
+          "detail": "执行方 无，审计方 {'compliance-auditor'}，职责分离成立"
+        },
+        {
+          "rule_id": "C-04",
+          "source": "行内风险评审双人复核要求",
+          "result": "PASS",
+          "detail": "对抗质疑环节已执行"
+        },
+        {
+          "rule_id": "C-05",
+          "source": "《贷后管理指引》留痕要求",
+          "result": "PASS",
+          "detail": "全链路留痕 49 条 Span，含路由决策与裁决依据"
+        },
+        {
+          "rule_id": "C-06",
+          "source": "《贷后管理指引》处置结果核验",
+          "result": "N/A",
+          "detail": "本次未产生处置动作"
+        }
+      ],
+      "passed": 5,
+      "failed": 0,
+      "remediation": []
+    },
+    "distilled": {
+      "risk_pattern": {
+        "pattern_id": "RP-CASE-2017-0401-003",
+        "description": "涉诉实质性 + 关联方集中转出 + 法代变更时点重合，三信号共振",
+        "trigger": "单笔涉诉标的占敞口 ≥ 5% 且未结案；资金集中转出对手方经穿透为关联方；法代变更落在风险窗口内",
+        "key_points": "三条线索需相互印证；仅凭其一不足以定性",
+        "counter_example": "若涉诉均已结案且我方为原告、转出对手方为稳定供应商，则不成立（见 CASE-2026-0821-002）",
+        "boundary": "适用于小微与对公信贷贷后；零售信贷不适用"
+      },
+      "written_to": "knowledge_base/risk_patterns"
+    },
+    "report": {
+      "template_id": "审计报告",
+      "markdown": "# 贷后风险处置审计报告\n\n| 项目 | 内容 |\n|---|---|\n| 案件编号 | CASE-2017-0401-003 |\n| 客户名称 | 西王集团有限公司 |\n| 审计执行方 | compliance-auditor（与执行方职责分离） |\n| 合规项通过 | 5 / 6 |\n\n## 一、处置结果核验\n\n本次未产生处置动作（裁决未确认风险或降级为只读）。\n\n## 二、合规项逐条核查\n\n| 规则 | 条款出处 | 结论 | 核查详情 |\n|---|---|---|---|\n| `C-01` | 《内部控制指引》记录留存 | 通过 | 全部结论均挂载有效证据引用 |\n| `C-02` | 《内部控制指引》授权审批 | 通过 | L3 不可逆/大额动作仅生成方案交人工决策，系统未执行任何处置——符合闸门约束 |\n| `C-03` | 《内部控制指引》不相容职务分离 | 通过 | 执行方 无，审计方 {'compliance-auditor'}，职责分离成立 |\n| `C-04` | 行内风险评审双人复核要求 | 通过 | 对抗质疑环节已执行 |\n| `C-05` | 《贷后管理指引》留痕要求 | 通过 | 全链路留痕 49 条 Span，含路由决策与裁决依据 |\n| `C-06` | 《贷后管理指引》处置结果核验 | 不适用 | 本次未产生处置动作 |\n\n## 三、证据链完备性\n\n- 证据总数 **11** 条：强 9 / 弱 0 / 缺失 2\n- 证据充分度 **0.818**\n- 无证据结论数 **0**　— 全部结论均可举证\n\n已登记的证据缺口：\n\n- [EV-003-0006] financial_statement：as_of 时点无法取得该主体最近一期经审计财务报表，无法验证经营性现金流对或有代偿的覆盖能力\n- [EV-003-0007] guaranteed_party_financials：被担保方非本行客户，无法取得其财务数据与债务清单，代偿概率无法量化，只能按敞口净额保守估计\n\n## 四、经验沉淀\n\n- **模式编号**：`RP-CASE-2017-0401-003`\n- **模式描述**：涉诉实质性 + 关联方集中转出 + 法代变更时点重合，三信号共振\n- **触发条件**：单笔涉诉标的占敞口 ≥ 5% 且未结案；资金集中转出对手方经穿透为关联方；法代变更落在风险窗口内\n- **判定要点**：三条线索需相互印证；仅凭其一不足以定性\n- **反例说明**：若涉诉均已结案且我方为原告、转出对手方为稳定供应商，则不成立（见 CASE-2026-0821-002）\n- **适用边界**：适用于小微与对公信贷贷后；零售信贷不适用\n\n已回流至：`knowledge_base/risk_patterns`\n\n## 五、阶段迁移轨迹\n\n| 从 | 到 | 迁移原因 |\n|---|---|---|\n| INTAKE | EVIDENCE | 新预警进入，先做信号归并与敞口测绘 |\n| EVIDENCE | ADJUDICATION | 证据充分，强制并行派发定性与质疑（质疑环节为硬约束，不可跳过） |\n| ADJUDICATION | DISPOSITION | 裁决风险成立，进入处置阶段执行闸门定级 |\n| DISPOSITION | AUDIT | L3 不可逆动作，仅生成方案供人工决策，不派发执行 |\n\n> 本审计报告由 compliance-auditor 独立生成，该 Agent 无任何处置执行权限，满足《商业银行内部控制指引》不相容职务分离要求。",
+      "archive_uri": "s3://creditsentry-reports/CASE-2017-0401-003/审计报告.md"
+    }
+  },
+  "evidence_gaps": [
+    {
+      "evidence_id": "EV-003-0006",
+      "fact_type": "financial_statement",
+      "why": "as_of 时点无法取得该主体最近一期经审计财务报表，无法验证经营性现金流对或有代偿的覆盖能力"
+    },
+    {
+      "evidence_id": "EV-003-0007",
+      "fact_type": "guaranteed_party_financials",
+      "why": "被担保方非本行客户，无法取得其财务数据与债务清单，代偿概率无法量化，只能按敞口净额保守估计"
+    }
+  ],
+  "idempotency_keys": {},
+  "history": [
+    {
+      "from": "INTAKE",
+      "to": "EVIDENCE",
+      "reason": "新预警进入，先做信号归并与敞口测绘"
+    },
+    {
+      "from": "EVIDENCE",
+      "to": "ADJUDICATION",
+      "reason": "证据充分，强制并行派发定性与质疑（质疑环节为硬约束，不可跳过）"
+    },
+    {
+      "from": "ADJUDICATION",
+      "to": "DISPOSITION",
+      "reason": "裁决风险成立，进入处置阶段执行闸门定级"
+    },
+    {
+      "from": "DISPOSITION",
+      "to": "AUDIT",
+      "reason": "L3 不可逆动作，仅生成方案供人工决策，不派发执行"
+    },
+    {
+      "from": "AUDIT",
+      "to": "CLOSED",
+      "reason": "执行审计核验、合规逐条校验与经验沉淀，案件闭环"
+    }
+  ],
+  "retry_counts": {
+    "EVIDENCE": 1
+  },
+  "rebuttal_checklist": {
+    "kind": "rebuttal",
+    "coverage": 1.0,
+    "complete": true,
+    "items": [
+      {
+        "item_id": "R1",
+        "target": "担保圈代偿风险",
+        "why": "定性方以置信度 0.65 主张该主因成立，依据 ['EV-003-0005']",
+        "status": "ATTEMPTED_FAILED",
+        "resolution": "尝试论证共同担保人与抵押物已覆盖代偿敞口；缓释措施（共同担保人（邹平县供电公司） 10.27 亿、机器设备/房产/土地资产抵押 5.57 亿）合计仅覆盖代偿敞口的 54.6%，净未覆盖 13.16 亿元，仍达本行直接敞口的 2.02 倍，反驳不成立",
+        "evidence_ids": []
+      }
+    ],
+    "unaddressed": []
+  },
+  "evidence_checklist": {
+    "kind": "evidence",
+    "coverage": 1.0,
+    "complete": true,
+    "items": [
+      {
+        "item_id": "E1",
+        "target": "guarantee_entry",
+        "why": "代偿敞口测算依赖被担保方状态与缓释措施明细",
+        "status": "COLLECTED",
+        "resolution": "已取得，证据等级强",
+        "evidence_ids": [
+          "EV-003-0005"
+        ]
+      },
+      {
+        "item_id": "E2",
+        "target": "credit_report",
+        "why": "外部评级变动需与征信对外担保余额相互印证",
+        "status": "COLLECTED",
+        "resolution": "已取得，证据等级强",
+        "evidence_ids": [
+          "EV-003-0001"
+        ]
+      }
+    ],
+    "unaddressed": []
+  },
+  "query_plans": [
+    {
+      "caller": "risk-analyst",
+      "stance": "PROVE",
+      "as_of": "2017-04-01",
+      "dimensions_used": [
+        "recency",
+        "signal_topic",
+        "stance"
+      ],
+      "subqueries": [
+        {
+          "dimension": "stance",
+          "text": "涉诉 资金用途 五级分类 偿债能力 认定标准 构成要件 风险信号 应当 监测 处置",
+          "why": "求证方检索构成要件与认定标准",
+          "weight": 1.0,
+          "filters": {
+            "effective_before": "2017-04-01"
+          }
+        },
+        {
+          "dimension": "signal_topic",
+          "text": "关联客户认定 外部评级 大额风险暴露 或有负债 担保代偿 担保链 持续监测 风险暴露集中度 风险预警",
+          "why": "由信号类型 ['guarantee_contagion', 'guarantee_ring_alert', 'rating_downgrade'] 展开条款主题，使检索由案件事实驱动",
+          "weight": 1.0,
+          "filters": {
+            "effective_before": "2017-04-01"
+          }
+        },
+        {
+          "dimension": "recency",
+          "text": "涉诉 资金用途 五级分类 偿债能力",
+          "why": "限定生效日不晚于案件时点 2017-04-01——用后生效的条款评价历史案件是知识维度的前视污染",
+          "weight": 0.8,
+          "filters": {
+            "effective_before": "2017-04-01",
+            "strict": true
+          }
+        }
+      ],
+      "clarifications": []
+    },
+    {
+      "caller": "devils-advocate",
+      "stance": "REFUTE",
+      "as_of": "2017-04-01",
+      "dimensions_used": [
+        "negation",
+        "recency",
+        "signal_topic",
+        "stance",
+        "terminology"
+      ],
+      "subqueries": [
+        {
+          "dimension": "stance",
+          "text": "涉诉认定口径 资金异常 波动区间 担保代偿 认定门槛 除外情形 不构成 豁免 不适用 例外",
+          "why": "证伪方检索认定门槛与除外情形——正向检索找不到除外条款",
+          "weight": 1.0,
+          "filters": {
+            "effective_before": "2017-04-01"
+          }
+        },
+        {
+          "dimension": "terminology",
+          "text": "或有负债 保证责任 担保代偿",
+          "why": "行内口语「代偿」映射为监管术语，否则检不到条款原文",
+          "weight": 0.9,
+          "filters": {
+            "effective_before": "2017-04-01"
+          }
+        },
+        {
+          "dimension": "signal_topic",
+          "text": "关联客户认定 外部评级 大额风险暴露 或有负债 担保代偿 担保链 持续监测 风险暴露集中度 风险预警",
+          "why": "由信号类型 ['guarantee_contagion', 'guarantee_ring_alert', 'rating_downgrade'] 展开条款主题，使检索由案件事实驱动",
+          "weight": 1.0,
+          "filters": {
+            "effective_before": "2017-04-01"
+          }
+        },
+        {
+          "dimension": "negation",
+          "text": "涉诉认定口径 资金异常 波动区间 担保代偿 不构成 除外 豁免 不适用 认定门槛",
+          "why": "质疑方最容易漏的是除外条款；正向检索天然覆盖不到",
+          "weight": 1.1,
+          "filters": {
+            "effective_before": "2017-04-01"
+          }
+        },
+        {
+          "dimension": "recency",
+          "text": "涉诉认定口径 资金异常 波动区间 担保代偿",
+          "why": "限定生效日不晚于案件时点 2017-04-01——用后生效的条款评价历史案件是知识维度的前视污染",
+          "weight": 0.8,
+          "filters": {
+            "effective_before": "2017-04-01",
+            "strict": true
+          }
+        }
+      ],
+      "clarifications": []
+    }
+  ]
+}

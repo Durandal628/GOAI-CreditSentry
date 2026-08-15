@@ -1,0 +1,291 @@
+# 模型档位（Model Profile）—— 第 2 层：用哪个模型、怎么解码、多少钱。
+#
+# 一个 profile 可以被多个 Agent 复用；换模型只改这里，不动 Agent 拓扑。
+# 「谁用哪个 profile」是第 3 层，声明在 poc/creditsentry/permissions.py 的
+# model_profile 字段里——与工具权限同处一份真源，受同一套审计与 CR 生成。
+#
+# ▲ family 字段不是标签，是约束的载体。
+#   风险定性官与对抗质疑官被拆成两个 Agent，理由是「同一上下文内 LLM 会自洽坍缩」。
+#   但若两者跑在同一批权重上，坍缩只是从上下文层面搬到了权重层面——
+#   同一个模型的两个实例共享相同的先验与盲区，不构成两个独立观点。
+#   因此 adversarial_pair 中的两个 Agent 必须绑定**不同 family** 的 profile，
+#   由 poc/test_safety.py 强制断言。
+#
+# ▲ 单价为示例值，接入前请按实际计费更新；它只用于成本口径统计（实验 E5），
+#   不参与任何决策。
+
+version: 1
+
+# PII 触点 Agent 只允许绑定 data_residency 落在此清单内的 provider
+pii_allowed_residency: [cn, local]
+
+# 目标函数对立的 Agent 对：必须绑定不同 family
+adversarial_pairs:
+  - [risk-analyst, devils-advocate]
+
+profiles:
+
+  deterministic:
+    provider: builtin
+    model: deterministic-reasoner/v1
+    family: builtin
+    temperature: 0.0
+    note: 规则推理器。同输入恒同输出，是评测门禁与影子对照组的基线。
+
+  commander-route:
+    provider: dashscope
+    model: qwen-plus
+    family: qwen
+    temperature: 0.0
+    top_p: 0.9
+    seed: 42
+    max_output_tokens: 1024
+    timeout_ms: 30000
+    price_in_per_1k: 0.0008
+    price_out_per_1k: 0.0020
+    note: 编排层。当前流程走向完全由状态机决定，此档位为阶段内判定预留。
+
+  worker-light:
+    provider: dashscope
+    model: qwen-turbo
+    family: qwen
+    temperature: 0.1
+    top_p: 0.9
+    seed: 42
+    max_output_tokens: 2048
+    timeout_ms: 30000
+    price_in_per_1k: 0.0003
+    price_out_per_1k: 0.0006
+    note: 聚合与取证类。做的是结构化抽取而非判断，中低档位足够。
+
+  analyst-primary:
+    provider: dashscope
+    model: qwen-max
+    family: qwen
+    temperature: 0.2
+    top_p: 0.9
+    seed: 42
+    max_output_tokens: 4096
+    timeout_ms: 60000
+    price_in_per_1k: 0.0024
+    price_out_per_1k: 0.0096
+    note: 风险定性。核心判断环节，不允许降级到弱模型。
+
+  advocate-primary:
+    provider: volcengine
+    model: doubao-1-5-pro-32k
+    family: doubao
+    temperature: 0.3
+    top_p: 0.9
+    seed: 42
+    max_output_tokens: 4096
+    timeout_ms: 60000
+    price_in_per_1k: 0.0008
+    price_out_per_1k: 0.0020
+    note: 对抗质疑。**必须与 analyst-primary 不同 family**，否则对抗在权重层面坍缩。
+
+  auditor-narrate:
+    provider: dashscope
+    model: qwen-plus
+    family: qwen
+    temperature: 0.3
+    top_p: 0.9
+    seed: 42
+    max_output_tokens: 4096
+    timeout_ms: 60000
+    price_in_per_1k: 0.0008
+    price_out_per_1k: 0.0020
+    note: 审计成文。不影响决策，是全系统唯一允许失败降级为模板成文的档位。
+
+  # ---- 以下档位供 presets 组合使用，用于在不同 key 持有情况下跑通真机 ----
+  #
+  # 一个容易被忽略的点：异构对抗要求的是**不同模型族**，不是不同厂商。
+  # 同一个百炼端点上同时挂着 qwen 与 deepseek 两族，因此单 key 也能满足约束——
+  # 这不是钻空子，family 才是约束的载体（见文件头），provider 只是它常见的代理变量。
+
+  advocate-dashscope-ds:
+    provider: dashscope
+    model: deepseek-v3
+    family: deepseek
+    temperature: 0.3
+    top_p: 0.9
+    seed: 42
+    max_output_tokens: 4096
+    timeout_ms: 60000
+    price_in_per_1k: 0.0020
+    price_out_per_1k: 0.0080
+    note: 对抗质疑（百炼托管的 deepseek）。与 analyst-primary 同端点但不同族，单 key 即可满足异构对抗。
+
+  # 百炼国际站（新加坡）。默认开通的通常只有 qwen 系列——
+  # 这带来一个真实约束：单靠国际站的 qwen 凑不出两个模型族，
+  # 异构对抗必须再找一个别族的端点（本地 Ollama 或另一家）。
+  analyst-dashscope-intl:
+    provider: dashscope-intl
+    model: qwen-max
+    family: qwen
+    temperature: 0.2
+    top_p: 0.9
+    seed: 42
+    max_output_tokens: 4096
+    timeout_ms: 60000
+    price_in_per_1k: 0.0024
+    price_out_per_1k: 0.0096
+    note: 风险定性（百炼国际站）。
+
+  worker-light-intl:
+    provider: dashscope-intl
+    model: qwen-turbo
+    family: qwen
+    temperature: 0.1
+    top_p: 0.9
+    seed: 42
+    max_output_tokens: 2048
+    timeout_ms: 30000
+    price_in_per_1k: 0.0003
+    price_out_per_1k: 0.0006
+    note: 聚合与审计类（百炼国际站）。
+
+  analyst-deepseek:
+    provider: deepseek
+    model: deepseek-chat
+    family: deepseek
+    temperature: 0.2
+    top_p: 0.9
+    max_output_tokens: 4096
+    timeout_ms: 60000
+    price_in_per_1k: 0.0020
+    price_out_per_1k: 0.0080
+    note: 风险定性（DeepSeek 官方端点）。
+
+  advocate-zhipu:
+    provider: zhipu
+    model: glm-4-plus
+    family: glm
+    temperature: 0.3
+    top_p: 0.9
+    max_output_tokens: 4096
+    timeout_ms: 60000
+    price_in_per_1k: 0.0050
+    price_out_per_1k: 0.0050
+    note: 对抗质疑（智谱）。与 analyst-deepseek 组合可绕开百炼跑通异构对抗。
+
+  # 本地档位：小参数模型返回合规 JSON 的稳定性明显差于云端，
+  # 因此 json_mode 显式设为 on（Ollama 支持 format=json）并放宽超时。
+  # 修复轮次数不在此放宽——那是全局安全预算，不因模型弱而松动。
+  local-qwen:
+    provider: ollama
+    model: qwen2.5:7b
+    family: qwen-local
+    temperature: 0.1
+    max_output_tokens: 4096
+    timeout_ms: 180000
+    max_retries: 3
+    json_mode: "on"
+    note: 本地定性。模型名需与 ollama list 中的实际标签一致。
+
+  local-llama:
+    provider: ollama
+    model: llama3.1:8b
+    family: llama-local
+    temperature: 0.3
+    max_output_tokens: 4096
+    timeout_ms: 180000
+    max_retries: 3
+    json_mode: "on"
+    note: 本地质疑。与 local-qwen 不同族，满足异构对抗。
+
+  # 伪端点档位：只用于离线验证 live 代码路径，不做任何真实推理。
+  mock-analyst:
+    provider: local-mock
+    model: mock-alpha
+    family: mock-alpha
+    temperature: 0.0
+    timeout_ms: 5000
+    max_retries: 1
+    json_mode: "off"
+    note: 故障注入端点的定性侧。
+
+  mock-advocate:
+    provider: local-mock
+    model: mock-beta
+    family: mock-beta
+    temperature: 0.0
+    timeout_ms: 5000
+    max_retries: 1
+    json_mode: "off"
+    note: 故障注入端点的质疑侧。
+
+
+# ---------------------------------------------------------------------------
+# 绑定预设（第 4 层的一种便捷形式）
+# ---------------------------------------------------------------------------
+# 第 3 层（权限矩阵里的 model_profile）是**生产上的默认绑定**，不应该因为
+# 「我本机只有某一家的 key」就去改动它——那会让 Worker CR 跟着漂移。
+# 所以换绑定走第 4 层覆盖。预设只是把「一组常用覆盖」起个名字，
+# 语义与 `--profile a=b` 完全相同，且**同样要过四条不变量校验**：
+# 预设不是绕过约束的后门，配错族一样拒绝启动。
+#
+# 用法：python3 poc/run_demo.py --case CASE-001 --llm live --preset dashscope-only
+
+presets:
+
+  dashscope-only:
+    desc: 只有百炼一个 key。同端点取 qwen 与 deepseek 两族，满足异构对抗。
+    bindings:
+      devils-advocate: advocate-dashscope-ds
+
+  # 账号注册在百炼**国际站（新加坡）**时用下面两个。国内站的预设在这里会 401，
+  # 因为两个地域的 Key 不通用。
+  #
+  # 注意这两个预设都没有把 due-diligence（唯一 PII 触点）绑到国际站上：
+  # 新加坡节点属数据出境，PII 围栏会拒绝启动。这不是配置绕不过去，
+  # 而是这条围栏本来就该拦住它——所以 PII 触点落在本地或境内的那一侧。
+  dashscope-intl-ollama:
+    desc: 百炼国际站 + 本地 Ollama。只需一个国际站 Key，第二个族由本地模型提供。
+    bindings:
+      risk-analyst: analyst-dashscope-intl
+      devils-advocate: local-llama
+      signal-hub: local-qwen
+      due-diligence: local-qwen
+      compliance-auditor: local-qwen
+      risk-commander: local-qwen
+
+  dashscope-intl-deepseek:
+    desc: 百炼国际站 + DeepSeek 官方。需要两个 Key，但都不依赖本地算力。
+    bindings:
+      risk-analyst: analyst-dashscope-intl
+      devils-advocate: analyst-deepseek
+      signal-hub: analyst-deepseek
+      due-diligence: analyst-deepseek
+      compliance-auditor: analyst-deepseek
+      risk-commander: analyst-deepseek
+
+  deepseek-zhipu:
+    desc: 不用百炼。DeepSeek 做定性，智谱做质疑；取证与审计侧也一并挪走。
+    bindings:
+      risk-analyst: analyst-deepseek
+      devils-advocate: advocate-zhipu
+      signal-hub: analyst-deepseek
+      due-diligence: analyst-deepseek
+      compliance-auditor: analyst-deepseek
+      risk-commander: analyst-deepseek
+
+  local-ollama:
+    desc: 全本地、零成本、零外发。PII 触点落在 local 驻留区，围栏自然成立。
+    bindings:
+      risk-analyst: local-qwen
+      devils-advocate: local-llama
+      signal-hub: local-qwen
+      due-diligence: local-qwen
+      compliance-auditor: local-qwen
+      risk-commander: local-qwen
+
+  offline-mock:
+    desc: 指向 tools/mock_llm_server.py，用于离线回归 live 代码路径。不做真实推理。
+    bindings:
+      risk-analyst: mock-analyst
+      devils-advocate: mock-advocate
+      signal-hub: mock-analyst
+      due-diligence: mock-analyst
+      compliance-auditor: mock-analyst
+      risk-commander: mock-analyst

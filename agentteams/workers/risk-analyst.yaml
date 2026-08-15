@@ -1,0 +1,52 @@
+# 由 tools/gen_agentteams.py 自动生成，请勿手工编辑。
+# 真源：poc/creditsentry/permissions.py
+
+apiVersion: agentteams.io/v1
+kind: Worker
+metadata:
+  name: risk-analyst
+  labels:
+    team: credit-sentry
+    equivalence-class: 零工具纯推理（求证风险成立）
+    pii-touchpoint: false
+spec:
+  runtime: hermes
+  soul: souls/risk-analyst/SOUL.md
+  env:
+    - name: AGENT_ID
+      value: risk-analyst
+    - name: TEAM
+      value: credit-sentry
+    - name: CASE_STATE_DSN
+      valueFrom: { secretKeyRef: { name: creditsentry-db, key: dsn } }
+  llm:
+    enabled: true
+    profile: analyst-primary   # 档位定义见 config/models.yaml
+    # 对抗双方必须分属不同模型族：同族权重会让对抗在权重层面坍缩
+    # 凭证由 Higress 统一签发 consumer token，Worker 侧无长期密钥
+    gateway: higress-ai-gateway
+  mcp:
+    []   # 刻意为空：本 Agent 不持有任何工具权限
+  skills:
+    - name: RiskRootCause
+      version: 2.0.1
+      source: nacos://creditsentry/skills
+    - name: QueryRewrite
+      version: 1.0.0
+      source: nacos://creditsentry/skills
+    - name: PolicyRag
+      version: 2.0.0
+      source: nacos://creditsentry/skills
+    - name: CaseMemory
+      version: 1.4.0
+      source: nacos://creditsentry/skills
+  policy:
+    piiAccess: false
+    prohibited: >-
+      不得自行取证（防「边查边下结论」的确认偏差）；不得执行处置
+    decisionBoundary: >-
+      只有提议权，无执行权。证据不足时必须输出「证据缺口清单」而非推测结论
+  observability:
+    tracing: otel-genai
+    notes: >-
+      落 llm Span（prompt 版本、token、耗时）+ assertion Span（结论与证据引用），供事后复核归因链

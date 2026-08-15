@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LitigationProbe",
+  "version": "1.4.2",
+  "description": "涉诉检索并做实质性判定（标的额占比 / 案由性质 / 结案状态 / 诉讼地位）",
+  "note": null,
+  "input": {
+    "type": "object",
+    "properties": {
+      "subject_name": {
+        "type": "string"
+      },
+      "subject_id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "subject_name",
+      "subject_id"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "litigation": {
+        "type": "object",
+        "properties": {
+          "cases": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "case_no": {
+                  "type": "string"
+                },
+                "cause": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "amount_ratio": {
+                  "type": "number"
+                },
+                "closed": {
+                  "type": "boolean"
+                },
+                "our_role": {
+                  "type": "string"
+                }
+              },
+              "required": []
+            }
+          },
+          "total_amount_ratio": {
+            "type": "number"
+          },
+          "ambiguous": {
+            "type": "boolean"
+          },
+          "partial": {
+            "type": "boolean"
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^EV-\\d+-\\d{4}$"
+            }
+          }
+        },
+        "required": []
+      },
+      "registration": {
+        "type": "object",
+        "properties": {
+          "legal_rep_changed": {
+            "type": "boolean"
+          },
+          "change_overlaps_risk_window": {
+            "type": "boolean"
+          },
+          "equity_changed": {
+            "type": "boolean"
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^EV-\\d+-\\d{4}$"
+            }
+          }
+        },
+        "required": []
+      }
+    },
+    "required": [
+      "litigation",
+      "registration"
+    ]
+  }
+}

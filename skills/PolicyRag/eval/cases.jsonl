@@ -1,0 +1,6 @@
+{"desc": "当期案件：正常召回，不做时效过滤", "input": {"query": "涉诉 认定 口径", "top_k": 5}, "expect": {"min_hits": 1}}
+{"desc": "时效陷阱：2017 年案件不得召回 2025 年生效的行内制度", "input": {"query": "涉诉 认定 口径", "as_of": "2017-04-01", "top_k": 5}, "expect": {"must_exclude": "POL-007"}}
+{"desc": "时效陷阱：2017 年案件不得召回 2018 年生效的大额风险暴露办法", "input": {"query": "关联客户 大额风险暴露", "as_of": "2017-04-01", "top_k": 5}, "expect": {"must_exclude": "POL-005"}}
+{"desc": "2019 年案件可以召回 2018 年生效的条款", "input": {"query": "关联客户 大额风险暴露", "as_of": "2019-01-01", "top_k": 5}, "expect": {"must_include": "POL-005"}}
+{"desc": "老条款在任何时点都可召回", "input": {"query": "五级分类 关注 次级", "as_of": "2017-04-01", "top_k": 5}, "expect": {"must_include": "POL-001"}}
+{"desc": "全部候选都晚于案件时点时返回空集并说明原因，不降级放行", "input": {"query": "涉诉 认定 口径 资金 异常", "as_of": "2001-01-01", "top_k": 5}, "expect": {"empty_with_reason": true}}

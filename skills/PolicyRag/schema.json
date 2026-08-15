@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolicyRag",
+  "version": "2.0.0",
+  "description": "按多维查询计划召回政策条款、加权融合、并把召回结果证据化",
+  "note": "召回即证据化：每条召回结果都带 evidence_id，使结论能点回条款原文与生效日期",
+  "input": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string"
+      },
+      "top_k": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "output": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "doc_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "effective_date": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "similarity": {
+          "type": "number"
+        },
+        "evidence_id": {
+          "type": "string",
+          "pattern": "^EV-\\d+-\\d{4}$"
+        }
+      },
+      "required": []
+    }
+  }
+}

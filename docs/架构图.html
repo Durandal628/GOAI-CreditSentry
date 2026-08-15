@@ -1,0 +1,443 @@
+<title>信衡 CreditSentry · Agent Infra 架构图</title>
+<style>
+:root{
+  --ground:#F1F4F3; --surface:#FFFFFF; --surface-2:#E7ECEA; --surface-3:#DCE4E2;
+  --ink:#131A1B; --ink-2:#4C5856; --ink-3:#77837F;
+  --rule:#C6D0CD; --rule-2:#AEBAB7;
+  --accent:#0E5C63; --accent-ink:#0E5C63; --accent-soft:#D8E7E7;
+  --crit:#B3372B; --crit-soft:#F3DDD9;
+  --warn:#8C610F; --warn-soft:#EFE3C7;
+  --shadow:0 1px 2px rgba(19,26,27,.06),0 8px 24px -16px rgba(19,26,27,.28);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1313; --surface:#151D1D; --surface-2:#1C2625; --surface-3:#243030;
+    --ink:#E1E8E6; --ink-2:#98A5A2; --ink-3:#74817E;
+    --rule:#2A3735; --rule-2:#3A4846;
+    --accent:#5CBCC0; --accent-ink:#7FCFD2; --accent-soft:#12332F;
+    --crit:#E4796A; --crit-soft:#3A211D;
+    --warn:#D9AC48; --warn-soft:#332916;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1313; --surface:#151D1D; --surface-2:#1C2625; --surface-3:#243030;
+  --ink:#E1E8E6; --ink-2:#98A5A2; --ink-3:#74817E;
+  --rule:#2A3735; --rule-2:#3A4846;
+  --accent:#5CBCC0; --accent-ink:#7FCFD2; --accent-soft:#12332F;
+  --crit:#E4796A; --crit-soft:#3A211D;
+  --warn:#D9AC48; --warn-soft:#332916;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;
+  font-size:15px; line-height:1.75; -webkit-font-smoothing:antialiased;
+}
+.serif{font-family:"Songti SC","STSong","SimSun","Noto Serif CJK SC",Georgia,serif}
+code,.mono{font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px 96px}
+
+/* ---------- header ---------- */
+header{padding:64px 0 40px;border-bottom:1px solid var(--rule)}
+.eyebrow{
+  font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent-ink);font-weight:600;margin:0 0 18px;
+}
+h1{
+  font-family:"Songti SC","STSong","SimSun",Georgia,serif;
+  font-size:clamp(30px,4.4vw,46px); line-height:1.25; margin:0 0 16px;
+  font-weight:700; text-wrap:balance; letter-spacing:.01em;
+}
+h1 small{display:block;font-size:.44em;font-weight:400;color:var(--ink-2);letter-spacing:.04em;margin-top:10px}
+.lede{font-size:17px;color:var(--ink-2);max-width:62ch;margin:0}
+.lede strong{color:var(--ink);font-weight:600}
+
+.stats{display:flex;flex-wrap:wrap;gap:0;margin-top:36px;border-top:1px solid var(--rule)}
+.stat{flex:1 1 128px;padding:18px 20px 16px;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-size:26px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--accent-ink)}
+.stat span{display:block;font-size:12px;color:var(--ink-3);margin-top:5px;letter-spacing:.03em}
+
+/* ---------- sections ---------- */
+section{padding-top:64px}
+.shead{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.snum{
+  font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:600;
+  color:var(--accent-ink);border:1px solid var(--rule-2);border-radius:2px;
+  padding:2px 7px;flex:none;
+}
+h2{font-family:"Songti SC","STSong","SimSun",Georgia,serif;font-size:25px;margin:0;font-weight:700;text-wrap:balance}
+.sub{color:var(--ink-2);margin:0 0 28px;max-width:70ch;font-size:14.5px}
+
+/* ---------- layer diagram ---------- */
+.layers{display:flex;flex-direction:column;gap:10px}
+.band{
+  display:grid;grid-template-columns:132px 1fr;gap:0;
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  overflow:hidden;box-shadow:var(--shadow);
+}
+.band-label{
+  padding:16px 14px;border-right:1px solid var(--rule);background:var(--surface-2);
+  display:flex;flex-direction:column;gap:5px;justify-content:center;
+}
+.band-label .lid{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--accent-ink);font-weight:600;letter-spacing:.08em}
+.band-label .lname{font-size:14px;font-weight:600;line-height:1.4}
+.band-label .lnote{font-size:11.5px;color:var(--ink-3);line-height:1.5}
+.band-body{padding:16px;display:flex;flex-wrap:wrap;gap:10px;align-content:center}
+
+.node{
+  background:var(--surface-2);border:1px solid var(--rule-2);border-radius:3px;
+  padding:9px 12px;min-width:0;flex:1 1 158px;
+}
+.node .nt{font-size:13.5px;font-weight:600;line-height:1.4;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.node .nd{font-size:11.5px;color:var(--ink-3);line-height:1.55;margin-top:3px}
+.node.lead{background:var(--accent-soft);border-color:var(--accent);border-width:1.5px}
+.node.exec{border-color:var(--crit);background:var(--crit-soft)}
+.node.human{border-color:var(--warn);background:var(--warn-soft)}
+.node.wide{flex:1 1 100%}
+
+.tag{
+  font-family:ui-monospace,Menlo,monospace;font-size:10px;font-weight:600;
+  padding:1px 5px;border-radius:2px;border:1px solid var(--rule-2);
+  color:var(--ink-3);background:var(--surface);letter-spacing:.03em;white-space:nowrap;
+}
+.tag.w{color:var(--crit);border-color:var(--crit)}
+.tag.p{color:var(--warn);border-color:var(--warn)}
+.tag.a{color:var(--accent-ink);border-color:var(--accent)}
+
+.spine{
+  margin-top:10px;background:var(--accent-soft);border:1.5px solid var(--accent);
+  border-radius:3px;padding:13px 18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+}
+.spine .sp-t{font-weight:700;font-size:14px;white-space:nowrap}
+.spine .sp-d{font-size:12.5px;color:var(--ink-2);flex:1 1 320px;line-height:1.6}
+
+/* ---------- permission topology ---------- */
+.classes{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:12px}
+.cls{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:14px;box-shadow:var(--shadow)}
+.cls-h{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.1em;color:var(--accent-ink);font-weight:600;margin-bottom:8px}
+.cls-n{font-size:14px;font-weight:600;line-height:1.45;margin-bottom:8px}
+.cls-a{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:var(--surface-2);border:1px solid var(--rule);border-radius:2px;padding:4px 7px;margin-bottom:6px}
+.cls-a.split{border-color:var(--accent);background:var(--accent-soft)}
+.cls-w{font-size:11.5px;color:var(--ink-3);line-height:1.55;margin-top:8px;padding-top:8px;border-top:1px dashed var(--rule)}
+.oppose{text-align:center;font-size:11px;color:var(--accent-ink);font-weight:600;padding:3px 0;letter-spacing:.04em}
+
+.merge{margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.mtest{background:var(--crit-soft);border:1px solid var(--crit);border-radius:3px;padding:11px 13px}
+.mtest b{display:block;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--crit);margin-bottom:4px}
+.mtest span{font-size:12px;color:var(--ink-2);line-height:1.6}
+
+/* ---------- svg figure ---------- */
+figure{margin:0}
+.scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:3px;box-shadow:var(--shadow)}
+.scroll svg{display:block;min-width:940px;width:100%;height:auto}
+figcaption{font-size:12px;color:var(--ink-3);margin-top:10px;line-height:1.6}
+
+/* ---------- tables ---------- */
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--surface);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:13px}
+th,td{text-align:left;padding:9px 13px;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{
+  background:var(--surface-2);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td code{background:var(--surface-2);border:1px solid var(--rule);border-radius:2px;padding:1px 5px;white-space:nowrap}
+.rid{font-family:ui-monospace,Menlo,monospace;font-weight:600;color:var(--accent-ink);white-space:nowrap}
+
+/* ---------- trace ---------- */
+pre.trace{
+  margin:0;padding:18px 20px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:3px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12px;line-height:1.72;color:var(--ink-2);box-shadow:var(--shadow);
+}
+pre.trace b{color:var(--ink);font-weight:600}
+pre.trace .k{color:var(--accent-ink);font-weight:600}
+pre.trace .r{color:var(--crit);font-weight:600}
+pre.trace .m{color:var(--ink-3)}
+
+.note{
+  border-left:2px solid var(--accent);padding:2px 0 2px 16px;margin-top:22px;
+  font-size:13.5px;color:var(--ink-2);max-width:72ch;line-height:1.75;
+}
+.note b{color:var(--ink)}
+
+@media (max-width:640px){
+  .wrap{padding:0 18px 64px}
+  .band{grid-template-columns:1fr}
+  .band-label{border-right:0;border-bottom:1px solid var(--rule);flex-direction:row;align-items:baseline;gap:10px}
+  .band-label .lnote{display:none}
+}
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">GOAI 赛道一 · 新智基座 ｜ Agent Infra</p>
+  <h1>信衡 CreditSentry — Agent Infra 架构<small>贷后风险预警到授信处置的多 Agent 可举证自主闭环</small></h1>
+  <p class="lede">这不是一张示意图。图上每一个方块都对应仓库里一段可运行的代码，每一条约束都由回归测试强制。<strong>底色是一句话：Agent 的边界是工具权限边界，不是业务步骤边界。</strong></p>
+  <div class="stats">
+    <div class="stat"><b>1+1+6</b><span>Manager · Leader · Worker</span></div>
+    <div class="stat"><b>14</b><span>Skill（自研 10）</span></div>
+    <div class="stat"><b>4</b><span>MCP Server</span></div>
+    <div class="stat"><b>11</b><span>路由规则 v1.4.0</span></div>
+    <div class="stat"><b>10</b><span>Span 类型</span></div>
+    <div class="stat"><b>915</b><span>回归 + 评估用例</span></div>
+  </div>
+</header>
+
+<!-- ================= 1 ================= -->
+<section>
+  <div class="shead"><span class="snum">图 01</span><h2>五层总体架构</h2></div>
+  <p class="sub">自上而下：人在哪里介入、谁在编排、谁在干活、用什么能力干、留下什么痕迹。红框标注具有副作用或不可逆的位置，橙框标注人工必经点——全图只有这几处，这是刻意收敛的结果。</p>
+
+  <div class="layers">
+
+    <div class="band">
+      <div class="band-label"><span class="lid">L5</span><span class="lname">接入与人机层</span><span class="lnote">人类在这里介入，也只在这里介入</span></div>
+      <div class="band-body">
+        <div class="node"><div class="nt">预警源接入</div><div class="nd">行内预警池 · 外部舆情 · 批量任务</div></div>
+        <div class="node human"><div class="nt">Matrix 一案一房间 <span class="tag p">人在环</span></div><div class="nd">Element 客户端；Agent 对话全程可见可介入，天然审计留痕</div></div>
+        <div class="node human"><div class="nt">审批回调 <span class="tag p">L2 必经</span></div><div class="nd">房间内 @风险经理 + 工单；签名校验后方可执行</div></div>
+        <div class="node"><div class="nt">Manager Agent <span class="tag">极薄</span></div><div class="nd">会话入口 · 房间生命周期 · <b>唯一有权跨 Team 移交</b></div></div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="band-label"><span class="lid">L4</span><span class="lname">协同编排层</span><span class="lnote">流程骨架确定性，LLM 不决定走向</span></div>
+      <div class="band-body">
+        <div class="node lead wide"><div class="nt">Team Leader · <code>risk-commander</code> <span class="tag a">零业务工具</span></div><div class="nd">它能派活、能裁决、能定级，但不持有任何取证或处置工具——编排者不下场，是内控要求，不是设计洁癖。</div></div>
+        <div class="node"><div class="nt">SOP 五阶段状态机</div><div class="nd">INTAKE → EVIDENCE → ADJUDICATION → DISPOSITION → AUDIT</div></div>
+        <div class="node"><div class="nt">路由表 v1.4.0</div><div class="nd">11 条规则；Nacos 下发，可灰度可回滚；命中即落 Span</div></div>
+        <div class="node"><div class="nt">对抗裁决器</div><div class="nd">纯规则，不用 LLM——裁决是责任分配的时刻</div></div>
+        <div class="node exec"><div class="nt">RiskGate 执行闸门 <span class="tag w">L0–L3</span></div><div class="nd">风险等级 × 证据等级 × 敞口 × 可逆性；fail-safe</div></div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="band-label"><span class="lid">L3</span><span class="lname">Agent 执行层</span><span class="lnote">6 个 Worker = 5 权限等价类 + 1 对立拆分</span></div>
+      <div class="band-body">
+        <div class="node"><div class="nt"><code>signal-hub</code></div><div class="nd">聚合降噪 · 敞口测绘<br><span class="tag">内部只读</span></div></div>
+        <div class="node"><div class="nt"><code>due-diligence</code> <span class="tag p">PII</span></div><div class="nd">唯一外部取证触点<br>只摆事实不下结论</div></div>
+        <div class="node"><div class="nt"><code>risk-analyst</code></div><div class="nd">求证风险成立<br><span class="tag">零工具权限</span></div></div>
+        <div class="node"><div class="nt"><code>devils-advocate</code></div><div class="nd">求证风险不成立<br><span class="tag a">一票阻断权</span></div></div>
+        <div class="node exec"><div class="nt"><code>disposition-executor</code> <span class="tag w">唯一写</span></div><div class="nd">零自主决策，仅规则驱动<br>幂等键 + 回滚点</div></div>
+        <div class="node"><div class="nt"><code>compliance-auditor</code></div><div class="nd">核验 · 合规校验 · 经验回流<br>只报告不修复</div></div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="band-label"><span class="lid">L2</span><span class="lname">能力层</span><span class="lnote">领域判断力自研，通用云操作复用</span></div>
+      <div class="band-body">
+        <div class="node"><div class="nt">Skill · L3 领域判断 <span class="tag a">全自研 10</span></div><div class="nd">SignalFusion · ExposureMapping · RiskRootCause · CreditReportProbe · LitigationProbe · TxnFlowAnalyze · RiskGate · ComplianceCheck · SafeDisposition · PostmortemDistill</div></div>
+        <div class="node"><div class="nt">Skill · L2 领域封装 <span class="tag">自研壳 4</span></div><div class="nd">EvidenceLedger · PolicyRag · CaseMemory · ReportCompose — 语义自研，底层存取复用官方能力</div></div>
+        <div class="node"><div class="nt">Skill · L1 云操作 <span class="tag">官方用云</span></div><div class="nd">对象存储 · 向量检索 · 日志 · 监控；全部标注开源等价替代，PoC 默认走替代</div></div>
+        <div class="node"><div class="nt">MCP Server × 4</div><div class="nd"><code>credit-core</code> <code>bureau</code> <code>judicial</code> <code>txn</code> —— Mock 与真实<b>零 Schema 差异</b></div></div>
+        <div class="node"><div class="nt">RAG 检索</div><div class="nd">监管政策库（8 条款）· 历史处置案例库</div></div>
+        <div class="node"><div class="nt">推理后端</div><div class="nd"><code>stub</code> 确定性 ｜ <code>live</code> OpenAI 兼容；同一套输出 Schema</div></div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="band-label"><span class="lid">L1</span><span class="lname">状态、轨迹与治理</span><span class="lnote">证据链在这里落地，也在这里被审计</span></div>
+      <div class="band-body">
+        <div class="node"><div class="nt">证据账本 <span class="tag a">append-only</span></div><div class="nd">sha256 原文存证 · 强/弱/缺失分级 · 无证据不决策的执行点</div></div>
+        <div class="node"><div class="nt">Case State</div><div class="nd">共享状态 · 阶段迁移轨迹 · 幂等键 · 审批结果</div></div>
+        <div class="node"><div class="nt">Tracer · 10 类 Span</div><div class="nd">OTel GenAI 语义 + <code>routing</code> / <code>adjudication</code> 两类特有 Span</div></div>
+        <div class="node"><div class="nt">MCP 审计日志</div><div class="nd">含<b>被拒调用</b>——越权尝试也必须留痕</div></div>
+        <div class="node"><div class="nt">Nacos 治理</div><div class="nd">Skill / Prompt / 路由表版本化、标签灰度、一键回滚</div></div>
+        <div class="node"><div class="nt">Higress 网关</div><div class="nd">Worker 只持 consumer token；PII 出站脱敏</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="spine">
+    <span class="sp-t">贯穿三层的脊柱：<code>permissions.py</code></span>
+    <span class="sp-d">同一份权限矩阵同时驱动四处——运行时 MCP 授权、Skill 授权、Worker CR 与 SOUL.md 的生成、以及回归断言。测试逐字节比对磁盘上的 CR 与由矩阵生成的结果，因此「权限矩阵即 CR 配置」是可校验的事实，不是修辞。</span>
+  </div>
+</section>
+
+<!-- ================= 2 ================= -->
+<section>
+  <div class="shead"><span class="snum">图 02</span><h2>为什么是 6 个 Worker</h2></div>
+  <p class="sub">数量不是拍出来的，是数出来的。判据两条，且可证伪：<b>权限集不可安全合并</b>则必须拆；<b>目标函数相互对立</b>则必须拆。反过来，权限相同 + 目标一致 + 失败策略一致，则必须合并。</p>
+
+  <div class="classes">
+    <div class="cls"><div class="cls-h">等价类 01</div><div class="cls-n">内部只读聚合</div><div class="cls-a">signal-hub</div><div class="cls-w">只读行内数据，不触外部、不下结论</div></div>
+    <div class="cls"><div class="cls-h">等价类 02</div><div class="cls-n">唯一外部 PII 取证触点</div><div class="cls-a">due-diligence</div><div class="cls-w">触点唯一，脱敏范围才可收敛可验证</div></div>
+    <div class="cls" style="border-color:var(--accent);border-width:1.5px">
+      <div class="cls-h">等价类 03 · 唯一发生拆分处</div><div class="cls-n">零工具纯推理</div>
+      <div class="cls-a split">risk-analyst</div>
+      <div class="oppose">⇄ 目标函数对立</div>
+      <div class="cls-a split">devils-advocate</div>
+      <div class="cls-w">权限集<b>完全相同</b>。拆分理由不是权限差异，而是同一上下文内 LLM 会自洽坍缩——自己质疑自己不成立</div>
+    </div>
+    <div class="cls"><div class="cls-h">等价类 04</div><div class="cls-n">唯一写触点</div><div class="cls-a">disposition-executor</div><div class="cls-w">全系统唯一能改额度的角色，且不做自由推理</div></div>
+    <div class="cls"><div class="cls-h">等价类 05</div><div class="cls-n">唯一 Trace 读 + 知识库写</div><div class="cls-a">compliance-auditor</div><div class="cls-w">看得见全链路，但动不了任何业务系统</div></div>
+  </div>
+
+  <div class="merge">
+    <div class="mtest"><b>合并 02 + 03</b><span>定性者持有取证工具 → 边查边下结论的确认偏差，且 PII 触点扩散、脱敏范围失控</span></div>
+    <div class="mtest"><b>合并 analyst + advocate</b><span>同一上下文自我质疑 → LLM 倾向自洽，对抗坍缩，质疑形同虚设</span></div>
+    <div class="mtest"><b>合并 04 + 05</b><span>执行者自审 → 直接违反《商业银行内部控制指引》不相容职务分离</span></div>
+  </div>
+
+  <p class="note"><b>为什么不是 10？</b>把 <code>due-diligence</code> 再拆成征信官／司法官／流水官，三者权限集相同、目标函数一致、失败处理策略一致——按合并判据必须合并。继续拆只增加消息跳数与 Token，不增加任何控制力。<b>这条法则是可证伪的：</b>只要能举出一对「权限与目标都不同却应当合并」的角色，法则就被推翻。</p>
+</section>
+
+<!-- ================= 3 ================= -->
+<section>
+  <div class="shead"><span class="snum">图 03</span><h2>控制流：SOP 五阶段状态机</h2></div>
+  <p class="sub">核心原则是一句话：<b>LLM 只做阶段内判定，不决定流程走向。</b>金融场景要求可复现可审计，纯 LLM 自由编排不可审计。全流程只有一条回退边，且有重试上限——不存在无限循环。</p>
+
+  <figure>
+    <div class="scroll">
+      <svg viewBox="0 0 1040 320" role="img" aria-label="SOP 五阶段状态机与 11 条路由规则">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+        <g font-family="ui-monospace,Menlo,monospace" color="var(--ink-3)">
+
+          <!-- terminal: EVIDENCE_GAP -->
+          <rect x="168" y="34" width="150" height="40" rx="3" fill="var(--warn-soft)" stroke="var(--warn)" stroke-width="1.5"/>
+          <text x="243" y="52" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">EVIDENCE_GAP</text>
+          <text x="243" y="67" text-anchor="middle" font-size="10.5" fill="var(--ink-2)">输出取证清单 · 转人工</text>
+          <path d="M228 140 L228 78" fill="none" stroke="var(--warn)" stroke-width="1.4" marker-end="url(#ah)" color="var(--warn)"/>
+          <text x="218" y="112" text-anchor="end" font-size="10.5" fill="var(--warn)" font-weight="600">R-03</text>
+          <text x="218" y="126" text-anchor="end" font-size="10" fill="var(--ink-3)">重试用尽</text>
+
+          <!-- R-08 bypass arc -->
+          <path d="M600 140 C 600 86, 790 86, 790 140" fill="none" stroke="var(--crit)" stroke-width="1.4" marker-end="url(#ah)" color="var(--crit)"/>
+          <text x="695" y="80" text-anchor="middle" font-size="10.5" fill="var(--crit)" font-weight="600">R-08　L3 不可逆 · 只出方案，不派执行</text>
+
+          <!-- main nodes -->
+          <g>
+            <rect x="16" y="140" width="118" height="46" rx="3" fill="var(--surface-2)" stroke="var(--rule-2)"/>
+            <text x="75" y="169" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">INTAKE</text>
+
+            <rect x="184" y="140" width="118" height="46" rx="3" fill="var(--surface-2)" stroke="var(--rule-2)"/>
+            <text x="243" y="169" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">EVIDENCE</text>
+
+            <rect x="352" y="140" width="146" height="46" rx="3" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/>
+            <text x="425" y="163" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">ADJUDICATION</text>
+            <text x="425" y="177" text-anchor="middle" font-size="10" fill="var(--ink-2)">强制并行 · 不可跳过质疑</text>
+
+            <rect x="548" y="140" width="130" height="46" rx="3" fill="var(--surface-2)" stroke="var(--rule-2)"/>
+            <text x="613" y="169" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">DISPOSITION</text>
+
+            <rect x="728" y="140" width="106" height="46" rx="3" fill="var(--surface-2)" stroke="var(--rule-2)"/>
+            <text x="781" y="169" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">AUDIT</text>
+
+            <rect x="884" y="140" width="100" height="46" rx="3" fill="var(--surface)" stroke="var(--rule-2)" stroke-dasharray="4 3"/>
+            <text x="934" y="169" text-anchor="middle" font-size="12.5" fill="var(--ink-2)" font-weight="600">CLOSED</text>
+          </g>
+
+          <!-- forward edges -->
+          <g stroke="var(--ink-3)" stroke-width="1.4" fill="none" color="var(--ink-3)">
+            <path d="M134 163 L180 163" marker-end="url(#ah)"/>
+            <path d="M302 163 L348 163" marker-end="url(#ah)"/>
+            <path d="M498 163 L544 163" marker-end="url(#ah)"/>
+            <path d="M678 163 L724 163" marker-end="url(#ah)"/>
+            <path d="M834 163 L880 163" marker-end="url(#ah)"/>
+          </g>
+          <g font-size="10.5" font-weight="600" fill="var(--accent)" text-anchor="middle">
+            <text x="157" y="155">R-01</text>
+            <text x="325" y="155">R-04</text>
+            <text x="521" y="155">R-06/07</text>
+            <text x="701" y="155">R-10</text>
+            <text x="857" y="155">R-11</text>
+          </g>
+
+          <!-- self loops -->
+          <path d="M210 186 C 200 224, 276 224, 266 186" fill="none" stroke="var(--ink-3)" stroke-width="1.4" marker-end="url(#ah)" color="var(--ink-3)"/>
+          <text x="243" y="234" text-anchor="middle" font-size="10.5" fill="var(--accent)" font-weight="600">R-02 补证 ≤2 轮</text>
+
+          <path d="M582 186 C 572 224, 648 224, 638 186" fill="none" stroke="var(--warn)" stroke-width="1.4" marker-end="url(#ah)" color="var(--warn)"/>
+          <text x="613" y="234" text-anchor="middle" font-size="10.5" fill="var(--warn)" font-weight="600">R-09 等审批回调</text>
+
+          <!-- single back edge -->
+          <path d="M400 186 L400 272 L262 272 L262 190" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#ah)" color="var(--accent)"/>
+          <text x="336" y="288" text-anchor="middle" font-size="10.5" fill="var(--accent)" font-weight="600">R-05　全流程唯一回退边 · 质疑方行使一票阻断</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>虚线 = 回退；橙色 = 人工必经；红色 = 不可逆动作的绕行路径。全部 11 条规则在 <code>routing.py</code> 与 <code>agentteams/routing-table.yaml</code> 中同构声明，测试断言两者不漂移。</figcaption>
+  </figure>
+
+  <p class="note"><b>可审计性的关键落点：</b>路由决策本身就是一条 Trace Span，携带 <code>routing_key</code>、命中规则 ID、规则版本三个字段。「为什么当时走了这条分支」不是靠日志拼凑推测出来的，是直接读出来的。</p>
+</section>
+
+<!-- ================= 4 ================= -->
+<section>
+  <div class="shead"><span class="snum">图 04</span><h2>一次真实案件的调用链</h2></div>
+  <p class="sub">下面是 <code>python3 poc/run_demo.py --case CASE-001</code> 的真实输出节选，不是手绘。注意第 8 行那次 <span style="color:var(--crit);font-weight:600">[ERROR]</span>——征信接口首次调用失败后自动重试成功，失败本身也留在轨迹里。</p>
+
+  <pre class="trace">└─ <b>CASE</b>  CASE-2026-0814-001
+    ├─ <span class="k">ROUTE</span> INTAKE→EVIDENCE
+    │       · rule_id = R-01   rule_version = v1.4.0
+    ├─ <b>AGENT</b> signal-hub
+    │   ├─ SKILL SignalFusion              <span class="m">18 条预警 → 3 类风险事件</span>
+    │   └─ SKILL ExposureMapping           <span class="m">敞口 620 万</span>
+    ├─ <span class="k">ROUTE</span> EVIDENCE→EVIDENCE          <span class="m">· R-02  证据充分度 0.0 &lt; 0.7，第 1 轮补证</span>
+    ├─ <b>AGENT</b> due-diligence            <span class="m">唯一 PII 触点</span>
+    │   ├─ SKILL CreditReportProbe
+    │   │   ├─ MCP bureau-mcp.get_credit_report      <span class="r">[ERROR]</span> <span class="m">← 失败也留痕</span>
+    │   │   ├─ MCP bureau-mcp.get_credit_report      <span class="m">重试成功</span>
+    │   │   └─ MCP bureau-mcp.diff_report
+    │   ├─ SKILL LitigationProbe           <span class="m">5 次 judicial-mcp 调用</span>
+    │   └─ SKILL TxnFlowAnalyze            <span class="m">4 次 txn-mcp 调用</span>
+    ├─ <span class="k">ROUTE</span> EVIDENCE→ADJUDICATION     <span class="m">· R-04  充分度 0.875 ≥ 0.7，强制并行</span>
+    ├─ <b>AGENT</b> risk-analyst             <span class="m">零工具 · 求证成立</span>
+    │   └─ SKILL RiskRootCause → LLM risk_root_cause
+    ├─ <b>AGENT</b> devils-advocate          <span class="m">零工具 · 求证不成立</span>
+    │   └─ LLM devils_advocate
+    ├─ <span class="k">ADJUD</span> 定性 ⇄ 质疑
+    │       · verdict = <b>RISK_CONFIRMED</b>
+    │       · basis   = 质疑方已逐条尝试反驳但均不成立，定性结论采信
+    │       · dissent = analyst=RISK_CONFIRMED  advocate=SUPPORTED
+    ├─ <span class="k">ROUTE</span> ADJUDICATION→DISPOSITION  <span class="m">· R-07</span>
+    ├─ SKILL RiskGate                      <span class="m">→ <b>L2</b>（额度压降 30% · 可逆 · 敞口 620 万）</span>
+    ├─ <span class="k">ROUTE</span> DISPOSITION→DISPOSITION   <span class="m">· R-09  等待人工审批回调</span>
+    ├─ <span class="k">APPRV</span> 风险经理审批 → 通过
+    ├─ <b>AGENT</b> disposition-executor     <span class="m">唯一写触点</span>
+    │   └─ <span class="r">EXEC</span> adjust_limit  <span class="m">620万 → 434万　幂等键 + 回滚点</span>
+    ├─ <span class="k">ROUTE</span> DISPOSITION→AUDIT         <span class="m">· R-10</span>
+    └─ <b>AGENT</b> compliance-auditor       <span class="m">核验生效 · 合规逐条举证 · RiskPattern 回流</span></pre>
+
+  <p class="note"><b>同一主体、完全相同的三类信号，CASE-002 的结论是 <code>RISK_REFUTED</code> · L0。</b>差别只在个案细节：涉诉小额已结案且我方为原告、转出对手方是稳定供应商、法代变更在风险窗口之前。让 Agent 敢说「这不是风险」，比让它报警难得多——误杀正常客户会直接抽贷断贷。</p>
+</section>
+
+<!-- ================= 5 ================= -->
+<section>
+  <div class="shead"><span class="snum">对照</span><h2>图上的方块，代码在哪里</h2></div>
+  <p class="sub">架构图最容易变成空话的地方是「说了但没有」。这张表用来自查——每一个概念都能指到具体文件和具体的验证方式。</p>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>架构要素</th><th>实现位置</th><th>怎么验证它真的成立</th></tr></thead>
+      <tbody>
+        <tr><td>权限矩阵 / Agent 身份</td><td><code>poc/creditsentry/permissions.py</code></td><td>唯一写触点、PII 触点唯一、定性官零工具——回归测试逐条断言</td></tr>
+        <tr><td>SOP 状态机 + 11 条路由</td><td><code>poc/creditsentry/routing.py</code></td><td>每个可产出的 rule_id 都必须在声明式镜像中登记</td></tr>
+        <tr><td>对抗裁决</td><td><code>routing.adjudicate()</code></td><td>纯函数，证据等级优先于置信度；质疑方一票阻断可复现</td></tr>
+        <tr><td>四维执行闸门</td><td><code>poc/creditsentry/gate.py</code></td><td>865 组全组合遍历，证明不可逆动作在任何入参下都不落 L0/L1</td></tr>
+        <tr><td>证据账本</td><td><code>poc/creditsentry/ledger.py</code></td><td><code>assert_supported()</code> 对空引用 / 无效引用 / 仅缺失证据直接抛错</td></tr>
+        <tr><td>Trace 与 Span</td><td><code>poc/creditsentry/tracing.py</code></td><td><code>poc/out/*/trace.json</code>，含 routing / adjudication 两类特有 Span</td></tr>
+        <tr><td>14 个 Skill</td><td><code>poc/creditsentry/skills.py</code></td><td><code>@skill</code> 装饰器从权限矩阵推导 callers，未授权即启动失败</td></tr>
+        <tr><td>4 个 MCP Server</td><td><code>mcp_servers/</code></td><td>中央授权 + 审计日志；越权调用被拒并留痕</td></tr>
+        <tr><td>Worker CR / SOUL.md / 路由表</td><td><code>agentteams/</code>（生成物）</td><td>与权限矩阵逐字节比对，漂移即测试失败</td></tr>
+        <tr><td>Skill 规范三件套</td><td><code>skills/&lt;name&gt;/</code>（生成物）</td><td><code>tools/run_evals.py</code>：879 组用例，未接执行器的如实记为 SKIPPED</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">表里刻意留了两处「没做完」的诚实标记：9 个 Skill 的评估集仍是种子集、未接执行器；AgentTeams 真机部署尚未跑通。把差额写在明处，比把「没跑」粉饰成「通过」更经得起追问。</p>
+</section>
+
+</div>

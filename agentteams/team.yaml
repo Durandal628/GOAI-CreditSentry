@@ -1,0 +1,52 @@
+# 由 tools/gen_agentteams.py 自动生成，请勿手工编辑。
+# 真源：poc/creditsentry/permissions.py
+
+apiVersion: agentteams.io/v1
+kind: Team
+metadata:
+  name: credit-sentry
+  labels: { domain: credit-risk, stage: post-loan }
+spec:
+  # Manager 保持 AgentTeams 默认的轻量管理指令集。
+  # 单一贷后场景下它接近透明，我们不为它编造职责——它不可省的只有三件事：
+  #   1. 人机会话入口与实时干预  2. case room 生命周期  3. 跨 Team 移交
+  manager:
+    runtime: openclaw
+    soul: souls/manager/SOUL.md
+    responsibilities:
+      - human-interaction-entry
+      - case-room-lifecycle
+      - cross-team-handoff
+  teamLeader:
+    worker: risk-commander
+    soul: souls/risk-commander/SOUL.md
+    description: >-
+      Team Leader · 路由与裁决
+  workers:
+    - signal-hub
+    - due-diligence
+    - risk-analyst
+    - devils-advocate
+    - disposition-executor
+    - compliance-auditor
+  collaboration:
+    protocol: matrix
+    roomStrategy: one-room-per-case   # 一案一房间，人始终在房间内
+    fileSharing: minio                # 证据附件不进消息体
+    humanInLoop:
+      approvalChannel: matrix-mention
+      approverRoles: [风险经理, 授信审批人]
+  routing:
+    table: routing-table.yaml
+    version: v1.4.0
+    source: nacos://creditsentry/routing
+  state:
+    store: postgres
+    concurrency: optimistic-lock
+    ordering: rocketmq-fifo-by-case-id
+  invariants:
+    # 这些不变量由 poc/test_safety.py 断言，破坏即测试失败
+    uniqueWriter: disposition-executor
+    piiTouchpoints: ['due-diligence']
+    adjudicationRequiresAdvocate: true
+    irreversibleActionsNeverAutoExecute: true

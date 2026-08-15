@@ -1,0 +1,8 @@
+{
+  "skill": "EvidenceLedger",
+  "version": "2.0.0",
+  "declared_target": 14,
+  "implemented": 4,
+  "gap": 10,
+  "status": "SEED"
+}

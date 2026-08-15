@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExposureMapping",
+  "version": "1.1.0",
+  "description": "测绘风险主体的敞口与传染面：担保圈、集团户、上下游",
+  "note": null,
+  "input": {
+    "type": "object",
+    "properties": {
+      "subject_id": {
+        "type": "string"
+      },
+      "depth": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 3
+      }
+    },
+    "required": [
+      "subject_id"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "total_exposure": {
+        "type": "number"
+      },
+      "related_subjects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "subject_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "relation": {
+              "type": "string"
+            },
+            "amount": {
+              "type": "number"
+            },
+            "depth": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      },
+      "guarantee_ring": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "contagion_amount": {
+        "type": "number"
+      },
+      "truncated_at_depth": {
+        "type": [
+          "integer",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "total_exposure",
+      "related_subjects",
+      "contagion_amount"
+    ]
+  }
+}

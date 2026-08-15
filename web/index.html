@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>信衡 CreditSentry · 贷后风险处置工作台</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">信衡</div>
+    <div class="brand-text">
+      <h1>CreditSentry 贷后风险处置工作台</h1>
+      <p>信号聚合 → 尽调取证 → 风险定性 ⇄ 对抗质疑 → 分级处置 → 合规审计　全程留痕可举证</p>
+    </div>
+  </div>
+  <div class="topstats" id="topstats">
+    <div class="stat"><span class="stat-k">判断方式</span><b id="s-mode">—</b></div>
+    <div class="stat" title="后端处置链路的真实耗时，不含界面播放节奏">
+      <span class="stat-k">后端耗时</span><b id="s-elapsed">—</b></div>
+    <div class="stat"><span class="stat-k">用量</span><b id="s-token">—</b></div>
+    <div class="stat"><span class="stat-k">成本</span><b id="s-cost">—</b></div>
+  </div>
+</header>
+
+<!-- 审批横幅：L2 动作会真的停在这里等人点按钮 -->
+<div class="approval-banner" id="approval-banner" hidden>
+  <span class="pulse"></span>
+  <div class="ab-text">
+    <b>案件已暂停，等待人工审批</b>
+    <span id="ab-detail">—</span>
+  </div>
+  <button class="btn btn-ghost" onclick="scrollToApproval()">前往处理</button>
+</div>
+
+<main class="layout">
+
+  <!-- ══════════ 左栏：预警池与运行设置 ══════════ -->
+  <aside class="rail rail-left">
+    <section class="panel">
+      <h2>预警池</h2>
+      <p class="panel-hint">选择一笔待处置的预警案件</p>
+      <div id="case-list" class="case-list"></div>
+    </section>
+
+    <section class="panel">
+      <h2>运行设置</h2>
+      <label class="field">
+        <span>判断方式</span>
+        <select id="opt-mode">
+          <option value="stub">规则推理 · 离线可复现（默认）</option>
+          <option value="live">接入大模型 · 需 API Key</option>
+        </select>
+      </label>
+      <label class="field" id="preset-field" hidden>
+        <span>模型方案</span>
+        <select id="opt-preset"></select>
+      </label>
+
+      <!-- 接自己的 API：凭证只进本进程内存，不落盘 -->
+      <div id="cred-field" hidden>
+        <div class="field-sep">模型账号</div>
+        <div id="cred-list"></div>
+        <div class="cred-actions">
+          <button class="btn btn-sm" id="btn-cred-save">保存并测试连接</button>
+        </div>
+        <div id="cred-result"></div>
+        <p class="panel-hint">
+          密钥<b>只存在本次运行的内存里</b>：不写文件、不进配置、不进任何留痕记录，
+          重启服务即失效。也可以在启动前 <span class="mono">export</span> 环境变量。
+        </p>
+      </div>
+      <label class="field">
+        <span>审批方式</span>
+        <select id="opt-approval">
+          <option value="ask">停下来问我（推荐）</option>
+          <option value="auto-approve">自动批准</option>
+          <option value="auto-reject">自动驳回（演示降级）</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>演示节奏</span>
+        <select id="opt-pace">
+          <option value="talk">讲解节奏 · 逐步展开（推荐）</option>
+          <option value="brisk">较快</option>
+          <option value="raw">全速 · 按后端真实速度</option>
+        </select>
+      </label>
+      <p class="panel-hint" style="margin-top:6px">
+        后端跑完一个案件通常不到 1 秒，全速下画面会一次性刷完。
+        节奏只影响<b>播放</b>，不影响处置本身；顶栏耗时始终显示后端真实值。
+      </p>
+    </section>
+
+    <section class="panel" id="factor-panel" hidden>
+      <h2>案情要素调节</h2>
+      <p class="panel-hint">
+        改动任一关键案情后重跑，结论应当随之改变。<br>
+        <b>改了却不变，说明结论不是从证据推出来的。</b>
+      </p>
+      <div id="factor-list"></div>
+    </section>
+
+    <button class="btn btn-primary btn-run" id="btn-run" disabled>开始处置</button>
+    <p class="run-note" id="run-note">请先在预警池中选择案件</p>
+  </aside>
+
+  <!-- ══════════ 中栏：处置过程 ══════════ -->
+  <section class="stage">
+    <div class="pipeline" id="pipeline"></div>
+
+    <!-- 当前活动条：让「系统正在干什么」在任何时刻都看得见 -->
+    <div class="activity" id="activity" hidden>
+      <span class="spin"></span>
+      <div class="act-main">
+        <b id="act-agent">—</b>
+        <span id="act-what">准备中…</span>
+      </div>
+      <div class="act-counts">
+        <span id="act-tools">0</span> 次外部取数 ·
+        <span id="act-ev">0</span> 条证据
+      </div>
+    </div>
+
+    <div class="cards" id="cards">
+      <div class="empty-state" id="empty-state">
+        <h3>信衡 CreditSentry 是做什么的</h3>
+        <p class="lead">
+          银行<b>不缺</b>贷后预警系统——缺的是预警之后那一段：<br>
+          谁去取证、凭什么下结论、敢不敢自动执行、出了事怎么向监管交代。
+        </p>
+
+        <div class="why">
+          <div class="why-item">
+            <div class="why-n">今天的现状</div>
+            <p>预警一天几千条，客户经理逐条人工核实，平均处置周期以<b>天</b>计。
+               真风险被淹在噪声里，误报又把正常客户抽贷断贷。</p>
+          </div>
+          <div class="why-item">
+            <div class="why-n">为什么不能直接上大模型</div>
+            <p>让模型自由编排流程，同一个案子重跑十次可能走出七条路径——<b>不可复现就不可审计</b>。
+               而信贷处置动作是要动客户额度的，错一次就是投诉与问责。</p>
+          </div>
+          <div class="why-item">
+            <div class="why-n">我们的做法</div>
+            <p>流程骨架用<b>确定性状态机</b>，模型只在阶段内做判断；
+               结论必须挂载可溯源证据；不可逆动作<b>永不自动执行</b>。</p>
+          </div>
+        </div>
+
+        <h4>三条主张，都能在这个界面上被当场检验</h4>
+        <ol class="claims">
+          <li><b>岗位即权限边界</b>　几个岗位、各自能碰什么，是按「谁该看到什么」推导出来的，
+              不是拍脑袋分的。让没有操作权的定性岗去改客户额度 → 当场被拒，
+              <b>且这次被拒也会留在取数记录里</b>。</li>
+          <li><b>无证据不决策</b>　每条结论都挂着证据编号，点开能看到来源系统、
+              采集时间与防篡改校验码，<b>原件也能直接翻开看</b>。质疑环节不可跳过，未被质疑的疑点不算通过。</li>
+          <li><b>不可逆的动作，系统永不自动执行</b>　处置按影响面分四档：
+              可自主、需审批、只出方案。需审批那档会真的停下来等你点按钮，
+              驳回即退回只读；最高档只出方案，系统碰都不碰客户额度。</li>
+        </ol>
+
+        <p class="cta">← 选左侧一笔预警案件，点「开始处置」</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 右栏：决策链路与审计 ══════════ -->
+  <aside class="rail rail-right">
+    <div class="tabs" id="right-tabs">
+      <button class="tab active" data-tab="trace">办理过程</button>
+      <button class="tab" data-tab="logs">办理日志</button>
+      <button class="tab" data-tab="audit">取数留痕</button>
+      <button class="tab" data-tab="team">岗位与权限</button>
+    </div>
+    <div class="tabpane active" id="pane-trace"><div class="trace" id="trace"></div></div>
+    <div class="tabpane" id="pane-logs"><div class="loglist" id="logs"></div></div>
+    <div class="tabpane" id="pane-audit">
+      <div class="probe-box">
+        <b>权限边界测试</b>
+        <p>让<b>没有任何操作权</b>的风险定性岗，去尝试修改客户授信额度。
+           重点不是它被拒绝，而是<b>这次被拒的尝试也会留在下面的记录里</b>——
+           只在成功路径留痕的系统，没法回答「有没有人试过绕过去」。</p>
+        <button class="btn btn-danger btn-sm" id="btn-probe" disabled>发起一次越权尝试</button>
+      </div>
+      <div class="auditlist" id="audit"></div>
+    </div>
+    <div class="tabpane" id="pane-team"><div class="teamlist" id="team"></div></div>
+  </aside>
+</main>
+
+<!-- 证据详情弹窗 -->
+<div class="modal-mask" id="modal" hidden onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-x" onclick="closeModal()">×</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RiskGate",
+  "version": "3.1.0",
+  "description": "计算处置动作的执行层级 L0–L3（安全核心）",
+  "note": "入参可为 null 是刻意的——缺失时由 G-02 fail-safe 降级为 L3，而非拒绝调用",
+  "input": {
+    "type": "object",
+    "properties": {
+      "case_id": {
+        "type": "string"
+      },
+      "action_type": {
+        "enum": [
+          "add_guarantee",
+          "downgrade_classification",
+          "early_recall",
+          "litigation_preservation",
+          "monitor_only",
+          "reduce_limit",
+          "request_documents",
+          "suspend_drawdown",
+          "tag_watch"
+        ]
+      },
+      "risk_grade": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "evidence_level": {
+        "anyOf": [
+          {
+            "enum": [
+              "强",
+              "弱",
+              "缺失"
+            ]
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "exposure_amount": {
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "params": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "case_id",
+      "action_type"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "action_label": {
+        "type": "string"
+      },
+      "action_tier": {
+        "enum": [
+          "L0",
+          "L1",
+          "L2",
+          "L3"
+        ]
+      },
+      "needs_approval": {
+        "type": "boolean"
+      },
+      "approver_roles": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "idempotency_key": {
+        "type": "string"
+      },
+      "rollback_point": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "reversible": {
+        "type": "boolean"
+      },
+      "rule_id": {
+        "type": "string",
+        "pattern": "^G-\\d{2}$"
+      },
+      "reason": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "action_tier",
+      "needs_approval",
+      "idempotency_key",
+      "rule_id",
+      "reason"
+    ]
+  }
+}

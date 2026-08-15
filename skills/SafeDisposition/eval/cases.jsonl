@@ -1,0 +1,4 @@
+{"desc": "L3 动作必定 PLAN_ONLY，不执行", "input": {"action_tier": "L3", "action": "early_recall"}, "expect": {"status": "PLAN_ONLY"}}
+{"desc": "L0 动作不触碰业务系统", "input": {"action_tier": "L0", "action": "monitor_only"}, "expect": {"status": "NO_ACTION"}}
+{"desc": "L2 无审批令牌应被拒绝", "input": {"action_tier": "L2", "action": "reduce_limit", "approval_token": null}, "expect": {"status": "FAILED", "error_code": "APPROVAL_REQUIRED"}}
+{"desc": "同一幂等键重复投递不重复执行", "input": {"action_tier": "L2", "action": "reduce_limit", "replay": true}, "expect": {"idempotent_replay": true}}

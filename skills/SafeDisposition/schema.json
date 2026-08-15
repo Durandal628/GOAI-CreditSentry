@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SafeDisposition",
+  "version": "2.2.0",
+  "description": "幂等执行已裁决且已审批的处置动作，带回滚点",
+  "note": "action_tier=L3 时必定返回 PLAN_ONLY——不可逆动作永不执行",
+  "input": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "enum": [
+          "add_guarantee",
+          "downgrade_classification",
+          "early_recall",
+          "litigation_preservation",
+          "monitor_only",
+          "reduce_limit",
+          "request_documents",
+          "suspend_drawdown",
+          "tag_watch"
+        ]
+      },
+      "params": {
+        "type": "object"
+      },
+      "action_tier": {
+        "enum": [
+          "L0",
+          "L1",
+          "L2",
+          "L3"
+        ]
+      },
+      "idempotency_key": {
+        "type": "string"
+      },
+      "rollback_point_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "approval_token": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "action",
+      "params",
+      "action_tier",
+      "idempotency_key"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "enum": [
+          "SUCCESS",
+          "NO_ACTION",
+          "PLAN_ONLY",
+          "ROLLED_BACK",
+          "FROZEN_ESCALATED",
+          "FAILED"
+        ]
+      },
+      "audit_serial": {
+        "type": "string"
+      },
+      "rollback_point_id": {
+        "type": "string"
+      },
+      "effective_at": {
+        "type": "string"
+      },
+      "idempotent_replay": {
+        "type": "boolean"
+      },
+      "error_code": {
+        "enum": [
+          "APPROVAL_REQUIRED",
+          "APPROVAL_INVALID",
+          "PERMISSION_DENIED",
+          "ROLLBACK_POINT_NOT_FOUND",
+          "RATE_LIMITED",
+          "UNKNOWN"
+        ]
+      },
+      "error": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "status"
+    ]
+  }
+}

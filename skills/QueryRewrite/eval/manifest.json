@@ -1,0 +1,8 @@
+{
+  "skill": "QueryRewrite",
+  "version": "1.0.0",
+  "declared_target": 18,
+  "implemented": 14,
+  "gap": 4,
+  "status": "SEED"
+}

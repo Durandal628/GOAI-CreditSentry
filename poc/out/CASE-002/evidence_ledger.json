@@ -1,0 +1,306 @@
+{
+  "case_id": "CASE-2026-0821-002",
+  "count": 13,
+  "sufficiency": 1.0,
+  "by_level": {
+    "强": 13,
+    "弱": 0,
+    "缺失": 0
+  },
+  "items": [
+    {
+      "evidence_id": "EV-002-0001",
+      "subject_id": "SUB-330100-88217",
+      "source_system": "bureau-mcp",
+      "fact_type": "credit_report",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0001.snapshot",
+      "content_hash": "sha256:196919b72c4ba324f75479d68363977ed8aa7f4950faedb1761c121afd262d4f",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "subject_id": "SUB-330100-88217",
+        "report_date": "2026-08-21",
+        "legal_rep_id_no": "330************234",
+        "contact_phone": "138*****234",
+        "total_liability": 9500000,
+        "overdue_records": 0,
+        "external_guarantee": 5000000,
+        "watch_flag": false,
+        "source_doc_uri": "s3://mock-bureau/report/SUB-330100-88217-20260821.pdf",
+        "_redacted_fields": [
+          "legal_rep_id_no",
+          "contact_phone"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EV-002-0002",
+      "subject_id": "SUB-330100-88217",
+      "source_system": "bureau-mcp",
+      "fact_type": "credit_diff",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0002.snapshot",
+      "content_hash": "sha256:9c8082242c37a717ba414b824d06772065a3eb77df1063f6ac61f5b9140ac1cd",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "baseline_date": "2026-05-21",
+        "report_date": "2026-08-21",
+        "new_liability": 0,
+        "new_overdue": 0,
+        "external_guarantee_delta": 0,
+        "query_count_delta": 2,
+        "source_doc_uri": "s3://mock-bureau/diff/SUB-330100-88217-0821.pdf",
+        "_redacted_fields": []
+      }
+    },
+    {
+      "evidence_id": "EV-002-0003",
+      "subject_id": "SUB-330100-88217",
+      "source_system": "judicial-mcp",
+      "fact_type": "litigation_case",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0003.snapshot",
+      "content_hash": "sha256:56c14e32d3cfb94dfbbde8953fcac54311ca7fb8f987ec1c8502edf728c556e8",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "case_no": "(2026)浙0106民初4901号",
+        "cause": "买卖合同纠纷",
+        "amount": 32000,
+        "amount_ratio": 0.005,
+        "closed": true,
+        "our_role": "原告",
+        "filed_at": "2026-06-11",
+        "source_doc_uri": "s3://mock-judicial/doc/4901.pdf",
+        "ambiguous": null,
+        "partial": null
+      }
+    },
+    {
+      "evidence_id": "EV-002-0004",
+      "subject_id": "SUB-330100-88217",
+      "source_system": "judicial-mcp",
+      "fact_type": "litigation_case",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0004.snapshot",
+      "content_hash": "sha256:c1758f9190774fc4be16cbf27f8f19d688055ea40942cadfc5aef49e3adb374c",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "case_no": "(2026)浙0106民初4933号",
+        "cause": "买卖合同纠纷",
+        "amount": 18000,
+        "amount_ratio": 0.003,
+        "closed": true,
+        "our_role": "原告",
+        "filed_at": "2026-06-24",
+        "source_doc_uri": "s3://mock-judicial/doc/4933.pdf",
+        "ambiguous": null,
+        "partial": null
+      }
+    },
+    {
+      "evidence_id": "EV-002-0005",
+      "subject_id": "SUB-330100-88217",
+      "source_system": "judicial-mcp",
+      "fact_type": "registration_change",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0005.snapshot",
+      "content_hash": "sha256:7e297d15313d22d427aba4f652ae0fde810daa7bd787a83b95d5f9170148c273",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "legal_rep_changed": true,
+        "changed_at": "2026-04-18",
+        "risk_window": [
+          "2026-08-01",
+          "2026-08-21"
+        ],
+        "change_overlaps_risk_window": false,
+        "equity_changed": false,
+        "detail": "法定代表人由 王XX 变更为 王XX（同名，职务调整），股权结构未变动",
+        "source_doc_uri": "s3://mock-judicial/change/SUB-330100-88217-0418.json"
+      }
+    },
+    {
+      "evidence_id": "EV-002-0006",
+      "subject_id": "SUB-330100-88217",
+      "source_system": "txn-mcp",
+      "fact_type": "flow_pattern",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0006.snapshot",
+      "content_hash": "sha256:45ac949be969891e8c6698eb9461c95ccd89b5fbddb30772ba8a7469554441a8",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "anomalies": [
+          "集中转出"
+        ],
+        "coverage": 0.94,
+        "baseline_band": "180万 - 260万",
+        "source_doc_uri": "s3://mock-txn/flow/SUB-330100-88217-202607-202608b.json",
+        "counterparties": [
+          {
+            "name": "宁波XX机电有限公司",
+            "amount": 1100000,
+            "related_party": false,
+            "note": "上游供应商，合作 5 年"
+          },
+          {
+            "name": "绍兴XX轴承有限公司",
+            "amount": 640000,
+            "related_party": false,
+            "note": "上游供应商，合作 3 年"
+          },
+          {
+            "name": "台州XX五金有限公司",
+            "amount": 360000,
+            "related_party": false,
+            "note": "上游供应商，合作 4 年"
+          }
+        ],
+        "undersampled": null
+      }
+    },
+    {
+      "evidence_id": "EV-002-0007",
+      "subject_id": "SUB-330100-88217",
+      "source_system": "credit-core-mcp",
+      "fact_type": "guarantee_ledger",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0007.snapshot",
+      "content_hash": "sha256:1d0c02208e1acbee2d53d727a0c2a0fc87eee9350b83ca619d02edb564d43b92",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威系统直取",
+      "extracted": {
+        "entries": [],
+        "empty_reason": "该主体无对外担保记录（已查询，非取证失败）",
+        "source_doc_uri": null
+      }
+    },
+    {
+      "evidence_id": "EV-002-0008",
+      "subject_id": "-",
+      "source_system": "policy-kb",
+      "fact_type": "policy_clause",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0008.snapshot",
+      "content_hash": "sha256:f6a7204290779035e180d5a7ba71b27e0947c975d240bd6d656dedbbe1bc5c5b",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
+      "extracted": {
+        "title": "行内制度 · 涉诉信息风险认定口径",
+        "source": "行内《贷后风险信号认定标准》V3.2",
+        "effective_date": "2025-06-01",
+        "matched_dimensions": [
+          "stance",
+          "signal_topic"
+        ],
+        "source_doc_uri": "s3://policy-kb/POL-007.pdf"
+      }
+    },
+    {
+      "evidence_id": "EV-002-0009",
+      "subject_id": "-",
+      "source_system": "policy-kb",
+      "fact_type": "policy_clause",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0009.snapshot",
+      "content_hash": "sha256:f08c5405a67a44e5c782a039c933a9b8a604b24cb3b4c94281d32c4e6d53e9b5",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
+      "extracted": {
+        "title": "商业银行贷后管理指引 · 风险监测与预警",
+        "source": "《商业银行贷后管理指引》第十八条",
+        "effective_date": "2010-02-12",
+        "matched_dimensions": [
+          "stance"
+        ],
+        "source_doc_uri": "s3://policy-kb/POL-002.pdf"
+      }
+    },
+    {
+      "evidence_id": "EV-002-0010",
+      "subject_id": "-",
+      "source_system": "policy-kb",
+      "fact_type": "policy_clause",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0010.snapshot",
+      "content_hash": "sha256:d97c834038f47319ddee739341c0c8c1c67d0846ee924fc544d771363378c01f",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
+      "extracted": {
+        "title": "行内制度 · 资金异常流向认定口径",
+        "source": "行内《贷后风险信号认定标准》V3.2",
+        "effective_date": "2025-06-01",
+        "matched_dimensions": [
+          "stance"
+        ],
+        "source_doc_uri": "s3://policy-kb/POL-008.pdf"
+      }
+    },
+    {
+      "evidence_id": "EV-002-0011",
+      "subject_id": "-",
+      "source_system": "policy-kb",
+      "fact_type": "policy_clause",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0011.snapshot",
+      "content_hash": "sha256:d97c834038f47319ddee739341c0c8c1c67d0846ee924fc544d771363378c01f",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
+      "extracted": {
+        "title": "行内制度 · 资金异常流向认定口径",
+        "source": "行内《贷后风险信号认定标准》V3.2",
+        "effective_date": "2025-06-01",
+        "matched_dimensions": [
+          "stance",
+          "negation"
+        ],
+        "source_doc_uri": "s3://policy-kb/POL-008.pdf"
+      }
+    },
+    {
+      "evidence_id": "EV-002-0012",
+      "subject_id": "-",
+      "source_system": "policy-kb",
+      "fact_type": "policy_clause",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0012.snapshot",
+      "content_hash": "sha256:f6a7204290779035e180d5a7ba71b27e0947c975d240bd6d656dedbbe1bc5c5b",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
+      "extracted": {
+        "title": "行内制度 · 涉诉信息风险认定口径",
+        "source": "行内《贷后风险信号认定标准》V3.2",
+        "effective_date": "2025-06-01",
+        "matched_dimensions": [
+          "signal_topic"
+        ],
+        "source_doc_uri": "s3://policy-kb/POL-007.pdf"
+      }
+    },
+    {
+      "evidence_id": "EV-002-0013",
+      "subject_id": "-",
+      "source_system": "policy-kb",
+      "fact_type": "policy_clause",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2026-0821-002/EV-002-0013.snapshot",
+      "content_hash": "sha256:83940b60ad8db567dced25d2bd68a76262406180640781808bf0e85e488a5a82",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
+      "extracted": {
+        "title": "贷款风险分类指导原则 · 五级分类标准",
+        "source": "《贷款风险分类指导原则》第五条",
+        "effective_date": "2001-12-24",
+        "matched_dimensions": [
+          "signal_topic"
+        ],
+        "source_doc_uri": "s3://policy-kb/POL-001.pdf"
+      }
+    }
+  ]
+}

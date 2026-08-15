@@ -1,0 +1,267 @@
+{
+  "case_id": "CASE-2017-0401-003",
+  "count": 11,
+  "sufficiency": 0.818,
+  "by_level": {
+    "强": 9,
+    "弱": 0,
+    "缺失": 2
+  },
+  "items": [
+    {
+      "evidence_id": "EV-003-0001",
+      "subject_id": "SUB-370626-XW",
+      "source_system": "bureau-mcp",
+      "fact_type": "credit_report",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0001.snapshot",
+      "content_hash": "sha256:a62dee4acdee791705fa80bdad202a2fddc0384d429f8e50a1b6ee8d55f36768",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "subject_id": "SUB-370626-XW",
+        "report_date": "2017-03-31",
+        "legal_rep_id_no": "（合成***********然人）",
+        "contact_phone": "（合成占位）",
+        "total_liability": 8000000000,
+        "overdue_records": 0,
+        "external_guarantee": 2900000000,
+        "watch_flag": true,
+        "provenance": "synthetic",
+        "source_doc_uri": "synthetic://bureau/report/SUB-370626-XW-20170331",
+        "_redacted_fields": [
+          "legal_rep_id_no",
+          "contact_phone"
+        ]
+      }
+    },
+    {
+      "evidence_id": "EV-003-0002",
+      "subject_id": "SUB-370626-XW",
+      "source_system": "bureau-mcp",
+      "fact_type": "credit_diff",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0002.snapshot",
+      "content_hash": "sha256:754399bbfd67068cbccdc0c9b714fae33f767b1d1b27ed6491771779171ab627",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "baseline_date": "2016-12-31",
+        "report_date": "2017-03-31",
+        "new_liability": 0,
+        "new_overdue": 0,
+        "external_guarantee_delta": 0,
+        "query_count_delta": 6,
+        "provenance": "synthetic",
+        "source_doc_uri": "synthetic://bureau/diff/SUB-370626-XW",
+        "_redacted_fields": []
+      }
+    },
+    {
+      "evidence_id": "EV-003-0003",
+      "subject_id": "SUB-370626-XW",
+      "source_system": "judicial-mcp",
+      "fact_type": "registration_change",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0003.snapshot",
+      "content_hash": "sha256:b6839295ef524f3c52a4e1e5ab0d5e72760ccf71986e5bfdd1d608c809772bda",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "legal_rep_changed": false,
+        "changed_at": null,
+        "risk_window": [
+          "2017-03-27",
+          "2017-04-01"
+        ],
+        "change_overlaps_risk_window": false,
+        "equity_changed": false,
+        "detail": "as_of 时点未发现法定代表人或股权结构变更的公开记录",
+        "provenance": "real_public",
+        "source_doc_uri": "public://gsxt/change/SUB-370626-XW"
+      }
+    },
+    {
+      "evidence_id": "EV-003-0004",
+      "subject_id": "SUB-370626-XW",
+      "source_system": "txn-mcp",
+      "fact_type": "flow_pattern",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0004.snapshot",
+      "content_hash": "sha256:79733a20ac4e9be597868d985b6bf588fbf36022a1227c565b0f8cf4293371be",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "anomalies": [],
+        "coverage": 0.94,
+        "baseline_band": "1.8亿 - 2.6亿",
+        "source_doc_uri": "synthetic://txn/flow/SUB-370626-XW-201610-201703",
+        "counterparties": [
+          {
+            "name": "（合成）上游玉米收储商 A",
+            "amount": 210000000,
+            "related_party": false,
+            "note": "历史稳定供应商"
+          },
+          {
+            "name": "（合成）特钢产品经销商 B",
+            "amount": 180000000,
+            "related_party": false,
+            "note": "历史稳定客户"
+          }
+        ],
+        "undersampled": null
+      }
+    },
+    {
+      "evidence_id": "EV-003-0005",
+      "subject_id": "SUB-370626-XW",
+      "source_system": "credit-core-mcp",
+      "fact_type": "guarantee_entry",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0005.snapshot",
+      "content_hash": "sha256:ba994af39e0b96d75c8e005fe569a0ab367415e540f2190a47e1810b6cae2dc9",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "来源权威且原文可溯源",
+      "extracted": {
+        "guaranteed_party": "山东齐星集团有限公司",
+        "guaranteed_party_id": "SUB-370626-QX",
+        "outstanding": 2900000000,
+        "guarantee_type": "连带责任保证",
+        "party_status": "已出险",
+        "status_basis": "2017-03 公开报道该主体债务危机爆发，多家债权人主张权利",
+        "mitigations": [
+          {
+            "type": "共同担保人（邹平县供电公司）",
+            "amount": 1027000000,
+            "first_public_date": "2017-03-28",
+            "provenance": "real_public"
+          },
+          {
+            "type": "机器设备/房产/土地资产抵押",
+            "amount": 557000000,
+            "first_public_date": "2017-03-28",
+            "provenance": "real_public"
+          }
+        ],
+        "first_public_date": "2017-03-28",
+        "provenance": "real_public",
+        "source_doc_uri": "public://media/2017-03/guarantee-ring-disclosure",
+        "ambiguous": false
+      }
+    },
+    {
+      "evidence_id": "EV-003-0006",
+      "subject_id": "SUB-370626-XW",
+      "source_system": "-",
+      "fact_type": "financial_statement",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0006.snapshot",
+      "content_hash": "sha256:5edf6b4bdf6ebab982c9c9d06caddf745158241d3a6c3cc519995fee7d3f0d6d",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "缺失",
+      "level_reason": "as_of 时点无法取得该主体最近一期经审计财务报表，无法验证经营性现金流对或有代偿的覆盖能力",
+      "extracted": {
+        "gap": true,
+        "why": "as_of 时点无法取得该主体最近一期经审计财务报表，无法验证经营性现金流对或有代偿的覆盖能力"
+      }
+    },
+    {
+      "evidence_id": "EV-003-0007",
+      "subject_id": "SUB-370626-XW",
+      "source_system": "-",
+      "fact_type": "guaranteed_party_financials",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0007.snapshot",
+      "content_hash": "sha256:94fabfd42a75e3d4699758af62447df806a093d404543df4a4f2632e1ec782ec",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "缺失",
+      "level_reason": "被担保方非本行客户，无法取得其财务数据与债务清单，代偿概率无法量化，只能按敞口净额保守估计",
+      "extracted": {
+        "gap": true,
+        "why": "被担保方非本行客户，无法取得其财务数据与债务清单，代偿概率无法量化，只能按敞口净额保守估计"
+      }
+    },
+    {
+      "evidence_id": "EV-003-0008",
+      "subject_id": "-",
+      "source_system": "policy-kb",
+      "fact_type": "policy_clause",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0008.snapshot",
+      "content_hash": "sha256:f08c5405a67a44e5c782a039c933a9b8a604b24cb3b4c94281d32c4e6d53e9b5",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
+      "extracted": {
+        "title": "商业银行贷后管理指引 · 风险监测与预警",
+        "source": "《商业银行贷后管理指引》第十八条",
+        "effective_date": "2010-02-12",
+        "matched_dimensions": [
+          "stance",
+          "signal_topic",
+          "recency"
+        ],
+        "source_doc_uri": "s3://policy-kb/POL-002.pdf"
+      }
+    },
+    {
+      "evidence_id": "EV-003-0009",
+      "subject_id": "-",
+      "source_system": "policy-kb",
+      "fact_type": "policy_clause",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0009.snapshot",
+      "content_hash": "sha256:83940b60ad8db567dced25d2bd68a76262406180640781808bf0e85e488a5a82",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
+      "extracted": {
+        "title": "贷款风险分类指导原则 · 五级分类标准",
+        "source": "《贷款风险分类指导原则》第五条",
+        "effective_date": "2001-12-24",
+        "matched_dimensions": [
+          "stance",
+          "recency"
+        ],
+        "source_doc_uri": "s3://policy-kb/POL-001.pdf"
+      }
+    },
+    {
+      "evidence_id": "EV-003-0010",
+      "subject_id": "-",
+      "source_system": "policy-kb",
+      "fact_type": "policy_clause",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0010.snapshot",
+      "content_hash": "sha256:baa867b71fe2e03fc8e43f6851def9ae871a904fc221471e1dc7216dec56a11e",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
+      "extracted": {
+        "title": "商业银行内部控制指引 · 不相容职务分离与授权审批",
+        "source": "《商业银行内部控制指引》第十二条、第十五条",
+        "effective_date": "2014-09-18",
+        "matched_dimensions": [
+          "stance"
+        ],
+        "source_doc_uri": "s3://policy-kb/POL-003.pdf"
+      }
+    },
+    {
+      "evidence_id": "EV-003-0011",
+      "subject_id": "-",
+      "source_system": "policy-kb",
+      "fact_type": "policy_clause",
+      "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0011.snapshot",
+      "content_hash": "sha256:f08c5405a67a44e5c782a039c933a9b8a604b24cb3b4c94281d32c4e6d53e9b5",
+      "collected_at": "2026-08-15T14:18:43+00:00",
+      "level": "强",
+      "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
+      "extracted": {
+        "title": "商业银行贷后管理指引 · 风险监测与预警",
+        "source": "《商业银行贷后管理指引》第十八条",
+        "effective_date": "2010-02-12",
+        "matched_dimensions": [
+          "signal_topic"
+        ],
+        "source_doc_uri": "s3://policy-kb/POL-002.pdf"
+      }
+    }
+  ]
+}

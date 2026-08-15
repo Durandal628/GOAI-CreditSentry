@@ -1,0 +1,14 @@
+{"desc": "求证方产生立场维，且**不得**产生否定式维", "input": {"stance": "PROVE", "base_query": "涉诉 偿债能力"}, "expect": {"has_dimensions": ["stance"], "lacks_dimensions": ["negation"]}}
+{"desc": "证伪方必须产生否定式维——正向检索找不到除外条款", "input": {"stance": "REFUTE", "base_query": "涉诉 偿债能力"}, "expect": {"has_dimensions": ["stance", "negation"]}}
+{"desc": "术语维：行内口语「抽贷」映射为监管术语", "input": {"stance": "PROVE", "base_query": "是否应当抽贷"}, "expect": {"has_dimensions": ["terminology"], "text_contains": "提前收回贷款"}}
+{"desc": "术语维：「担保圈」映射到关联客户认定与大额风险暴露", "input": {"stance": "PROVE", "base_query": "担保圈风险"}, "expect": {"has_dimensions": ["terminology"], "text_contains": "大额风险暴露"}}
+{"desc": "术语表未覆盖时不产生术语维，不硬凑", "input": {"stance": "PROVE", "base_query": "季度例行复核"}, "expect": {"lacks_dimensions": ["terminology"]}}
+{"desc": "信号主题维：担保传染信号展开为或有负债主题", "input": {"stance": "PROVE", "base_query": "风险", "signal_types": ["guarantee_contagion"]}, "expect": {"has_dimensions": ["signal_topic"], "text_contains": "或有负债"}}
+{"desc": "噪声类信号不产生检索主题", "input": {"stance": "PROVE", "base_query": "风险", "signal_types": ["media_mention"]}, "expect": {"lacks_dimensions": ["signal_topic"]}}
+{"desc": "条款直查维：事实中出现条款引用则精确召回", "input": {"stance": "PROVE", "base_query": "风险", "facts_blob": "依据《商业银行贷后管理指引》第十八条应持续监测"}, "expect": {"has_dimensions": ["clause_ref"], "exact_filter": true}}
+{"desc": "时效维：给定案件时点时，全部子查询都带 effective_before", "input": {"stance": "PROVE", "base_query": "涉诉", "as_of": "2017-04-01"}, "expect": {"has_dimensions": ["recency"], "all_filtered_before": "2017-04-01"}}
+{"desc": "当期案件无案件时点，不产生时效维", "input": {"stance": "PROVE", "base_query": "涉诉"}, "expect": {"lacks_dimensions": ["recency"]}}
+{"desc": "澄清选路：主体重名 → 派系统任务，不问人", "input": {"stance": "PROVE", "base_query": "涉诉", "ambiguous": true}, "expect": {"clarification_channel": "SYSTEM_TASK", "blocking": false}}
+{"desc": "澄清选路：检索仅部分返回 → 派系统任务补全", "input": {"stance": "PROVE", "base_query": "涉诉", "partial": true}, "expect": {"clarification_channel": "SYSTEM_TASK", "blocking": false}}
+{"desc": "澄清选路：出险认定无公开定论 → 选项式问人且阻断", "input": {"stance": "PROVE", "base_query": "担保", "unbased_distress": true}, "expect": {"clarification_channel": "HUMAN_CHOICE", "blocking": true, "has_options": true}}
+{"desc": "澄清选路：流水采样不足 → 已有规则可自动处理，不打扰任何人", "input": {"stance": "PROVE", "base_query": "流水", "undersampled": true}, "expect": {"clarification_channel": "AUTO", "blocking": false}}

@@ -1,0 +1,10 @@
+# macOS 在非 HFS 卷上生成的资源分叉与元数据，不应进入提交包
+._*
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# 说明：poc/out/ 是运行证据，需要随代码包一并提交，故不忽略。

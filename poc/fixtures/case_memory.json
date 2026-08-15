@@ -1,0 +1,38 @@
+[
+  {
+    "case_id": "HIST-2025-0312-018",
+    "summary": "某机械制造企业新增涉诉 4 笔（金融借款合同纠纷为主，标的占敞口 22%），同期向同一实控人企业集中转出 620 万",
+    "signal_types": ["judicial_new_case", "txn_concentrated_outflow"],
+    "conclusion": "偿债能力恶化 + 资金用途异常",
+    "action": "额度压降 40% + 追加实控人连带责任担保",
+    "verified_outcome": "处置后 3 个月企业出现实质性逾期，处置决策事后被证明正确",
+    "lesson": "关联方集中转出叠加未结案的金融借款纠纷，是较强的风险共振信号"
+  },
+  {
+    "case_id": "HIST-2025-0708-042",
+    "summary": "某贸易企业新增涉诉 2 笔（买卖合同纠纷，标的占敞口 0.6%，均已结案且企业为原告），同期集中付款给稳定供应商",
+    "signal_types": ["judicial_new_case", "txn_concentrated_outflow"],
+    "conclusion": "误报，无实质风险",
+    "action": "维持原状 + 加强监测",
+    "verified_outcome": "此后 12 个月企业还款正常，未出现风险事件；若当时压降额度将造成客户流失",
+    "lesson": "企业作为原告的小额买卖合同纠纷不构成偿债能力信号，必须下钻到诉讼地位与结案状态"
+  },
+  {
+    "case_id": "HIST-2025-0921-067",
+    "summary": "某建材企业法定代表人变更，同期股权结构调整，且变更时点与涉诉时点高度重合",
+    "signal_types": ["registration_change", "judicial_new_case"],
+    "conclusion": "实际控制人风险",
+    "action": "暂停提款 + 追加担保",
+    "verified_outcome": "后续查实实控人已转移主要资产，处置及时避免损失扩大",
+    "lesson": "法代变更需结合股权变动与时间窗重合度判断，单独发生时多为常规治理调整"
+  },
+  {
+    "case_id": "HIST-2026-0105-003",
+    "summary": "某食品企业流水集中转出，但流水覆盖率仅 62%，据此下的异常判定后被推翻",
+    "signal_types": ["txn_concentrated_outflow"],
+    "conclusion": "证据不足，回退补证",
+    "action": "补充取证后维持原状",
+    "verified_outcome": "补全流水后确认为季节性备料付款，初次判定属采样偏差导致的误判",
+    "lesson": "流水覆盖率不足时的异常判定必须降为弱证据，否则会成为误杀的主要来源"
+  }
+]

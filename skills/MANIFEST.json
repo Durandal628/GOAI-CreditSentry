@@ -1,0 +1,135 @@
+{
+  "skills": {
+    "SignalFusion": {
+      "skill": "SignalFusion",
+      "version": "1.2.0",
+      "declared_target": 30,
+      "implemented": 3,
+      "gap": 27,
+      "status": "SEED"
+    },
+    "ExposureMapping": {
+      "skill": "ExposureMapping",
+      "version": "1.1.0",
+      "declared_target": 12,
+      "implemented": 0,
+      "gap": 12,
+      "status": "SEED"
+    },
+    "RiskRootCause": {
+      "skill": "RiskRootCause",
+      "version": "2.0.1",
+      "declared_target": 40,
+      "implemented": 0,
+      "gap": 40,
+      "status": "SEED"
+    },
+    "CreditReportProbe": {
+      "skill": "CreditReportProbe",
+      "version": "1.3.0",
+      "declared_target": 20,
+      "implemented": 0,
+      "gap": 20,
+      "status": "SEED"
+    },
+    "LitigationProbe": {
+      "skill": "LitigationProbe",
+      "version": "1.4.2",
+      "declared_target": 25,
+      "implemented": 3,
+      "gap": 22,
+      "status": "SEED"
+    },
+    "TxnFlowAnalyze": {
+      "skill": "TxnFlowAnalyze",
+      "version": "1.2.3",
+      "declared_target": 18,
+      "implemented": 0,
+      "gap": 18,
+      "status": "SEED"
+    },
+    "GuaranteeProbe": {
+      "skill": "GuaranteeProbe",
+      "version": "1.0.0",
+      "declared_target": 10,
+      "implemented": 7,
+      "gap": 3,
+      "status": "SEED"
+    },
+    "RiskGate": {
+      "skill": "RiskGate",
+      "version": "3.1.0",
+      "declared_target": "全组合遍历",
+      "implemented": 865,
+      "gap": 0,
+      "status": "COMPLETE"
+    },
+    "ComplianceCheck": {
+      "skill": "ComplianceCheck",
+      "version": "1.5.0",
+      "declared_target": 24,
+      "implemented": 0,
+      "gap": 24,
+      "status": "SEED"
+    },
+    "SafeDisposition": {
+      "skill": "SafeDisposition",
+      "version": "2.2.0",
+      "declared_target": 16,
+      "implemented": 4,
+      "gap": 12,
+      "status": "SEED"
+    },
+    "PostmortemDistill": {
+      "skill": "PostmortemDistill",
+      "version": "1.1.0",
+      "declared_target": 10,
+      "implemented": 0,
+      "gap": 10,
+      "status": "SEED"
+    },
+    "EvidenceLedger": {
+      "skill": "EvidenceLedger",
+      "version": "2.0.0",
+      "declared_target": 14,
+      "implemented": 4,
+      "gap": 10,
+      "status": "SEED"
+    },
+    "QueryRewrite": {
+      "skill": "QueryRewrite",
+      "version": "1.0.0",
+      "declared_target": 18,
+      "implemented": 14,
+      "gap": 4,
+      "status": "SEED"
+    },
+    "PolicyRag": {
+      "skill": "PolicyRag",
+      "version": "2.0.0",
+      "declared_target": 22,
+      "implemented": 6,
+      "gap": 16,
+      "status": "SEED"
+    },
+    "CaseMemory": {
+      "skill": "CaseMemory",
+      "version": "1.4.0",
+      "declared_target": 15,
+      "implemented": 0,
+      "gap": 15,
+      "status": "SEED"
+    },
+    "ReportCompose": {
+      "skill": "ReportCompose",
+      "version": "1.7.0",
+      "declared_target": 8,
+      "implemented": 0,
+      "gap": 8,
+      "status": "SEED"
+    }
+  },
+  "total": 16,
+  "complete": 1,
+  "seed": 15
+}

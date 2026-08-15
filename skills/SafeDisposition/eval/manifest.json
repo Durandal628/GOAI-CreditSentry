@@ -1,0 +1,8 @@
+{
+  "skill": "SafeDisposition",
+  "version": "2.2.0",
+  "declared_target": 16,
+  "implemented": 4,
+  "gap": 12,
+  "status": "SEED"
+}

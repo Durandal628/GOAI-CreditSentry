@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReportCompose",
+  "version": "1.7.0",
+  "description": "生成贷后检查报告、风险处置意见书与审计报告，并注入证据引用",
+  "note": "正文中出现的每个 EV- 编号都会被校验存在于账本，否则拒绝生成",
+  "input": {
+    "type": "object",
+    "properties": {
+      "template_id": {
+        "enum": [
+          "处置意见书",
+          "审计报告"
+        ]
+      },
+      "case_state": {
+        "type": "object"
+      },
+      "extra": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "template_id",
+      "case_state"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "template_id": {
+        "type": "string"
+      },
+      "markdown": {
+        "type": "string"
+      },
+      "archive_uri": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "template_id",
+      "markdown",
+      "archive_uri"
+    ]
+  }
+}

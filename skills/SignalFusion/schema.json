@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SignalFusion",
+  "version": "1.2.0",
+  "description": "把多源零散预警信号归并为可处置的风险事件，并压降无效预警",
+  "note": null,
+  "input": {
+    "type": "object",
+    "properties": {
+      "signals": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "alert_id": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "ts": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "alert_id",
+            "source",
+            "type",
+            "ts",
+            "detail"
+          ]
+        }
+      }
+    },
+    "required": [
+      "signals"
+    ]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "event_id": {
+        "type": "string"
+      },
+      "signal_types": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "kept": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "dropped": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "alert_id": {
+              "type": "string"
+            },
+            "drop_reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "drop_reason"
+          ]
+        }
+      },
+      "input_count": {
+        "type": "integer"
+      },
+      "denoise_rate": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "first_seen": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "event_id",
+      "signal_types",
+      "dropped",
+      "denoise_rate"
+    ]
+  }
+}

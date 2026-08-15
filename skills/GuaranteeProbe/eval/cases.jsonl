@@ -1,0 +1,7 @@
+{"desc": "被担保方未出险 → 不构成当期信号（担保余额再大也一样）", "input": {"outstanding": 2900000000.0, "party_status": "正常", "mitigations": 0, "direct_exposure": 650000000.0}, "expect": {"distressed_guarantee": 0.0, "confidence": 0.0}}
+{"desc": "误报陷阱：缓释措施全额覆盖 → 净敞口为零，置信度 0", "input": {"outstanding": 1000000000.0, "party_status": "已出险", "mitigations": 1000000000.0, "direct_exposure": 500000000.0}, "expect": {"uncovered_amount": 0.0, "confidence": 0.0}}
+{"desc": "误报陷阱：缓释超额申报 → 覆盖额不得超过被缓释的敞口本身", "input": {"outstanding": 1000000000.0, "party_status": "已出险", "mitigations": 1600000000.0, "direct_exposure": 500000000.0}, "expect": {"mitigation_amount": 1000000000.0, "uncovered_amount": 0.0, "confidence": 0.0}}
+{"desc": "误报陷阱：净敞口极小 → 置信度低于 0.5，不足以单独定性", "input": {"outstanding": 1000000000.0, "party_status": "已出险", "mitigations": 980000000.0, "direct_exposure": 500000000.0}, "expect": {"uncovered_amount": 20000000.0, "confidence": 0.45}}
+{"desc": "净未覆盖敞口达直接敞口 2 倍 → 置信度 0.65（关注类）", "input": {"outstanding": 2900000000.0, "party_status": "已出险", "mitigations": 1584000000.0, "direct_exposure": 650000000.0}, "expect": {"uncovered_multiple": 2.02, "confidence": 0.65}}
+{"desc": "净未覆盖敞口达直接敞口 3 倍以上 → 置信度封顶 0.75", "input": {"outstanding": 4000000000.0, "party_status": "已出险", "mitigations": 0.0, "direct_exposure": 500000000.0}, "expect": {"uncovered_multiple": 8.0, "confidence": 0.75}}
+{"desc": "无对外担保 → 有效负向证据，不是取证失败", "input": {"empty": true, "direct_exposure": 500000000.0}, "expect": {"has_guarantee": false, "distressed_guarantee": 0.0}}

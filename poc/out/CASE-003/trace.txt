@@ -1,0 +1,73 @@
+└─ CASE  CASE-2017-0401-003                            1.5ms
+    ├─ ROUTE INTAKE→EVIDENCE                               0.0ms
+    │       · routing_key = {'phase': 'INTAKE', 'signal_type': [], 'evidence_sufficiency': 0.0, 'risk_tier': None, 'exposure_amount': None}
+    │       · rule_id = R-01
+    │       · rule_version = v1.4.0
+    ├─ AGENT signal-hub                                    0.1ms
+    │   ├─ SKILL SignalFusion                                  0.0ms
+    │   └─ SKILL ExposureMapping                               0.0ms
+    │       └─ MCP   credit-core-mcp.get_exposure                  0.0ms
+    ├─ ROUTE EVIDENCE→EVIDENCE                             0.0ms
+    │       · routing_key = {'phase': 'EVIDENCE', 'signal_type': ['guarantee_contagion', 'guarantee_ring_alert', 'rating_downgrade'], 'evidence_sufficiency': 0.0, 'risk_tier': None, 'exposure_amount': 650000000}
+    │       · rule_id = R-02
+    │       · rule_version = v1.4.0
+    ├─ AGENT due-diligence                                 0.3ms
+    │   ├─ SKILL CreditReportProbe                             0.1ms
+    │   │   ├─ MCP   bureau-mcp.get_credit_report                  0.0ms
+    │   │   └─ MCP   bureau-mcp.diff_report                        0.0ms
+    │   ├─ SKILL LitigationProbe                               0.0ms
+    │   │   ├─ MCP   judicial-mcp.search_litigation                0.0ms
+    │   │   └─ MCP   judicial-mcp.get_change_history               0.0ms
+    │   ├─ SKILL TxnFlowAnalyze                                0.1ms
+    │   │   ├─ MCP   txn-mcp.get_flow_pattern                      0.0ms
+    │   │   ├─ MCP   txn-mcp.get_counterparty_summary              0.0ms
+    │   │   ├─ MCP   txn-mcp.query_transactions                    0.0ms
+    │   │   └─ MCP   txn-mcp.query_transactions                    0.0ms
+    │   └─ SKILL GuaranteeProbe                                0.0ms
+    │       └─ MCP   credit-core-mcp.get_guarantee_ledger          0.0ms
+    ├─ ROUTE EVIDENCE→ADJUDICATION                         0.0ms
+    │       · routing_key = {'phase': 'EVIDENCE', 'signal_type': ['guarantee_contagion', 'guarantee_ring_alert', 'rating_downgrade'], 'evidence_sufficiency': 0.714, 'risk_tier': None, 'exposure_amount': 650000000}
+    │       · rule_id = R-04
+    │       · rule_version = v1.4.0
+    ├─ AGENT risk-analyst                                  0.4ms
+    │   ├─ SKILL QueryRewrite                                  0.1ms
+    │   │   └─ RAG   query.rewrite                                 0.0ms
+    │   ├─ SKILL PolicyRag                                     0.1ms
+    │   │   └─ RAG   policy.search                                 0.1ms
+    │   ├─ SKILL CaseMemory                                    0.0ms
+    │   │   └─ RAG   case_memory.search                            0.0ms
+    │   └─ SKILL RiskRootCause                                 0.2ms
+    │       └─ LLM   risk_root_cause                               0.1ms
+    ├─ AGENT devils-advocate                               0.4ms
+    │   ├─ SKILL QueryRewrite                                  0.1ms
+    │   │   └─ RAG   query.rewrite                                 0.0ms
+    │   ├─ SKILL PolicyRag                                     0.1ms
+    │   │   └─ RAG   policy.search                                 0.1ms
+    │   ├─ SKILL CaseMemory                                    0.0ms
+    │   │   └─ RAG   case_memory.search                            0.0ms
+    │   ├─ LLM   devils_advocate                               0.1ms
+    │   └─ ADJUD 质疑清单核对                                        0.0ms
+    ├─ ADJUD 定性 ⇄ 质疑                                       0.0ms
+    │       · verdict = RISK_CONFIRMED
+    │       · basis = 质疑方已逐条尝试反驳但均不成立，定性结论采信
+    │       · dissent = analyst=RISK_CONFIRMED advocate=SUPPORTED
+    ├─ ROUTE ADJUDICATION→DISPOSITION                      0.0ms
+    │       · routing_key = {'phase': 'ADJUDICATION', 'signal_type': ['guarantee_contagion', 'guarantee_ring_alert', 'rating_downgrade'], 'evidence_sufficiency': 0.818, 'risk_tier': '关注', 'exposure_amount': 650000000}
+    │       · rule_id = R-07
+    │       · rule_version = v1.4.0
+    ├─ SKILL RiskGate                                      0.0ms
+    ├─ SKILL RiskGate                                      0.0ms
+    ├─ SKILL ReportCompose                                 0.0ms
+    ├─ ROUTE DISPOSITION→AUDIT                             0.0ms
+    │       · routing_key = {'phase': 'DISPOSITION', 'signal_type': ['guarantee_contagion', 'guarantee_ring_alert', 'rating_downgrade'], 'evidence_sufficiency': 0.818, 'risk_tier': '关注', 'exposure_amount': 650000000}
+    │       · rule_id = R-08
+    │       · rule_version = v1.4.0
+    ├─ ROUTE AUDIT→CLOSED                                  0.0ms
+    │       · routing_key = {'phase': 'AUDIT', 'signal_type': ['guarantee_contagion', 'guarantee_ring_alert', 'rating_downgrade'], 'evidence_sufficiency': 0.818, 'risk_tier': '关注', 'exposure_amount': 650000000}
+    │       · rule_id = R-11
+    │       · rule_version = v1.4.0
+    └─ AGENT compliance-auditor                            0.1ms
+        ├─ SKILL ComplianceCheck                               0.0ms
+        ├─ SKILL PostmortemDistill                             0.0ms
+        │   └─ SKILL CaseMemory.write                              0.0ms
+        └─ SKILL ReportCompose                                 0.0ms

@@ -1,0 +1,1629 @@
+{
+  "trace_id": "cc70ad3a75a04fe39b7650963aa44a32",
+  "span_count": 84,
+  "spans": [
+    {
+      "span_id": "18bd80535cec4fa2",
+      "parent_id": null,
+      "kind": "case",
+      "name": "CASE-2026-0814-001",
+      "start_unix_nano": 1786803689488209920,
+      "end_unix_nano": 1786803790366265088,
+      "duration_ms": 100878.1,
+      "status": "OK",
+      "attributes": {
+        "subject": "浙XX精密机械有限公司"
+      },
+      "events": []
+    },
+    {
+      "span_id": "c5e7a2c5124543b4",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "routing",
+      "name": "INTAKE→EVIDENCE",
+      "start_unix_nano": 1786803689488296960,
+      "end_unix_nano": 1786803689488372992,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "routing_key": {
+          "phase": "INTAKE",
+          "signal_type": [],
+          "evidence_sufficiency": 0.0,
+          "risk_tier": null,
+          "exposure_amount": null
+        },
+        "rule_id": "R-01",
+        "rule_version": "v1.4.0",
+        "dispatch": [
+          "signal-hub"
+        ],
+        "parallel": false
+      },
+      "events": []
+    },
+    {
+      "span_id": "f2c25c77287149be",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "agent",
+      "name": "signal-hub",
+      "start_unix_nano": 1786803689488439040,
+      "end_unix_nano": 1786803689488760064,
+      "duration_ms": 0.3,
+      "status": "OK",
+      "attributes": {
+        "caller": "signal-hub"
+      },
+      "events": []
+    },
+    {
+      "span_id": "cf4679fa0b154fbc",
+      "parent_id": "f2c25c77287149be",
+      "kind": "skill",
+      "name": "SignalFusion",
+      "start_unix_nano": 1786803689488476928,
+      "end_unix_nano": 1786803689488557056,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.2.0",
+        "skill.tier": "L3",
+        "skill.category": "诊断",
+        "caller": "signal-hub"
+      },
+      "events": []
+    },
+    {
+      "span_id": "2540401aa1c549e8",
+      "parent_id": "f2c25c77287149be",
+      "kind": "skill",
+      "name": "ExposureMapping",
+      "start_unix_nano": 1786803689488595968,
+      "end_unix_nano": 1786803689488744960,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.1.0",
+        "skill.tier": "L3",
+        "skill.category": "诊断",
+        "caller": "signal-hub"
+      },
+      "events": []
+    },
+    {
+      "span_id": "e9e64c55564d43cd",
+      "parent_id": "2540401aa1c549e8",
+      "kind": "mcp",
+      "name": "credit-core-mcp.get_exposure",
+      "start_unix_nano": 1786803689488643072,
+      "end_unix_nano": 1786803689488698880,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "credit-core-mcp",
+        "mcp.tool": "get_exposure",
+        "caller": "signal-hub",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "f4d7d7bef5d04cc2",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "routing",
+      "name": "EVIDENCE→EVIDENCE",
+      "start_unix_nano": 1786803689488911872,
+      "end_unix_nano": 1786803689488978944,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "routing_key": {
+          "phase": "EVIDENCE",
+          "signal_type": [
+            "judicial_new_case",
+            "registration_change",
+            "txn_concentrated_outflow"
+          ],
+          "evidence_sufficiency": 0.0,
+          "risk_tier": null,
+          "exposure_amount": 6200000
+        },
+        "rule_id": "R-02",
+        "rule_version": "v1.4.0",
+        "dispatch": [
+          "due-diligence"
+        ],
+        "parallel": false
+      },
+      "events": []
+    },
+    {
+      "span_id": "81a6193fb6d54edb",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "agent",
+      "name": "due-diligence",
+      "start_unix_nano": 1786803689489029120,
+      "end_unix_nano": 1786803689493522944,
+      "duration_ms": 4.5,
+      "status": "OK",
+      "attributes": {
+        "caller": "due-diligence"
+      },
+      "events": []
+    },
+    {
+      "span_id": "19c6d736295041ef",
+      "parent_id": "81a6193fb6d54edb",
+      "kind": "skill",
+      "name": "CreditReportProbe",
+      "start_unix_nano": 1786803689489061120,
+      "end_unix_nano": 1786803689492057088,
+      "duration_ms": 3.0,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.3.0",
+        "skill.tier": "L3",
+        "skill.category": "取证",
+        "caller": "due-diligence"
+      },
+      "events": []
+    },
+    {
+      "span_id": "f2e59c59c7dd48ab",
+      "parent_id": "19c6d736295041ef",
+      "kind": "mcp",
+      "name": "bureau-mcp.get_credit_report",
+      "start_unix_nano": 1786803689489099008,
+      "end_unix_nano": 1786803689491668992,
+      "duration_ms": 2.6,
+      "status": "ERROR",
+      "attributes": {
+        "mcp.server": "bureau-mcp",
+        "mcp.tool": "get_credit_report",
+        "caller": "due-diligence",
+        "attempt": 1,
+        "error.code": "RATE_LIMITED"
+      },
+      "events": []
+    },
+    {
+      "span_id": "37092831e8184a41",
+      "parent_id": "19c6d736295041ef",
+      "kind": "mcp",
+      "name": "bureau-mcp.get_credit_report",
+      "start_unix_nano": 1786803689491745024,
+      "end_unix_nano": 1786803689491793920,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "bureau-mcp",
+        "mcp.tool": "get_credit_report",
+        "caller": "due-diligence",
+        "attempt": 2
+      },
+      "events": []
+    },
+    {
+      "span_id": "0a8f53c684414bd0",
+      "parent_id": "19c6d736295041ef",
+      "kind": "mcp",
+      "name": "bureau-mcp.diff_report",
+      "start_unix_nano": 1786803689491835904,
+      "end_unix_nano": 1786803689491869952,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "bureau-mcp",
+        "mcp.tool": "diff_report",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "53a5143f2a834111",
+      "parent_id": "81a6193fb6d54edb",
+      "kind": "skill",
+      "name": "LitigationProbe",
+      "start_unix_nano": 1786803689492100096,
+      "end_unix_nano": 1786803689492579072,
+      "duration_ms": 0.5,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.4.2",
+        "skill.tier": "L3",
+        "skill.category": "取证",
+        "caller": "due-diligence"
+      },
+      "events": []
+    },
+    {
+      "span_id": "87fb1b17f32f402e",
+      "parent_id": "53a5143f2a834111",
+      "kind": "mcp",
+      "name": "judicial-mcp.search_litigation",
+      "start_unix_nano": 1786803689492139008,
+      "end_unix_nano": 1786803689492168960,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "judicial-mcp",
+        "mcp.tool": "search_litigation",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "d9ff823e1ae9458f",
+      "parent_id": "53a5143f2a834111",
+      "kind": "mcp",
+      "name": "judicial-mcp.get_change_history",
+      "start_unix_nano": 1786803689492205056,
+      "end_unix_nano": 1786803689492231936,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "judicial-mcp",
+        "mcp.tool": "get_change_history",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "8f0c94b072ae4973",
+      "parent_id": "53a5143f2a834111",
+      "kind": "mcp",
+      "name": "judicial-mcp.get_judgment_doc",
+      "start_unix_nano": 1786803689492265984,
+      "end_unix_nano": 1786803689492293120,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "judicial-mcp",
+        "mcp.tool": "get_judgment_doc",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "d5546c8fb242461c",
+      "parent_id": "53a5143f2a834111",
+      "kind": "mcp",
+      "name": "judicial-mcp.get_judgment_doc",
+      "start_unix_nano": 1786803689492356096,
+      "end_unix_nano": 1786803689492385024,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "judicial-mcp",
+        "mcp.tool": "get_judgment_doc",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "9d7c5ac8b4d645a7",
+      "parent_id": "53a5143f2a834111",
+      "kind": "mcp",
+      "name": "judicial-mcp.get_judgment_doc",
+      "start_unix_nano": 1786803689492442112,
+      "end_unix_nano": 1786803689492468992,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "judicial-mcp",
+        "mcp.tool": "get_judgment_doc",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "4e094882ef144a70",
+      "parent_id": "81a6193fb6d54edb",
+      "kind": "skill",
+      "name": "TxnFlowAnalyze",
+      "start_unix_nano": 1786803689492615936,
+      "end_unix_nano": 1786803689493052928,
+      "duration_ms": 0.4,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.2.3",
+        "skill.tier": "L3",
+        "skill.category": "取证",
+        "caller": "due-diligence"
+      },
+      "events": []
+    },
+    {
+      "span_id": "c72eaf8899a646c7",
+      "parent_id": "4e094882ef144a70",
+      "kind": "mcp",
+      "name": "txn-mcp.get_flow_pattern",
+      "start_unix_nano": 1786803689492656896,
+      "end_unix_nano": 1786803689492687104,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "txn-mcp",
+        "mcp.tool": "get_flow_pattern",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "eb9003fdece648c4",
+      "parent_id": "4e094882ef144a70",
+      "kind": "mcp",
+      "name": "txn-mcp.get_counterparty_summary",
+      "start_unix_nano": 1786803689492720896,
+      "end_unix_nano": 1786803689492753920,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "txn-mcp",
+        "mcp.tool": "get_counterparty_summary",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "e7854cdd61064da3",
+      "parent_id": "4e094882ef144a70",
+      "kind": "mcp",
+      "name": "txn-mcp.query_transactions",
+      "start_unix_nano": 1786803689492788992,
+      "end_unix_nano": 1786803689492851968,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "txn-mcp",
+        "mcp.tool": "query_transactions",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "471c6332ba74437e",
+      "parent_id": "4e094882ef144a70",
+      "kind": "mcp",
+      "name": "txn-mcp.query_transactions",
+      "start_unix_nano": 1786803689492898048,
+      "end_unix_nano": 1786803689492943104,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "txn-mcp",
+        "mcp.tool": "query_transactions",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "7a7c1c7056be4240",
+      "parent_id": "81a6193fb6d54edb",
+      "kind": "skill",
+      "name": "GuaranteeProbe",
+      "start_unix_nano": 1786803689493089024,
+      "end_unix_nano": 1786803689493225984,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.0.0",
+        "skill.tier": "L3",
+        "skill.category": "取证",
+        "caller": "due-diligence"
+      },
+      "events": []
+    },
+    {
+      "span_id": "a3f0658bccb44430",
+      "parent_id": "7a7c1c7056be4240",
+      "kind": "mcp",
+      "name": "credit-core-mcp.get_guarantee_ledger",
+      "start_unix_nano": 1786803689493132032,
+      "end_unix_nano": 1786803689493160960,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "credit-core-mcp",
+        "mcp.tool": "get_guarantee_ledger",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "6a1eb208cb9f424e",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "routing",
+      "name": "EVIDENCE→ADJUDICATION",
+      "start_unix_nano": 1786803689495563008,
+      "end_unix_nano": 1786803689495640064,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "routing_key": {
+          "phase": "EVIDENCE",
+          "signal_type": [
+            "judicial_new_case",
+            "registration_change",
+            "txn_concentrated_outflow"
+          ],
+          "evidence_sufficiency": 0.889,
+          "risk_tier": null,
+          "exposure_amount": 6200000
+        },
+        "rule_id": "R-04",
+        "rule_version": "v1.4.0",
+        "dispatch": [
+          "risk-analyst",
+          "devils-advocate"
+        ],
+        "parallel": true
+      },
+      "events": []
+    },
+    {
+      "span_id": "c0f743637da24b36",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "agent",
+      "name": "risk-analyst",
+      "start_unix_nano": 1786803689495714048,
+      "end_unix_nano": 1786803756325585920,
+      "duration_ms": 66829.9,
+      "status": "OK",
+      "attributes": {
+        "caller": "risk-analyst"
+      },
+      "events": []
+    },
+    {
+      "span_id": "a317d7e9a87947a4",
+      "parent_id": "c0f743637da24b36",
+      "kind": "skill",
+      "name": "QueryRewrite",
+      "start_unix_nano": 1786803689495749120,
+      "end_unix_nano": 1786803689495997952,
+      "duration_ms": 0.2,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.0.0",
+        "skill.tier": "L3",
+        "skill.category": "知识",
+        "caller": "risk-analyst"
+      },
+      "events": []
+    },
+    {
+      "span_id": "e50f5760b73343b7",
+      "parent_id": "a317d7e9a87947a4",
+      "kind": "rag",
+      "name": "query.rewrite",
+      "start_unix_nano": 1786803689495924992,
+      "end_unix_nano": 1786803689495976960,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "stance": "PROVE",
+        "dimensions": [
+          "signal_topic",
+          "stance"
+        ],
+        "subquery_count": 2,
+        "clarifications": 0,
+        "blocking_clarifications": 0
+      },
+      "events": []
+    },
+    {
+      "span_id": "2d26b948b8944abc",
+      "parent_id": "c0f743637da24b36",
+      "kind": "skill",
+      "name": "PolicyRag",
+      "start_unix_nano": 1786803689496035072,
+      "end_unix_nano": 1786803689499788032,
+      "duration_ms": 3.8,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "2.0.0",
+        "skill.tier": "L2",
+        "skill.category": "知识",
+        "caller": "risk-analyst"
+      },
+      "events": []
+    },
+    {
+      "span_id": "71b04dcdc1d94796",
+      "parent_id": "2d26b948b8944abc",
+      "kind": "rag",
+      "name": "policy.search",
+      "start_unix_nano": 1786803689497531904,
+      "end_unix_nano": 1786803689499651072,
+      "duration_ms": 2.1,
+      "status": "OK",
+      "attributes": {
+        "stance": "PROVE",
+        "dimensions": [
+          "signal_topic",
+          "stance"
+        ],
+        "subquery_count": 2,
+        "as_of": null,
+        "top_k": 3,
+        "hit_count": 3,
+        "filtered_by_recency": 0,
+        "hit_dimensions": [
+          "signal_topic",
+          "stance"
+        ]
+      },
+      "events": []
+    },
+    {
+      "span_id": "1abb5c4422d84213",
+      "parent_id": "c0f743637da24b36",
+      "kind": "skill",
+      "name": "CaseMemory",
+      "start_unix_nano": 1786803689499854080,
+      "end_unix_nano": 1786803689502126080,
+      "duration_ms": 2.3,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.4.0",
+        "skill.tier": "L2",
+        "skill.category": "知识",
+        "caller": "risk-analyst"
+      },
+      "events": []
+    },
+    {
+      "span_id": "d0bba485c47449a9",
+      "parent_id": "1abb5c4422d84213",
+      "kind": "rag",
+      "name": "case_memory.search",
+      "start_unix_nano": 1786803689499901952,
+      "end_unix_nano": 1786803689502064128,
+      "duration_ms": 2.2,
+      "status": "OK",
+      "attributes": {
+        "top_k": 3,
+        "as_of": null,
+        "hit_count": 3,
+        "filtered_by_recency": 0
+      },
+      "events": []
+    },
+    {
+      "span_id": "8e347f10f31e4e27",
+      "parent_id": "c0f743637da24b36",
+      "kind": "skill",
+      "name": "RiskRootCause",
+      "start_unix_nano": 1786803689502267904,
+      "end_unix_nano": 1786803756325501952,
+      "duration_ms": 66823.2,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "2.0.1",
+        "skill.tier": "L3",
+        "skill.category": "诊断",
+        "caller": "risk-analyst"
+      },
+      "events": []
+    },
+    {
+      "span_id": "ae1fb659db3e485d",
+      "parent_id": "8e347f10f31e4e27",
+      "kind": "llm",
+      "name": "risk_root_cause",
+      "start_unix_nano": 1786803689502643968,
+      "end_unix_nano": 1786803756325276928,
+      "duration_ms": 66822.6,
+      "status": "OK",
+      "attributes": {
+        "gen_ai.system": "live",
+        "gen_ai.operation.name": "chat",
+        "gen_ai.request.model": "qwen-max",
+        "model.profile": "custom-risk-analyst",
+        "model.family": "qwen",
+        "model.provider": "custom-risk-analyst",
+        "model.declared": "qwen-max",
+        "model.stubbed": false,
+        "prompt.name": "risk_root_cause",
+        "prompt.version": "2.0.0",
+        "context.manifest": {
+          "included": [
+            "facts",
+            "policy_context",
+            "similar_cases"
+          ],
+          "dropped": [],
+          "used_chars": 4201,
+          "budget_chars": 12000,
+          "utilization": 0.35
+        },
+        "gen_ai.usage.input_tokens": 4864,
+        "gen_ai.usage.output_tokens": 183
+      },
+      "events": []
+    },
+    {
+      "span_id": "00a84d991b29422e",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "agent",
+      "name": "devils-advocate",
+      "start_unix_nano": 1786803756329051904,
+      "end_unix_nano": 1786803765689530112,
+      "duration_ms": 9360.5,
+      "status": "OK",
+      "attributes": {
+        "caller": "devils-advocate"
+      },
+      "events": []
+    },
+    {
+      "span_id": "c595cef44a814e33",
+      "parent_id": "00a84d991b29422e",
+      "kind": "skill",
+      "name": "QueryRewrite",
+      "start_unix_nano": 1786803756329125120,
+      "end_unix_nano": 1786803756329467904,
+      "duration_ms": 0.3,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.0.0",
+        "skill.tier": "L3",
+        "skill.category": "知识",
+        "caller": "devils-advocate"
+      },
+      "events": []
+    },
+    {
+      "span_id": "c2c43ed7161d47c2",
+      "parent_id": "c595cef44a814e33",
+      "kind": "rag",
+      "name": "query.rewrite",
+      "start_unix_nano": 1786803756329360896,
+      "end_unix_nano": 1786803756329434880,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "stance": "REFUTE",
+        "dimensions": [
+          "negation",
+          "signal_topic",
+          "stance",
+          "terminology"
+        ],
+        "subquery_count": 4,
+        "clarifications": 0,
+        "blocking_clarifications": 0
+      },
+      "events": []
+    },
+    {
+      "span_id": "9c57e1ef19cd45b9",
+      "parent_id": "00a84d991b29422e",
+      "kind": "skill",
+      "name": "PolicyRag",
+      "start_unix_nano": 1786803756329518080,
+      "end_unix_nano": 1786803756330038016,
+      "duration_ms": 0.5,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "2.0.0",
+        "skill.tier": "L2",
+        "skill.category": "知识",
+        "caller": "devils-advocate"
+      },
+      "events": []
+    },
+    {
+      "span_id": "e0d3cff3b3514216",
+      "parent_id": "9c57e1ef19cd45b9",
+      "kind": "rag",
+      "name": "policy.search",
+      "start_unix_nano": 1786803756329570048,
+      "end_unix_nano": 1786803756329873920,
+      "duration_ms": 0.3,
+      "status": "OK",
+      "attributes": {
+        "stance": "REFUTE",
+        "dimensions": [
+          "negation",
+          "signal_topic",
+          "stance",
+          "terminology"
+        ],
+        "subquery_count": 4,
+        "as_of": null,
+        "top_k": 3,
+        "hit_count": 3,
+        "filtered_by_recency": 0,
+        "hit_dimensions": [
+          "negation",
+          "signal_topic",
+          "stance"
+        ]
+      },
+      "events": []
+    },
+    {
+      "span_id": "4c5728f3f000418e",
+      "parent_id": "00a84d991b29422e",
+      "kind": "skill",
+      "name": "CaseMemory",
+      "start_unix_nano": 1786803756330089984,
+      "end_unix_nano": 1786803756330227968,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.4.0",
+        "skill.tier": "L2",
+        "skill.category": "知识",
+        "caller": "devils-advocate"
+      },
+      "events": []
+    },
+    {
+      "span_id": "27dd450e92c24000",
+      "parent_id": "4c5728f3f000418e",
+      "kind": "rag",
+      "name": "case_memory.search",
+      "start_unix_nano": 1786803756330136064,
+      "end_unix_nano": 1786803756330184960,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "top_k": 3,
+        "as_of": null,
+        "hit_count": 3,
+        "filtered_by_recency": 0
+      },
+      "events": []
+    },
+    {
+      "span_id": "53ffd7417ed04533",
+      "parent_id": "00a84d991b29422e",
+      "kind": "llm",
+      "name": "devils_advocate",
+      "start_unix_nano": 1786803756330863104,
+      "end_unix_nano": 1786803765688677888,
+      "duration_ms": 9357.8,
+      "status": "OK",
+      "attributes": {
+        "gen_ai.system": "live",
+        "gen_ai.operation.name": "chat",
+        "gen_ai.request.model": "deepseek-v3",
+        "model.profile": "custom-devils-advocate",
+        "model.family": "deepseek",
+        "model.provider": "custom-devils-advocate",
+        "model.declared": "deepseek-v3",
+        "model.stubbed": false,
+        "prompt.name": "devils_advocate",
+        "prompt.version": "2.0.0",
+        "context.manifest": {
+          "included": [
+            "checklist",
+            "facts",
+            "assertion",
+            "policy_context",
+            "similar_cases"
+          ],
+          "dropped": [],
+          "used_chars": 4392,
+          "budget_chars": 12000,
+          "utilization": 0.366
+        },
+        "gen_ai.usage.input_tokens": 4989,
+        "gen_ai.usage.output_tokens": 209
+      },
+      "events": []
+    },
+    {
+      "span_id": "742539f693334e57",
+      "parent_id": "00a84d991b29422e",
+      "kind": "adjudication",
+      "name": "质疑清单核对",
+      "start_unix_nano": 1786803765689345024,
+      "end_unix_nano": 1786803765689456128,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "coverage": 1.0,
+        "complete": true,
+        "unaddressed": []
+      },
+      "events": []
+    },
+    {
+      "span_id": "0d7d3c03b63a4c4f",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "adjudication",
+      "name": "定性 ⇄ 质疑",
+      "start_unix_nano": 1786803765696984064,
+      "end_unix_nano": 1786803765697058048,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "verdict": "EVIDENCE_INSUFFICIENT",
+        "basis": "定性方自评证据不足，回退补证",
+        "rebuttal_coverage": 1.0,
+        "dissent": "analyst=INSUFFICIENT advocate=INSUFFICIENT_EVIDENCE"
+      },
+      "events": []
+    },
+    {
+      "span_id": "b3483abb47184010",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "routing",
+      "name": "ADJUDICATION→EVIDENCE",
+      "start_unix_nano": 1786803765697149952,
+      "end_unix_nano": 1786803765697241088,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "routing_key": {
+          "phase": "ADJUDICATION",
+          "signal_type": [
+            "judicial_new_case",
+            "registration_change",
+            "txn_concentrated_outflow"
+          ],
+          "evidence_sufficiency": 0.933,
+          "risk_tier": null,
+          "exposure_amount": 6200000
+        },
+        "rule_id": "R-05",
+        "rule_version": "v1.4.0",
+        "dispatch": [
+          "due-diligence"
+        ],
+        "parallel": false
+      },
+      "events": []
+    },
+    {
+      "span_id": "c0c2df5e81e14c3c",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "agent",
+      "name": "due-diligence",
+      "start_unix_nano": 1786803765697314048,
+      "end_unix_nano": 1786803765699307008,
+      "duration_ms": 2.0,
+      "status": "OK",
+      "attributes": {
+        "caller": "due-diligence"
+      },
+      "events": []
+    },
+    {
+      "span_id": "68585eb0687a4d41",
+      "parent_id": "c0c2df5e81e14c3c",
+      "kind": "skill",
+      "name": "CreditReportProbe",
+      "start_unix_nano": 1786803765697359872,
+      "end_unix_nano": 1786803765697794048,
+      "duration_ms": 0.4,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.3.0",
+        "skill.tier": "L3",
+        "skill.category": "取证",
+        "caller": "due-diligence"
+      },
+      "events": []
+    },
+    {
+      "span_id": "05b2fe7ea7ef4328",
+      "parent_id": "68585eb0687a4d41",
+      "kind": "mcp",
+      "name": "bureau-mcp.get_credit_report",
+      "start_unix_nano": 1786803765697419008,
+      "end_unix_nano": 1786803765697497088,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "bureau-mcp",
+        "mcp.tool": "get_credit_report",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "19e01a8c1efd4a45",
+      "parent_id": "68585eb0687a4d41",
+      "kind": "mcp",
+      "name": "bureau-mcp.diff_report",
+      "start_unix_nano": 1786803765697551104,
+      "end_unix_nano": 1786803765697594112,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "bureau-mcp",
+        "mcp.tool": "diff_report",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "74ee71c33b184b77",
+      "parent_id": "c0c2df5e81e14c3c",
+      "kind": "skill",
+      "name": "LitigationProbe",
+      "start_unix_nano": 1786803765697846016,
+      "end_unix_nano": 1786803765698457088,
+      "duration_ms": 0.6,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.4.2",
+        "skill.tier": "L3",
+        "skill.category": "取证",
+        "caller": "due-diligence"
+      },
+      "events": []
+    },
+    {
+      "span_id": "da35c84de8aa4390",
+      "parent_id": "74ee71c33b184b77",
+      "kind": "mcp",
+      "name": "judicial-mcp.search_litigation",
+      "start_unix_nano": 1786803765697896960,
+      "end_unix_nano": 1786803765697938944,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "judicial-mcp",
+        "mcp.tool": "search_litigation",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "0986d10cd7aa4ff2",
+      "parent_id": "74ee71c33b184b77",
+      "kind": "mcp",
+      "name": "judicial-mcp.get_change_history",
+      "start_unix_nano": 1786803765697988096,
+      "end_unix_nano": 1786803765698028032,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "judicial-mcp",
+        "mcp.tool": "get_change_history",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "570c46dc314145e7",
+      "parent_id": "74ee71c33b184b77",
+      "kind": "mcp",
+      "name": "judicial-mcp.get_judgment_doc",
+      "start_unix_nano": 1786803765698074112,
+      "end_unix_nano": 1786803765698108928,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "judicial-mcp",
+        "mcp.tool": "get_judgment_doc",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "b45551e123a14879",
+      "parent_id": "74ee71c33b184b77",
+      "kind": "mcp",
+      "name": "judicial-mcp.get_judgment_doc",
+      "start_unix_nano": 1786803765698189056,
+      "end_unix_nano": 1786803765698224896,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "judicial-mcp",
+        "mcp.tool": "get_judgment_doc",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "ea8fbd3c0c154845",
+      "parent_id": "74ee71c33b184b77",
+      "kind": "mcp",
+      "name": "judicial-mcp.get_judgment_doc",
+      "start_unix_nano": 1786803765698298112,
+      "end_unix_nano": 1786803765698330880,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "judicial-mcp",
+        "mcp.tool": "get_judgment_doc",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "d2245d9636a9450f",
+      "parent_id": "c0c2df5e81e14c3c",
+      "kind": "skill",
+      "name": "TxnFlowAnalyze",
+      "start_unix_nano": 1786803765698503936,
+      "end_unix_nano": 1786803765698990080,
+      "duration_ms": 0.5,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.2.3",
+        "skill.tier": "L3",
+        "skill.category": "取证",
+        "caller": "due-diligence"
+      },
+      "events": []
+    },
+    {
+      "span_id": "871d9e78489d42a5",
+      "parent_id": "d2245d9636a9450f",
+      "kind": "mcp",
+      "name": "txn-mcp.get_flow_pattern",
+      "start_unix_nano": 1786803765698552064,
+      "end_unix_nano": 1786803765698588928,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "txn-mcp",
+        "mcp.tool": "get_flow_pattern",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "3db022902df745ff",
+      "parent_id": "d2245d9636a9450f",
+      "kind": "mcp",
+      "name": "txn-mcp.get_counterparty_summary",
+      "start_unix_nano": 1786803765698631936,
+      "end_unix_nano": 1786803765698665984,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "txn-mcp",
+        "mcp.tool": "get_counterparty_summary",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "60a08598cb824d7f",
+      "parent_id": "d2245d9636a9450f",
+      "kind": "mcp",
+      "name": "txn-mcp.query_transactions",
+      "start_unix_nano": 1786803765698707968,
+      "end_unix_nano": 1786803765698769920,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "txn-mcp",
+        "mcp.tool": "query_transactions",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "0cddcb18940545f4",
+      "parent_id": "d2245d9636a9450f",
+      "kind": "mcp",
+      "name": "txn-mcp.query_transactions",
+      "start_unix_nano": 1786803765698816000,
+      "end_unix_nano": 1786803765698860032,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "txn-mcp",
+        "mcp.tool": "query_transactions",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "f365689b3a974103",
+      "parent_id": "c0c2df5e81e14c3c",
+      "kind": "skill",
+      "name": "GuaranteeProbe",
+      "start_unix_nano": 1786803765699028992,
+      "end_unix_nano": 1786803765699171072,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.0.0",
+        "skill.tier": "L3",
+        "skill.category": "取证",
+        "caller": "due-diligence"
+      },
+      "events": []
+    },
+    {
+      "span_id": "38d2051102434a2c",
+      "parent_id": "f365689b3a974103",
+      "kind": "mcp",
+      "name": "credit-core-mcp.get_guarantee_ledger",
+      "start_unix_nano": 1786803765699066112,
+      "end_unix_nano": 1786803765699095040,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "mcp.server": "credit-core-mcp",
+        "mcp.tool": "get_guarantee_ledger",
+        "caller": "due-diligence",
+        "attempt": 1
+      },
+      "events": []
+    },
+    {
+      "span_id": "b74d689d881946a7",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "routing",
+      "name": "EVIDENCE→ADJUDICATION",
+      "start_unix_nano": 1786803765707266048,
+      "end_unix_nano": 1786803765707334912,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "routing_key": {
+          "phase": "EVIDENCE",
+          "signal_type": [
+            "judicial_new_case",
+            "registration_change",
+            "txn_concentrated_outflow"
+          ],
+          "evidence_sufficiency": 0.917,
+          "risk_tier": null,
+          "exposure_amount": 6200000
+        },
+        "rule_id": "R-04",
+        "rule_version": "v1.4.0",
+        "dispatch": [
+          "risk-analyst",
+          "devils-advocate"
+        ],
+        "parallel": true
+      },
+      "events": []
+    },
+    {
+      "span_id": "576533f81df644ec",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "agent",
+      "name": "risk-analyst",
+      "start_unix_nano": 1786803765707389952,
+      "end_unix_nano": 1786803781734161920,
+      "duration_ms": 16026.8,
+      "status": "OK",
+      "attributes": {
+        "caller": "risk-analyst"
+      },
+      "events": []
+    },
+    {
+      "span_id": "f8c747145147486f",
+      "parent_id": "576533f81df644ec",
+      "kind": "skill",
+      "name": "QueryRewrite",
+      "start_unix_nano": 1786803765707425024,
+      "end_unix_nano": 1786803765707684096,
+      "duration_ms": 0.3,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.0.0",
+        "skill.tier": "L3",
+        "skill.category": "知识",
+        "caller": "risk-analyst"
+      },
+      "events": []
+    },
+    {
+      "span_id": "d45897ab847c4f09",
+      "parent_id": "f8c747145147486f",
+      "kind": "rag",
+      "name": "query.rewrite",
+      "start_unix_nano": 1786803765707591936,
+      "end_unix_nano": 1786803765707665920,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "stance": "PROVE",
+        "dimensions": [
+          "signal_topic",
+          "stance"
+        ],
+        "subquery_count": 2,
+        "clarifications": 0,
+        "blocking_clarifications": 0
+      },
+      "events": []
+    },
+    {
+      "span_id": "6b4ae78635844eda",
+      "parent_id": "576533f81df644ec",
+      "kind": "skill",
+      "name": "PolicyRag",
+      "start_unix_nano": 1786803765707719936,
+      "end_unix_nano": 1786803765708058880,
+      "duration_ms": 0.3,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "2.0.0",
+        "skill.tier": "L2",
+        "skill.category": "知识",
+        "caller": "risk-analyst"
+      },
+      "events": []
+    },
+    {
+      "span_id": "659d98a1ba6f45ea",
+      "parent_id": "6b4ae78635844eda",
+      "kind": "rag",
+      "name": "policy.search",
+      "start_unix_nano": 1786803765707763968,
+      "end_unix_nano": 1786803765707954944,
+      "duration_ms": 0.2,
+      "status": "OK",
+      "attributes": {
+        "stance": "PROVE",
+        "dimensions": [
+          "signal_topic",
+          "stance"
+        ],
+        "subquery_count": 2,
+        "as_of": null,
+        "top_k": 3,
+        "hit_count": 3,
+        "filtered_by_recency": 0,
+        "hit_dimensions": [
+          "signal_topic",
+          "stance"
+        ]
+      },
+      "events": []
+    },
+    {
+      "span_id": "d36f112c22f34c1f",
+      "parent_id": "576533f81df644ec",
+      "kind": "skill",
+      "name": "CaseMemory",
+      "start_unix_nano": 1786803765708096000,
+      "end_unix_nano": 1786803765708194048,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.4.0",
+        "skill.tier": "L2",
+        "skill.category": "知识",
+        "caller": "risk-analyst"
+      },
+      "events": []
+    },
+    {
+      "span_id": "181188a6af82449d",
+      "parent_id": "d36f112c22f34c1f",
+      "kind": "rag",
+      "name": "case_memory.search",
+      "start_unix_nano": 1786803765708129024,
+      "end_unix_nano": 1786803765708165120,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "top_k": 3,
+        "as_of": null,
+        "hit_count": 3,
+        "filtered_by_recency": 0
+      },
+      "events": []
+    },
+    {
+      "span_id": "91ebd2e845dc4d62",
+      "parent_id": "576533f81df644ec",
+      "kind": "skill",
+      "name": "RiskRootCause",
+      "start_unix_nano": 1786803765708230912,
+      "end_unix_nano": 1786803781734089984,
+      "duration_ms": 16025.9,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "2.0.1",
+        "skill.tier": "L3",
+        "skill.category": "诊断",
+        "caller": "risk-analyst"
+      },
+      "events": []
+    },
+    {
+      "span_id": "0fd9ef8e9e004942",
+      "parent_id": "91ebd2e845dc4d62",
+      "kind": "llm",
+      "name": "risk_root_cause",
+      "start_unix_nano": 1786803765708553984,
+      "end_unix_nano": 1786803781733905920,
+      "duration_ms": 16025.4,
+      "status": "OK",
+      "attributes": {
+        "gen_ai.system": "live",
+        "gen_ai.operation.name": "chat",
+        "gen_ai.request.model": "qwen-max",
+        "model.profile": "custom-risk-analyst",
+        "model.family": "qwen",
+        "model.provider": "custom-risk-analyst",
+        "model.declared": "qwen-max",
+        "model.stubbed": false,
+        "prompt.name": "risk_root_cause",
+        "prompt.version": "2.0.0",
+        "context.manifest": {
+          "included": [
+            "facts",
+            "policy_context",
+            "similar_cases"
+          ],
+          "dropped": [],
+          "used_chars": 4201,
+          "budget_chars": 12000,
+          "utilization": 0.35
+        },
+        "gen_ai.usage.input_tokens": 4864,
+        "gen_ai.usage.output_tokens": 183
+      },
+      "events": []
+    },
+    {
+      "span_id": "6a458c7014724d94",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "agent",
+      "name": "devils-advocate",
+      "start_unix_nano": 1786803781740101120,
+      "end_unix_nano": 1786803790350287872,
+      "duration_ms": 8610.2,
+      "status": "OK",
+      "attributes": {
+        "caller": "devils-advocate"
+      },
+      "events": []
+    },
+    {
+      "span_id": "f63debc4cd784753",
+      "parent_id": "6a458c7014724d94",
+      "kind": "skill",
+      "name": "QueryRewrite",
+      "start_unix_nano": 1786803781740160000,
+      "end_unix_nano": 1786803781740431104,
+      "duration_ms": 0.3,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.0.0",
+        "skill.tier": "L3",
+        "skill.category": "知识",
+        "caller": "devils-advocate"
+      },
+      "events": []
+    },
+    {
+      "span_id": "ca70b0a3141745cd",
+      "parent_id": "f63debc4cd784753",
+      "kind": "rag",
+      "name": "query.rewrite",
+      "start_unix_nano": 1786803781740352000,
+      "end_unix_nano": 1786803781740406016,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "stance": "REFUTE",
+        "dimensions": [
+          "negation",
+          "signal_topic",
+          "stance",
+          "terminology"
+        ],
+        "subquery_count": 4,
+        "clarifications": 0,
+        "blocking_clarifications": 0
+      },
+      "events": []
+    },
+    {
+      "span_id": "51f7793f897f418e",
+      "parent_id": "6a458c7014724d94",
+      "kind": "skill",
+      "name": "PolicyRag",
+      "start_unix_nano": 1786803781740465920,
+      "end_unix_nano": 1786803781740869120,
+      "duration_ms": 0.4,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "2.0.0",
+        "skill.tier": "L2",
+        "skill.category": "知识",
+        "caller": "devils-advocate"
+      },
+      "events": []
+    },
+    {
+      "span_id": "f8287c84f4e943d5",
+      "parent_id": "51f7793f897f418e",
+      "kind": "rag",
+      "name": "policy.search",
+      "start_unix_nano": 1786803781740508928,
+      "end_unix_nano": 1786803781740741120,
+      "duration_ms": 0.2,
+      "status": "OK",
+      "attributes": {
+        "stance": "REFUTE",
+        "dimensions": [
+          "negation",
+          "signal_topic",
+          "stance",
+          "terminology"
+        ],
+        "subquery_count": 4,
+        "as_of": null,
+        "top_k": 3,
+        "hit_count": 3,
+        "filtered_by_recency": 0,
+        "hit_dimensions": [
+          "negation",
+          "signal_topic",
+          "stance"
+        ]
+      },
+      "events": []
+    },
+    {
+      "span_id": "123a56d0df694fef",
+      "parent_id": "6a458c7014724d94",
+      "kind": "skill",
+      "name": "CaseMemory",
+      "start_unix_nano": 1786803781740908032,
+      "end_unix_nano": 1786803781741004032,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "skill.version": "1.4.0",
+        "skill.tier": "L2",
+        "skill.category": "知识",
+        "caller": "devils-advocate"
+      },
+      "events": []
+    },
+    {
+      "span_id": "422551e3388a47cf",
+      "parent_id": "123a56d0df694fef",
+      "kind": "rag",
+      "name": "case_memory.search",
+      "start_unix_nano": 1786803781740941056,
+      "end_unix_nano": 1786803781740975104,
+      "duration_ms": 0.0,
+      "status": "OK",
+      "attributes": {
+        "top_k": 3,
+        "as_of": null,
+        "hit_count": 3,
+        "filtered_by_recency": 0
+      },
+      "events": []
+    },
+    {
+      "span_id": "34124b8d9ad34c09",
+      "parent_id": "6a458c7014724d94",
+      "kind": "llm",
+      "name": "devils_advocate",
+      "start_unix_nano": 1786803781741390080,
+      "end_unix_nano": 1786803790349498112,
+      "duration_ms": 8608.1,
+      "status": "OK",
+      "attributes": {
+        "gen_ai.system": "live",
+        "gen_ai.operation.name": "chat",
+        "gen_ai.request.model": "deepseek-v3",
+        "model.profile": "custom-devils-advocate",
+        "model.family": "deepseek",
+        "model.provider": "custom-devils-advocate",
+        "model.declared": "deepseek-v3",
+        "model.stubbed": false,
+        "prompt.name": "devils_advocate",
+        "prompt.version": "2.0.0",
+        "context.manifest": {
+          "included": [
+            "checklist",
+            "facts",
+            "assertion",
+            "policy_context",
+            "similar_cases"
+          ],
+          "dropped": [],
+          "used_chars": 4393,
+          "budget_chars": 12000,
+          "utilization": 0.366
+        },
+        "gen_ai.usage.input_tokens": 4977,
+        "gen_ai.usage.output_tokens": 196
+      },
+      "events": []
+    },
+    {
+      "span_id": "bd15278778d44a5d",
+      "parent_id": "6a458c7014724d94",
+      "kind": "adjudication",
+      "name": "质疑清单核对",
+      "start_unix_nano": 1786803790350180096,
+      "end_unix_nano": 1786803790350249984,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "coverage": 1.0,
+        "complete": true,
+        "unaddressed": []
+      },
+      "events": []
+    },
+    {
+      "span_id": "773410f46c554663",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "adjudication",
+      "name": "定性 ⇄ 质疑",
+      "start_unix_nano": 1786803790361474048,
+      "end_unix_nano": 1786803790361536000,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "verdict": "EVIDENCE_INSUFFICIENT",
+        "basis": "定性方自评证据不足，回退补证",
+        "rebuttal_coverage": 1.0,
+        "dissent": "analyst=INSUFFICIENT advocate=INSUFFICIENT_EVIDENCE"
+      },
+      "events": []
+    },
+    {
+      "span_id": "954d6586b3be4384",
+      "parent_id": "18bd80535cec4fa2",
+      "kind": "routing",
+      "name": "ADJUDICATION→EVIDENCE_GAP",
+      "start_unix_nano": 1786803790361628928,
+      "end_unix_nano": 1786803790361691904,
+      "duration_ms": 0.1,
+      "status": "OK",
+      "attributes": {
+        "routing_key": {
+          "phase": "ADJUDICATION",
+          "signal_type": [
+            "judicial_new_case",
+            "registration_change",
+            "txn_concentrated_outflow"
+          ],
+          "evidence_sufficiency": 0.933,
+          "risk_tier": null,
+          "exposure_amount": 6200000
+        },
+        "rule_id": "R-12",
+        "rule_version": "v1.4.0",
+        "dispatch": [],
+        "parallel": false
+      },
+      "events": []
+    }
+  ]
+}
