@@ -1,113 +1,88 @@
-└─ CASE  CASE-2026-0814-001                           15.7ms
+└─ CASE  CASE-2026-0814-001                            6.9ms
     ├─ ROUTE INTAKE→EVIDENCE                               0.0ms
     │       · routing_key = {'phase': 'INTAKE', 'signal_type': [], 'evidence_sufficiency': 0.0, 'risk_tier': None, 'exposure_amount': None}
     │       · rule_id = R-01
     │       · rule_version = v1.4.0
     ├─ AGENT signal-hub                                    0.1ms
     │   ├─ SKILL SignalFusion                                  0.0ms
-    │   └─ SKILL ExposureMapping                               0.1ms
+    │   └─ SKILL ExposureMapping                               0.0ms
     │       └─ MCP   credit-core-mcp.get_exposure                  0.0ms
     ├─ ROUTE EVIDENCE→EVIDENCE                             0.0ms
     │       · routing_key = {'phase': 'EVIDENCE', 'signal_type': ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'], 'evidence_sufficiency': 0.0, 'risk_tier': None, 'exposure_amount': 6200000}
     │       · rule_id = R-02
     │       · rule_version = v1.4.0
-    ├─ AGENT due-diligence                                 3.3ms
-    │   ├─ SKILL CreditReportProbe                             2.7ms
+    ├─ AGENT due-diligence                                 3.4ms
+    │   ├─ SKILL CreditReportProbe                             3.1ms
     │   │   ├─ MCP   bureau-mcp.get_credit_report                  2.5ms  [ERROR]
     │   │   ├─ MCP   bureau-mcp.get_credit_report                  0.0ms
     │   │   └─ MCP   bureau-mcp.diff_report                        0.0ms
-    │   ├─ SKILL LitigationProbe                               0.2ms
+    │   ├─ SKILL LitigationProbe                               0.1ms
     │   │   ├─ MCP   judicial-mcp.search_litigation                0.0ms
     │   │   ├─ MCP   judicial-mcp.get_change_history               0.0ms
     │   │   ├─ MCP   judicial-mcp.get_judgment_doc                 0.0ms
     │   │   ├─ MCP   judicial-mcp.get_judgment_doc                 0.0ms
     │   │   └─ MCP   judicial-mcp.get_judgment_doc                 0.0ms
-    │   ├─ SKILL TxnFlowAnalyze                                0.2ms
+    │   ├─ SKILL TxnFlowAnalyze                                0.1ms
     │   │   ├─ MCP   txn-mcp.get_flow_pattern                      0.0ms
     │   │   ├─ MCP   txn-mcp.get_counterparty_summary              0.0ms
     │   │   ├─ MCP   txn-mcp.query_transactions                    0.0ms
     │   │   └─ MCP   txn-mcp.query_transactions                    0.0ms
-    │   └─ SKILL GuaranteeProbe                                0.1ms
+    │   └─ SKILL GuaranteeProbe                                0.0ms
     │       └─ MCP   credit-core-mcp.get_guarantee_ledger          0.0ms
     ├─ ROUTE EVIDENCE→ADJUDICATION                         0.0ms
     │       · routing_key = {'phase': 'EVIDENCE', 'signal_type': ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'], 'evidence_sufficiency': 0.889, 'risk_tier': None, 'exposure_amount': 6200000}
     │       · rule_id = R-04
     │       · rule_version = v1.4.0
-    ├─ AGENT risk-analyst                                  3.2ms
+    ├─ AGENT risk-analyst                                  1.9ms
     │   ├─ SKILL QueryRewrite                                  0.1ms
     │   │   └─ RAG   query.rewrite                                 0.0ms
-    │   ├─ SKILL PolicyRag                                     0.2ms
-    │   │   └─ RAG   policy.search                                 0.1ms
-    │   ├─ SKILL CaseMemory                                    0.0ms
-    │   │   └─ RAG   case_memory.search                            0.0ms
-    │   └─ SKILL RiskRootCause                                 2.8ms
-    │       └─ LLM   risk_root_cause                               2.6ms  [ERROR]
-    ├─ AGENT devils-advocate                               2.6ms
-    │   ├─ SKILL QueryRewrite                                  0.1ms
-    │   │   └─ RAG   query.rewrite                                 0.0ms
-    │   ├─ SKILL PolicyRag                                     0.2ms
-    │   │   └─ RAG   policy.search                                 0.1ms
-    │   ├─ SKILL CaseMemory                                    0.0ms
-    │   │   └─ RAG   case_memory.search                            0.0ms
-    │   ├─ LLM   devils_advocate                               2.0ms  [ERROR]
-    │   └─ ADJUD 质疑清单核对                                        0.0ms
-    ├─ ADJUD 定性 ⇄ 质疑                                       0.0ms
-    │       · verdict = EVIDENCE_INSUFFICIENT
-    │       · basis = 定性方自评证据不足，回退补证
-    │       · dissent = analyst=INSUFFICIENT advocate=INSUFFICIENT_EVIDENCE
-    ├─ ROUTE ADJUDICATION→EVIDENCE                         0.0ms
-    │       · routing_key = {'phase': 'ADJUDICATION', 'signal_type': ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'], 'evidence_sufficiency': 0.933, 'risk_tier': None, 'exposure_amount': 6200000}
-    │       · rule_id = R-05
-    │       · rule_version = v1.4.0
-    ├─ AGENT due-diligence                                 0.8ms
-    │   ├─ SKILL CreditReportProbe                             0.1ms
-    │   │   ├─ MCP   bureau-mcp.get_credit_report                  0.0ms
-    │   │   └─ MCP   bureau-mcp.diff_report                        0.0ms
-    │   ├─ SKILL LitigationProbe                               0.2ms
-    │   │   ├─ MCP   judicial-mcp.search_litigation                0.0ms
-    │   │   ├─ MCP   judicial-mcp.get_change_history               0.0ms
-    │   │   ├─ MCP   judicial-mcp.get_judgment_doc                 0.0ms
-    │   │   ├─ MCP   judicial-mcp.get_judgment_doc                 0.0ms
-    │   │   └─ MCP   judicial-mcp.get_judgment_doc                 0.0ms
-    │   ├─ SKILL TxnFlowAnalyze                                0.3ms
-    │   │   ├─ MCP   txn-mcp.get_flow_pattern                      0.0ms
-    │   │   ├─ MCP   txn-mcp.get_counterparty_summary              0.0ms
-    │   │   ├─ MCP   txn-mcp.query_transactions                    0.0ms
-    │   │   └─ MCP   txn-mcp.query_transactions                    0.2ms
-    │   └─ SKILL GuaranteeProbe                                0.0ms
-    │       └─ MCP   credit-core-mcp.get_guarantee_ledger          0.0ms
-    ├─ ROUTE EVIDENCE→ADJUDICATION                         0.0ms
-    │       · routing_key = {'phase': 'EVIDENCE', 'signal_type': ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'], 'evidence_sufficiency': 0.917, 'risk_tier': None, 'exposure_amount': 6200000}
-    │       · rule_id = R-04
-    │       · rule_version = v1.4.0
-    ├─ AGENT risk-analyst                                  2.5ms
-    │   ├─ SKILL QueryRewrite                                  0.1ms
+    │   ├─ SKILL PolicyRag                                     1.2ms
+    │   │   └─ RAG   policy.search                                 0.7ms
+    │   ├─ SKILL CaseMemory                                    0.4ms
+    │   │   └─ RAG   case_memory.search                            0.4ms
+    │   └─ SKILL RiskRootCause                                 0.2ms
+    │       └─ LLM   risk_root_cause                               0.1ms
+    ├─ AGENT devils-advocate                               0.5ms
+    │   ├─ SKILL QueryRewrite                                  0.0ms
     │   │   └─ RAG   query.rewrite                                 0.0ms
     │   ├─ SKILL PolicyRag                                     0.1ms
     │   │   └─ RAG   policy.search                                 0.1ms
     │   ├─ SKILL CaseMemory                                    0.0ms
     │   │   └─ RAG   case_memory.search                            0.0ms
-    │   └─ SKILL RiskRootCause                                 2.2ms
-    │       └─ LLM   risk_root_cause                               2.0ms  [ERROR]
-    ├─ AGENT devils-advocate                               2.6ms
-    │   ├─ SKILL QueryRewrite                                  0.1ms
-    │   │   └─ RAG   query.rewrite                                 0.0ms
-    │   ├─ SKILL PolicyRag                                     0.2ms
-    │   │   └─ RAG   policy.search                                 0.1ms
-    │   ├─ SKILL CaseMemory                                    0.0ms
-    │   │   └─ RAG   case_memory.search                            0.0ms
-    │   ├─ LLM   devils_advocate                               2.0ms  [ERROR]
+    │   ├─ LLM   devils_advocate                               0.1ms
     │   └─ ADJUD 质疑清单核对                                        0.0ms
     ├─ ADJUD 定性 ⇄ 质疑                                       0.0ms
-    │       · verdict = EVIDENCE_INSUFFICIENT
-    │       · basis = 定性方自评证据不足，回退补证
-    │       · dissent = analyst=INSUFFICIENT advocate=INSUFFICIENT_EVIDENCE
-    ├─ ROUTE ADJUDICATION→EVIDENCE_GAP                     0.0ms
-    │       · routing_key = {'phase': 'ADJUDICATION', 'signal_type': ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'], 'evidence_sufficiency': 0.933, 'risk_tier': None, 'exposure_amount': 6200000}
-    │       · rule_id = R-12
+    │       · verdict = RISK_CONFIRMED
+    │       · basis = 质疑方已逐条尝试反驳但均不成立，定性结论采信
+    │       · dissent = analyst=RISK_CONFIRMED advocate=SUPPORTED
+    ├─ ROUTE ADJUDICATION→DISPOSITION                      0.0ms
+    │       · routing_key = {'phase': 'ADJUDICATION', 'signal_type': ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'], 'evidence_sufficiency': 0.933, 'risk_tier': '关注', 'exposure_amount': 6200000}
+    │       · rule_id = R-07
     │       · rule_version = v1.4.0
-    └─ AGENT compliance-auditor                            0.3ms
-        ├─ ADJUD 转人工交接                                         0.0ms
+    ├─ SKILL RiskGate                                      0.0ms
+    ├─ SKILL RiskGate                                      0.1ms
+    ├─ SKILL ReportCompose                                 0.5ms
+    ├─ ROUTE DISPOSITION→DISPOSITION                       0.0ms
+    │       · routing_key = {'phase': 'DISPOSITION', 'signal_type': ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'], 'evidence_sufficiency': 0.933, 'risk_tier': '关注', 'exposure_amount': 6200000}
+    │       · rule_id = R-09
+    │       · rule_version = v1.4.0
+    ├─ APPRV 等待人工审批                                        0.0ms
+    ├─ ROUTE DISPOSITION→AUDIT                             0.0ms
+    │       · routing_key = {'phase': 'DISPOSITION', 'signal_type': ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'], 'evidence_sufficiency': 0.933, 'risk_tier': '关注', 'exposure_amount': 6200000}
+    │       · rule_id = R-10
+    │       · rule_version = v1.4.0
+    ├─ AGENT disposition-executor                          0.1ms
+    │   ├─ SKILL SafeDisposition                               0.0ms
+    │   │   └─ EXEC  reduce_limit                                  0.0ms
+    │   │       └─ MCP   credit-core-mcp.adjust_limit                  0.0ms
+    │   └─ SKILL SafeDisposition                               0.0ms
+    │       └─ EXEC  add_guarantee                                 0.0ms
+    │           └─ MCP   credit-core-mcp.add_guarantee                 0.0ms
+    ├─ ROUTE AUDIT→CLOSED                                  0.0ms
+    │       · routing_key = {'phase': 'AUDIT', 'signal_type': ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'], 'evidence_sufficiency': 0.933, 'risk_tier': '关注', 'exposure_amount': 6200000}
+    │       · rule_id = R-11
+    │       · rule_version = v1.4.0
+    └─ AGENT compliance-auditor                            0.1ms
         ├─ SKILL ComplianceCheck                               0.0ms
         ├─ SKILL PostmortemDistill                             0.0ms
         │   └─ SKILL CaseMemory.write                              0.0ms
