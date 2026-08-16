@@ -1,15 +1,15 @@
 {
-  "trace_id": "9a925b1ecacd4cf0a38dac90e2e9d346",
+  "trace_id": "9ae745ed9e65495b83a8b60695473042",
   "span_count": 55,
   "spans": [
     {
-      "span_id": "784dbf637aa24414",
+      "span_id": "ad6961158e2448a9",
       "parent_id": null,
       "kind": "case",
       "name": "CASE-2026-0821-002",
-      "start_unix_nano": 1786855190965511936,
-      "end_unix_nano": 1786855190967365888,
-      "duration_ms": 1.9,
+      "start_unix_nano": 1786859147297673984,
+      "end_unix_nano": 1786859147299278080,
+      "duration_ms": 1.6,
       "status": "OK",
       "attributes": {
         "subject": "浙XX精密机械有限公司"
@@ -17,12 +17,12 @@
       "events": []
     },
     {
-      "span_id": "013580e2f9254d04",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "ec9c4db3bdcb4b0c",
+      "parent_id": "ad6961158e2448a9",
       "kind": "routing",
       "name": "INTAKE→EVIDENCE",
-      "start_unix_nano": 1786855190965528064,
-      "end_unix_nano": 1786855190965533952,
+      "start_unix_nano": 1786859147297687040,
+      "end_unix_nano": 1786859147297691904,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -43,12 +43,12 @@
       "events": []
     },
     {
-      "span_id": "cf9a618f66164299",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "59d6711260114150",
+      "parent_id": "ad6961158e2448a9",
       "kind": "agent",
       "name": "signal-hub",
-      "start_unix_nano": 1786855190965543936,
-      "end_unix_nano": 1786855190965613056,
+      "start_unix_nano": 1786859147297701120,
+      "end_unix_nano": 1786859147297754112,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -57,12 +57,12 @@
       "events": []
     },
     {
-      "span_id": "5f04bef50aad4bc7",
-      "parent_id": "cf9a618f66164299",
+      "span_id": "b6a76108954f4c02",
+      "parent_id": "59d6711260114150",
       "kind": "skill",
       "name": "SignalFusion",
-      "start_unix_nano": 1786855190965552896,
-      "end_unix_nano": 1786855190965569024,
+      "start_unix_nano": 1786859147297709056,
+      "end_unix_nano": 1786859147297722112,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -74,12 +74,12 @@
       "events": []
     },
     {
-      "span_id": "73290bcbe6614c3c",
-      "parent_id": "cf9a618f66164299",
+      "span_id": "6f06abcfdfaf456f",
+      "parent_id": "59d6711260114150",
       "kind": "skill",
       "name": "ExposureMapping",
-      "start_unix_nano": 1786855190965577984,
-      "end_unix_nano": 1786855190965612032,
+      "start_unix_nano": 1786859147297729024,
+      "end_unix_nano": 1786859147297753088,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -91,12 +91,12 @@
       "events": []
     },
     {
-      "span_id": "1f206ac3ddf94c12",
-      "parent_id": "73290bcbe6614c3c",
+      "span_id": "26a2863b00b1446c",
+      "parent_id": "6f06abcfdfaf456f",
       "kind": "mcp",
       "name": "credit-core-mcp.get_exposure",
-      "start_unix_nano": 1786855190965588992,
-      "end_unix_nano": 1786855190965605888,
+      "start_unix_nano": 1786859147297737984,
+      "end_unix_nano": 1786859147297747968,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -108,12 +108,12 @@
       "events": []
     },
     {
-      "span_id": "82c278b6211c4e09",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "0be66763b6fb4299",
+      "parent_id": "ad6961158e2448a9",
       "kind": "routing",
       "name": "EVIDENCE→EVIDENCE",
-      "start_unix_nano": 1786855190965628928,
-      "end_unix_nano": 1786855190965633024,
+      "start_unix_nano": 1786859147297767936,
+      "end_unix_nano": 1786859147297772032,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -138,13 +138,13 @@
       "events": []
     },
     {
-      "span_id": "28fa65e2afa74c87",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "34c26157e3524c4b",
+      "parent_id": "ad6961158e2448a9",
       "kind": "agent",
       "name": "due-diligence",
-      "start_unix_nano": 1786855190965641984,
-      "end_unix_nano": 1786855190966006016,
-      "duration_ms": 0.4,
+      "start_unix_nano": 1786859147297779968,
+      "end_unix_nano": 1786859147298094080,
+      "duration_ms": 0.3,
       "status": "OK",
       "attributes": {
         "caller": "due-diligence"
@@ -152,12 +152,12 @@
       "events": []
     },
     {
-      "span_id": "f330ef37063c423b",
-      "parent_id": "28fa65e2afa74c87",
+      "span_id": "15d4cda7383d4111",
+      "parent_id": "34c26157e3524c4b",
       "kind": "skill",
       "name": "CreditReportProbe",
-      "start_unix_nano": 1786855190965649920,
-      "end_unix_nano": 1786855190965733120,
+      "start_unix_nano": 1786859147297786880,
+      "end_unix_nano": 1786859147297857024,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -169,12 +169,12 @@
       "events": []
     },
     {
-      "span_id": "6f9fbb42c4e64140",
-      "parent_id": "f330ef37063c423b",
+      "span_id": "c686506d9ab943a3",
+      "parent_id": "15d4cda7383d4111",
       "kind": "mcp",
       "name": "bureau-mcp.get_credit_report",
-      "start_unix_nano": 1786855190965658880,
-      "end_unix_nano": 1786855190965672960,
+      "start_unix_nano": 1786859147297795072,
+      "end_unix_nano": 1786859147297807104,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -186,12 +186,12 @@
       "events": []
     },
     {
-      "span_id": "e42a87565f334f70",
-      "parent_id": "f330ef37063c423b",
+      "span_id": "7609f2c5f0724cb0",
+      "parent_id": "15d4cda7383d4111",
       "kind": "mcp",
       "name": "bureau-mcp.diff_report",
-      "start_unix_nano": 1786855190965680896,
-      "end_unix_nano": 1786855190965688064,
+      "start_unix_nano": 1786859147297814016,
+      "end_unix_nano": 1786859147297820928,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -203,12 +203,12 @@
       "events": []
     },
     {
-      "span_id": "605474d8775844b3",
-      "parent_id": "28fa65e2afa74c87",
+      "span_id": "9f27ef9943414def",
+      "parent_id": "34c26157e3524c4b",
       "kind": "skill",
       "name": "LitigationProbe",
-      "start_unix_nano": 1786855190965742080,
-      "end_unix_nano": 1786855190965835008,
+      "start_unix_nano": 1786859147297864960,
+      "end_unix_nano": 1786859147297944064,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -220,12 +220,12 @@
       "events": []
     },
     {
-      "span_id": "487c058ca6b64f39",
-      "parent_id": "605474d8775844b3",
+      "span_id": "1612902ec7ef4e0e",
+      "parent_id": "9f27ef9943414def",
       "kind": "mcp",
       "name": "judicial-mcp.search_litigation",
-      "start_unix_nano": 1786855190965751040,
-      "end_unix_nano": 1786855190965758976,
+      "start_unix_nano": 1786859147297872896,
+      "end_unix_nano": 1786859147297879040,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -237,12 +237,12 @@
       "events": []
     },
     {
-      "span_id": "d5af69ac743d4ce8",
-      "parent_id": "605474d8775844b3",
+      "span_id": "1431f6e8d8a64dac",
+      "parent_id": "9f27ef9943414def",
       "kind": "mcp",
       "name": "judicial-mcp.get_change_history",
-      "start_unix_nano": 1786855190965766912,
-      "end_unix_nano": 1786855190965773056,
+      "start_unix_nano": 1786859147297884928,
+      "end_unix_nano": 1786859147297890048,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -254,12 +254,12 @@
       "events": []
     },
     {
-      "span_id": "2bbdb96a2acc4973",
-      "parent_id": "605474d8775844b3",
+      "span_id": "501aacec183d4c70",
+      "parent_id": "9f27ef9943414def",
       "kind": "mcp",
       "name": "judicial-mcp.get_judgment_doc",
-      "start_unix_nano": 1786855190965779968,
-      "end_unix_nano": 1786855190965786112,
+      "start_unix_nano": 1786859147297896960,
+      "end_unix_nano": 1786859147297902080,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -271,12 +271,12 @@
       "events": []
     },
     {
-      "span_id": "bb3e3c4b029145b4",
-      "parent_id": "605474d8775844b3",
+      "span_id": "9cf44e85f65744cc",
+      "parent_id": "9f27ef9943414def",
       "kind": "mcp",
       "name": "judicial-mcp.get_judgment_doc",
-      "start_unix_nano": 1786855190965803008,
-      "end_unix_nano": 1786855190965808896,
+      "start_unix_nano": 1786859147297916928,
+      "end_unix_nano": 1786859147297922048,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -288,12 +288,12 @@
       "events": []
     },
     {
-      "span_id": "08b60406bb764898",
-      "parent_id": "28fa65e2afa74c87",
+      "span_id": "5b32e0d0c40d462c",
+      "parent_id": "34c26157e3524c4b",
       "kind": "skill",
       "name": "TxnFlowAnalyze",
-      "start_unix_nano": 1786855190965843968,
-      "end_unix_nano": 1786855190965944064,
+      "start_unix_nano": 1786859147297952000,
+      "end_unix_nano": 1786859147298039040,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -305,12 +305,12 @@
       "events": []
     },
     {
-      "span_id": "cf71d87437b64231",
-      "parent_id": "08b60406bb764898",
+      "span_id": "a07f1ca01db5426a",
+      "parent_id": "5b32e0d0c40d462c",
       "kind": "mcp",
       "name": "txn-mcp.get_flow_pattern",
-      "start_unix_nano": 1786855190965852928,
-      "end_unix_nano": 1786855190965860096,
+      "start_unix_nano": 1786859147297959936,
+      "end_unix_nano": 1786859147297966080,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -322,12 +322,12 @@
       "events": []
     },
     {
-      "span_id": "b84e5f1b3d7448fd",
-      "parent_id": "08b60406bb764898",
+      "span_id": "f64a2c63f4b14441",
+      "parent_id": "5b32e0d0c40d462c",
       "kind": "mcp",
       "name": "txn-mcp.get_counterparty_summary",
-      "start_unix_nano": 1786855190965868032,
-      "end_unix_nano": 1786855190965873920,
+      "start_unix_nano": 1786859147297971968,
+      "end_unix_nano": 1786859147297978112,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -339,12 +339,12 @@
       "events": []
     },
     {
-      "span_id": "799cb83d579a44ef",
-      "parent_id": "08b60406bb764898",
+      "span_id": "4550deac498346e6",
+      "parent_id": "5b32e0d0c40d462c",
       "kind": "mcp",
       "name": "txn-mcp.query_transactions",
-      "start_unix_nano": 1786855190965882112,
-      "end_unix_nano": 1786855190965893888,
+      "start_unix_nano": 1786859147297984000,
+      "end_unix_nano": 1786859147297996032,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -356,12 +356,12 @@
       "events": []
     },
     {
-      "span_id": "a9c993ff4d8d4477",
-      "parent_id": "08b60406bb764898",
+      "span_id": "c7d338d243844542",
+      "parent_id": "5b32e0d0c40d462c",
       "kind": "mcp",
       "name": "txn-mcp.query_transactions",
-      "start_unix_nano": 1786855190965902080,
-      "end_unix_nano": 1786855190965913088,
+      "start_unix_nano": 1786859147298002944,
+      "end_unix_nano": 1786859147298011904,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -373,12 +373,12 @@
       "events": []
     },
     {
-      "span_id": "e9d1cbbe1b204157",
-      "parent_id": "28fa65e2afa74c87",
+      "span_id": "e2b8a58e40d44ac8",
+      "parent_id": "34c26157e3524c4b",
       "kind": "skill",
       "name": "GuaranteeProbe",
-      "start_unix_nano": 1786855190965952000,
-      "end_unix_nano": 1786855190965982976,
+      "start_unix_nano": 1786859147298046976,
+      "end_unix_nano": 1786859147298073088,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -390,12 +390,12 @@
       "events": []
     },
     {
-      "span_id": "89131fecf7a241ec",
-      "parent_id": "e9d1cbbe1b204157",
+      "span_id": "86a7d4d992644639",
+      "parent_id": "e2b8a58e40d44ac8",
       "kind": "mcp",
       "name": "credit-core-mcp.get_guarantee_ledger",
-      "start_unix_nano": 1786855190965960960,
-      "end_unix_nano": 1786855190965967104,
+      "start_unix_nano": 1786859147298054912,
+      "end_unix_nano": 1786859147298060032,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -407,12 +407,12 @@
       "events": []
     },
     {
-      "span_id": "356d7731b9f84419",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "30a86fbccab14d62",
+      "parent_id": "ad6961158e2448a9",
       "kind": "routing",
       "name": "EVIDENCE→ADJUDICATION",
-      "start_unix_nano": 1786855190966022912,
-      "end_unix_nano": 1786855190966028032,
+      "start_unix_nano": 1786859147298108928,
+      "end_unix_nano": 1786859147298113024,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -438,12 +438,12 @@
       "events": []
     },
     {
-      "span_id": "502020449c0b4cf0",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "58fe183cf1b74529",
+      "parent_id": "ad6961158e2448a9",
       "kind": "agent",
       "name": "risk-analyst",
-      "start_unix_nano": 1786855190966035968,
-      "end_unix_nano": 1786855190966483968,
+      "start_unix_nano": 1786859147298119936,
+      "end_unix_nano": 1786859147298507008,
       "duration_ms": 0.4,
       "status": "OK",
       "attributes": {
@@ -452,13 +452,13 @@
       "events": []
     },
     {
-      "span_id": "d86ebe44f8b94d38",
-      "parent_id": "502020449c0b4cf0",
+      "span_id": "1380941a1b084303",
+      "parent_id": "58fe183cf1b74529",
       "kind": "skill",
       "name": "QueryRewrite",
-      "start_unix_nano": 1786855190966044928,
-      "end_unix_nano": 1786855190966099968,
-      "duration_ms": 0.1,
+      "start_unix_nano": 1786859147298127872,
+      "end_unix_nano": 1786859147298176000,
+      "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
         "skill.version": "1.0.0",
@@ -469,12 +469,12 @@
       "events": []
     },
     {
-      "span_id": "2ac43b7e9f3b4121",
-      "parent_id": "d86ebe44f8b94d38",
+      "span_id": "cc33db2089a842d6",
+      "parent_id": "1380941a1b084303",
       "kind": "rag",
       "name": "query.rewrite",
-      "start_unix_nano": 1786855190966094080,
-      "end_unix_nano": 1786855190966098944,
+      "start_unix_nano": 1786859147298170880,
+      "end_unix_nano": 1786859147298174976,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -490,12 +490,12 @@
       "events": []
     },
     {
-      "span_id": "b82f87c2fe9748c0",
-      "parent_id": "502020449c0b4cf0",
+      "span_id": "7ee6f8799eb44f5f",
+      "parent_id": "58fe183cf1b74529",
       "kind": "skill",
       "name": "PolicyRag",
-      "start_unix_nano": 1786855190966107904,
-      "end_unix_nano": 1786855190966202880,
+      "start_unix_nano": 1786859147298181888,
+      "end_unix_nano": 1786859147298265088,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -507,12 +507,12 @@
       "events": []
     },
     {
-      "span_id": "4f05263e534843a0",
-      "parent_id": "b82f87c2fe9748c0",
+      "span_id": "feaa029573e146b9",
+      "parent_id": "7ee6f8799eb44f5f",
       "kind": "rag",
       "name": "policy.search",
-      "start_unix_nano": 1786855190966117120,
-      "end_unix_nano": 1786855190966178048,
+      "start_unix_nano": 1786859147298190080,
+      "end_unix_nano": 1786859147298243072,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -534,12 +534,12 @@
       "events": []
     },
     {
-      "span_id": "d3c378f1986c41c8",
-      "parent_id": "502020449c0b4cf0",
+      "span_id": "9a5e4fbb20944ef1",
+      "parent_id": "58fe183cf1b74529",
       "kind": "skill",
       "name": "CaseMemory",
-      "start_unix_nano": 1786855190966211072,
-      "end_unix_nano": 1786855190966231040,
+      "start_unix_nano": 1786859147298272000,
+      "end_unix_nano": 1786859147298289920,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -551,12 +551,12 @@
       "events": []
     },
     {
-      "span_id": "1dd6db3a58544be9",
-      "parent_id": "d3c378f1986c41c8",
+      "span_id": "21508087bc2e49cc",
+      "parent_id": "9a5e4fbb20944ef1",
       "kind": "rag",
       "name": "case_memory.search",
-      "start_unix_nano": 1786855190966219008,
-      "end_unix_nano": 1786855190966228992,
+      "start_unix_nano": 1786859147298278912,
+      "end_unix_nano": 1786859147298288128,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -568,12 +568,12 @@
       "events": []
     },
     {
-      "span_id": "4e8ec0e431ea412f",
-      "parent_id": "502020449c0b4cf0",
+      "span_id": "0aa77343f34b41cb",
+      "parent_id": "58fe183cf1b74529",
       "kind": "skill",
       "name": "RiskRootCause",
-      "start_unix_nano": 1786855190966237952,
-      "end_unix_nano": 1786855190966479104,
+      "start_unix_nano": 1786859147298297088,
+      "end_unix_nano": 1786859147298502912,
       "duration_ms": 0.2,
       "status": "OK",
       "attributes": {
@@ -585,12 +585,12 @@
       "events": []
     },
     {
-      "span_id": "fdb0215b81514714",
-      "parent_id": "4e8ec0e431ea412f",
+      "span_id": "002a2f8a6ace4d88",
+      "parent_id": "0aa77343f34b41cb",
       "kind": "llm",
       "name": "risk_root_cause",
-      "start_unix_nano": 1786855190966351872,
-      "end_unix_nano": 1786855190966469888,
+      "start_unix_nano": 1786859147298395904,
+      "end_unix_nano": 1786859147298496000,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -621,12 +621,12 @@
       "events": []
     },
     {
-      "span_id": "c986665efb564621",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "76c483be05cf4c12",
+      "parent_id": "ad6961158e2448a9",
       "kind": "agent",
       "name": "devils-advocate",
-      "start_unix_nano": 1786855190966502912,
-      "end_unix_nano": 1786855190967042048,
+      "start_unix_nano": 1786859147298525952,
+      "end_unix_nano": 1786859147298995968,
       "duration_ms": 0.5,
       "status": "OK",
       "attributes": {
@@ -635,13 +635,13 @@
       "events": []
     },
     {
-      "span_id": "681748fb816c438f",
-      "parent_id": "c986665efb564621",
+      "span_id": "f7139df0031a4479",
+      "parent_id": "76c483be05cf4c12",
       "kind": "skill",
       "name": "QueryRewrite",
-      "start_unix_nano": 1786855190966512128,
-      "end_unix_nano": 1786855190966567936,
-      "duration_ms": 0.1,
+      "start_unix_nano": 1786859147298533120,
+      "end_unix_nano": 1786859147298582016,
+      "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
         "skill.version": "1.0.0",
@@ -652,12 +652,12 @@
       "events": []
     },
     {
-      "span_id": "d6fadf5e47bf4345",
-      "parent_id": "681748fb816c438f",
+      "span_id": "ae09735c5318429e",
+      "parent_id": "f7139df0031a4479",
       "kind": "rag",
       "name": "query.rewrite",
-      "start_unix_nano": 1786855190966561024,
-      "end_unix_nano": 1786855190966566912,
+      "start_unix_nano": 1786859147298575872,
+      "end_unix_nano": 1786859147298580992,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -675,12 +675,12 @@
       "events": []
     },
     {
-      "span_id": "238722ea60c64f51",
-      "parent_id": "c986665efb564621",
+      "span_id": "cb3965eeb9f74e2b",
+      "parent_id": "76c483be05cf4c12",
       "kind": "skill",
       "name": "PolicyRag",
-      "start_unix_nano": 1786855190966575104,
-      "end_unix_nano": 1786855190966691072,
+      "start_unix_nano": 1786859147298588928,
+      "end_unix_nano": 1786859147298691072,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -692,12 +692,12 @@
       "events": []
     },
     {
-      "span_id": "ba8e4128414c45e8",
-      "parent_id": "238722ea60c64f51",
+      "span_id": "8f334a5a09b2414d",
+      "parent_id": "cb3965eeb9f74e2b",
       "kind": "rag",
       "name": "policy.search",
-      "start_unix_nano": 1786855190966584064,
-      "end_unix_nano": 1786855190966667008,
+      "start_unix_nano": 1786859147298596096,
+      "end_unix_nano": 1786859147298669056,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -722,12 +722,12 @@
       "events": []
     },
     {
-      "span_id": "70814de3a98642ae",
-      "parent_id": "c986665efb564621",
+      "span_id": "2890c9fe76634aa7",
+      "parent_id": "76c483be05cf4c12",
       "kind": "skill",
       "name": "CaseMemory",
-      "start_unix_nano": 1786855190966699008,
-      "end_unix_nano": 1786855190966717952,
+      "start_unix_nano": 1786859147298697984,
+      "end_unix_nano": 1786859147298714112,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -739,12 +739,12 @@
       "events": []
     },
     {
-      "span_id": "02c595acd2144dc0",
-      "parent_id": "70814de3a98642ae",
+      "span_id": "03e19568ef5d4f12",
+      "parent_id": "2890c9fe76634aa7",
       "kind": "rag",
       "name": "case_memory.search",
-      "start_unix_nano": 1786855190966706944,
-      "end_unix_nano": 1786855190966715904,
+      "start_unix_nano": 1786859147298704896,
+      "end_unix_nano": 1786859147298712064,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -756,12 +756,12 @@
       "events": []
     },
     {
-      "span_id": "8552702b506d4ce7",
-      "parent_id": "c986665efb564621",
+      "span_id": "ff2f0f935b2e4963",
+      "parent_id": "76c483be05cf4c12",
       "kind": "llm",
       "name": "devils_advocate",
-      "start_unix_nano": 1786855190966863872,
-      "end_unix_nano": 1786855190967013120,
+      "start_unix_nano": 1786859147298841088,
+      "end_unix_nano": 1786859147298970112,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -794,12 +794,12 @@
       "events": []
     },
     {
-      "span_id": "751224434367413a",
-      "parent_id": "c986665efb564621",
+      "span_id": "ed67c969be6d4e6c",
+      "parent_id": "76c483be05cf4c12",
       "kind": "adjudication",
       "name": "质疑清单核对",
-      "start_unix_nano": 1786855190967028992,
-      "end_unix_nano": 1786855190967037952,
+      "start_unix_nano": 1786859147298984960,
+      "end_unix_nano": 1786859147298992896,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -810,12 +810,12 @@
       "events": []
     },
     {
-      "span_id": "367233566a3d4515",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "9e336b7786dd4d94",
+      "parent_id": "ad6961158e2448a9",
       "kind": "adjudication",
       "name": "定性 ⇄ 质疑",
-      "start_unix_nano": 1786855190967063040,
-      "end_unix_nano": 1786855190967066880,
+      "start_unix_nano": 1786859147299014912,
+      "end_unix_nano": 1786859147299019008,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -827,12 +827,12 @@
       "events": []
     },
     {
-      "span_id": "97c8b56f932c45fa",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "a8f553ad473f4c1e",
+      "parent_id": "ad6961158e2448a9",
       "kind": "routing",
       "name": "ADJUDICATION→DISPOSITION",
-      "start_unix_nano": 1786855190967083008,
-      "end_unix_nano": 1786855190967087104,
+      "start_unix_nano": 1786859147299032064,
+      "end_unix_nano": 1786859147299035904,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -855,12 +855,12 @@
       "events": []
     },
     {
-      "span_id": "2c0b7209fc364c40",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "d3bbb6abe585457d",
+      "parent_id": "ad6961158e2448a9",
       "kind": "skill",
       "name": "RiskGate",
-      "start_unix_nano": 1786855190967101952,
-      "end_unix_nano": 1786855190967138048,
+      "start_unix_nano": 1786859147299049984,
+      "end_unix_nano": 1786859147299080960,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -872,13 +872,13 @@
       "events": []
     },
     {
-      "span_id": "007f160509d64847",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "9f395b3ff673458f",
+      "parent_id": "ad6961158e2448a9",
       "kind": "skill",
       "name": "ReportCompose",
-      "start_unix_nano": 1786855190967149056,
-      "end_unix_nano": 1786855190967203072,
-      "duration_ms": 0.1,
+      "start_unix_nano": 1786859147299089920,
+      "end_unix_nano": 1786859147299137024,
+      "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
         "skill.version": "1.7.0",
@@ -889,12 +889,12 @@
       "events": []
     },
     {
-      "span_id": "91956955b7624a33",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "cf68df9a5be042ce",
+      "parent_id": "ad6961158e2448a9",
       "kind": "routing",
       "name": "DISPOSITION→AUDIT",
-      "start_unix_nano": 1786855190967218944,
-      "end_unix_nano": 1786855190967223040,
+      "start_unix_nano": 1786859147299150080,
+      "end_unix_nano": 1786859147299153920,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -919,12 +919,12 @@
       "events": []
     },
     {
-      "span_id": "a80701815d9243f8",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "656337c2d79147bc",
+      "parent_id": "ad6961158e2448a9",
       "kind": "agent",
       "name": "disposition-executor",
-      "start_unix_nano": 1786855190967232000,
-      "end_unix_nano": 1786855190967245056,
+      "start_unix_nano": 1786859147299162112,
+      "end_unix_nano": 1786859147299173120,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -933,12 +933,12 @@
       "events": []
     },
     {
-      "span_id": "a212494a5dbf4936",
-      "parent_id": "a80701815d9243f8",
+      "span_id": "487a615baad7486e",
+      "parent_id": "656337c2d79147bc",
       "kind": "skill",
       "name": "SafeDisposition",
-      "start_unix_nano": 1786855190967240960,
-      "end_unix_nano": 1786855190967244032,
+      "start_unix_nano": 1786859147299169024,
+      "end_unix_nano": 1786859147299171072,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -950,12 +950,12 @@
       "events": []
     },
     {
-      "span_id": "8a3f9b5d9a2b4e51",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "55b822309ece4b9f",
+      "parent_id": "ad6961158e2448a9",
       "kind": "routing",
       "name": "AUDIT→CLOSED",
-      "start_unix_nano": 1786855190967260928,
-      "end_unix_nano": 1786855190967265024,
+      "start_unix_nano": 1786859147299186944,
+      "end_unix_nano": 1786859147299191040,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -980,12 +980,12 @@
       "events": []
     },
     {
-      "span_id": "25bfde6e9b254976",
-      "parent_id": "784dbf637aa24414",
+      "span_id": "14119e2b9c2c41cc",
+      "parent_id": "ad6961158e2448a9",
       "kind": "agent",
       "name": "compliance-auditor",
-      "start_unix_nano": 1786855190967272960,
-      "end_unix_nano": 1786855190967362048,
+      "start_unix_nano": 1786859147299196928,
+      "end_unix_nano": 1786859147299275008,
       "duration_ms": 0.1,
       "status": "OK",
       "attributes": {
@@ -994,12 +994,12 @@
       "events": []
     },
     {
-      "span_id": "1b7a8f3c0309483e",
-      "parent_id": "25bfde6e9b254976",
+      "span_id": "fbf909c537264022",
+      "parent_id": "14119e2b9c2c41cc",
       "kind": "skill",
       "name": "ComplianceCheck",
-      "start_unix_nano": 1786855190967280896,
-      "end_unix_nano": 1786855190967304960,
+      "start_unix_nano": 1786859147299204096,
+      "end_unix_nano": 1786859147299224064,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -1011,12 +1011,12 @@
       "events": []
     },
     {
-      "span_id": "3627eb1bc02240bc",
-      "parent_id": "25bfde6e9b254976",
+      "span_id": "47207ee806eb4ea3",
+      "parent_id": "14119e2b9c2c41cc",
       "kind": "skill",
       "name": "PostmortemDistill",
-      "start_unix_nano": 1786855190967311872,
-      "end_unix_nano": 1786855190967323904,
+      "start_unix_nano": 1786859147299230976,
+      "end_unix_nano": 1786859147299241984,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -1028,12 +1028,12 @@
       "events": []
     },
     {
-      "span_id": "71f03c363a1940c2",
-      "parent_id": "3627eb1bc02240bc",
+      "span_id": "2d2b661c37044765",
+      "parent_id": "47207ee806eb4ea3",
       "kind": "skill",
       "name": "CaseMemory.write",
-      "start_unix_nano": 1786855190967321088,
-      "end_unix_nano": 1786855190967322112,
+      "start_unix_nano": 1786859147299238912,
+      "end_unix_nano": 1786859147299240960,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {
@@ -1042,12 +1042,12 @@
       "events": []
     },
     {
-      "span_id": "bd6d2eee81d244ec",
-      "parent_id": "25bfde6e9b254976",
+      "span_id": "3e482156e6f140bc",
+      "parent_id": "14119e2b9c2c41cc",
       "kind": "skill",
       "name": "ReportCompose",
-      "start_unix_nano": 1786855190967330048,
-      "end_unix_nano": 1786855190967361024,
+      "start_unix_nano": 1786859147299248128,
+      "end_unix_nano": 1786859147299273984,
       "duration_ms": 0.0,
       "status": "OK",
       "attributes": {

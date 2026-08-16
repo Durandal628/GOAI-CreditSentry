@@ -8,7 +8,7 @@
     "current_grade": "正常",
     "manager": "客户经理-林"
   },
-  "phase": "CLOSED",
+  "phase": "EVIDENCE_GAP",
   "version": 5,
   "risk_event": {
     "event_id": "RE-CASE-2026-0814-001",
@@ -113,8 +113,8 @@
           "_redacted_fields": []
         },
         "evidence_ids": [
-          "EV-001-0001",
-          "EV-001-0002"
+          "EV-001-0016",
+          "EV-001-0017"
         ]
       },
       "litigation": {
@@ -149,9 +149,9 @@
         ],
         "source_doc_uri": "s3://mock-judicial/search/SUB-330100-88217.json",
         "evidence_ids": [
-          "EV-001-0003",
-          "EV-001-0004",
-          "EV-001-0005"
+          "EV-001-0018",
+          "EV-001-0019",
+          "EV-001-0020"
         ]
       },
       "registration": {
@@ -166,7 +166,7 @@
         "detail": "法定代表人由 王XX 变更为 陈XX；同期股东出资比例调整",
         "source_doc_uri": "s3://mock-judicial/change/SUB-330100-88217.json",
         "evidence_ids": [
-          "EV-001-0006"
+          "EV-001-0021"
         ]
       },
       "transaction": {
@@ -181,7 +181,7 @@
         "coverage": 0.96,
         "undersampled": false,
         "evidence_ids": [
-          "EV-001-0007"
+          "EV-001-0022"
         ]
       },
       "guarantee": {
@@ -189,7 +189,7 @@
         "distressed_guarantee": 0.0,
         "distressed_parties": [],
         "evidence_ids": [
-          "EV-001-0008"
+          "EV-001-0023"
         ]
       }
     }
@@ -231,217 +231,40 @@
     "contagion_multiple": 1.34
   },
   "assertion": {
-    "conclusion": "RISK_CONFIRMED",
-    "root_causes": [
-      {
-        "type": "资金用途异常",
-        "confidence": 0.62,
-        "evidence_ids": [
-          "EV-001-0007"
-        ],
-        "rationale": "流水识别到 2 类异常模式（集中转出、整数化），存在资金用途偏离嫌疑"
-      },
-      {
-        "type": "实际控制人风险",
-        "confidence": 0.58,
-        "evidence_ids": [
-          "EV-001-0006"
-        ],
-        "rationale": "报告期内发生法定代表人变更，需关注公司治理与实控人稳定性"
-      },
-      {
-        "type": "偿债能力恶化",
-        "confidence": 0.55,
-        "evidence_ids": [
-          "EV-001-0003",
-          "EV-001-0004",
-          "EV-001-0005"
-        ],
-        "rationale": "报告期内新增涉诉 3 笔，标的合计占敞口 0.0%，存在对偿债能力形成压力的可能"
-      }
-    ],
-    "suggested_grade": "关注",
-    "summary": "主因判定为「资金用途异常」（置信度 0.62）：流水识别到 2 类异常模式（集中转出、整数化），存在资金用途偏离嫌疑。建议五级分类调整为「关注」。"
+    "conclusion": "INSUFFICIENT",
+    "root_causes": [],
+    "suggested_grade": null,
+    "summary": "定性推理未能产出合规结论（输出契约校验未通过且修复轮已用尽），按失败策略判为证据不足并回退补证，不得据此进入处置",
+    "degraded": true
   },
   "rebuttal": {
-    "verdict": "SUPPORTED",
+    "verdict": "INSUFFICIENT_EVIDENCE",
     "rebuttals": [],
-    "attempted_but_failed": [
-      {
-        "target": "偿债能力恶化",
-        "tried": "尝试论证涉诉不具实质性",
-        "failed_because": "2 笔涉诉满足实质性条件（未结案、我方为被告、单笔标的占敞口 ≥ 5%），反驳不成立"
-      },
-      {
-        "target": "资金用途异常",
-        "tried": "尝试论证集中转出属正常经营资金调度",
-        "failed_because": "对手方经穿透确认为关联方，资金流向体外，无法用正常采购解释"
-      },
-      {
-        "target": "实际控制人风险",
-        "tried": "尝试论证法代变更属常规治理调整",
-        "failed_because": "变更时点与风险事件窗口重合"
-      }
+    "attempted_but_failed": [],
+    "evidence_gaps": [
+      "质疑推理未能产出合规输出：输出契约校验未通过且修复轮已用尽"
     ],
-    "evidence_gaps": [],
-    "surviving_causes": [
-      "偿债能力恶化",
-      "实际控制人风险",
-      "资金用途异常"
-    ],
-    "checklist_resolutions": [
-      {
-        "item_id": "R1",
-        "target": "资金用途异常",
-        "status": "ATTEMPTED_FAILED",
-        "resolution": "尝试论证集中转出属正常经营资金调度；对手方经穿透确认为关联方，资金流向体外，无法用正常采购解释",
-        "evidence_ids": []
-      },
-      {
-        "item_id": "R2",
-        "target": "实际控制人风险",
-        "status": "ATTEMPTED_FAILED",
-        "resolution": "尝试论证法代变更属常规治理调整；变更时点与风险事件窗口重合",
-        "evidence_ids": []
-      },
-      {
-        "item_id": "R3",
-        "target": "偿债能力恶化",
-        "status": "ATTEMPTED_FAILED",
-        "resolution": "尝试论证涉诉不具实质性；2 笔涉诉满足实质性条件（未结案、我方为被告、单笔标的占敞口 ≥ 5%），反驳不成立",
-        "evidence_ids": []
-      }
-    ],
-    "summary": "已尝试逐条反驳但均不成立，定性结论成立"
+    "surviving_causes": [],
+    "checklist_resolutions": [],
+    "summary": "质疑环节失效，按 fail-safe 判定为质疑未完成，阻断进入处置",
+    "degraded": true
   },
   "adjudication": {
-    "verdict": "RISK_CONFIRMED",
-    "basis": "质疑方已逐条尝试反驳但均不成立，定性结论采信",
-    "final_grade": "关注",
-    "surviving_causes": [
-      "偿债能力恶化",
-      "实际控制人风险",
-      "资金用途异常"
-    ],
+    "verdict": "EVIDENCE_INSUFFICIENT",
+    "basis": "定性方自评证据不足，回退补证",
+    "final_grade": null,
+    "surviving_causes": [],
     "rebuttal_coverage": 1.0,
     "dissent": {
-      "analyst_conclusion": "RISK_CONFIRMED",
-      "advocate_verdict": "SUPPORTED",
+      "analyst_conclusion": "INSUFFICIENT",
+      "advocate_verdict": "INSUFFICIENT_EVIDENCE",
       "rebuttals": [],
-      "attempted_but_failed": [
-        {
-          "target": "偿债能力恶化",
-          "tried": "尝试论证涉诉不具实质性",
-          "failed_because": "2 笔涉诉满足实质性条件（未结案、我方为被告、单笔标的占敞口 ≥ 5%），反驳不成立"
-        },
-        {
-          "target": "资金用途异常",
-          "tried": "尝试论证集中转出属正常经营资金调度",
-          "failed_because": "对手方经穿透确认为关联方，资金流向体外，无法用正常采购解释"
-        },
-        {
-          "target": "实际控制人风险",
-          "tried": "尝试论证法代变更属常规治理调整",
-          "failed_because": "变更时点与风险事件窗口重合"
-        }
-      ]
+      "attempted_but_failed": []
     }
   },
-  "gate": {
-    "action": "reduce_limit",
-    "params": {
-      "subject_id": "SUB-330100-88217",
-      "new_limit": 4340000
-    },
-    "label": "授信额度压降 30%",
-    "action_label": "授信额度压降",
-    "action_tier": "L2",
-    "needs_approval": true,
-    "approver_roles": [
-      "风险经理"
-    ],
-    "idempotency_key": "idem-2968bf64bee852e5f6bc",
-    "rollback_point": "额度冲正至原值",
-    "reversible": true,
-    "rule_id": "G-08",
-    "reason": "授信额度压降 基线层级 L2",
-    "actions": [
-      {
-        "action": "reduce_limit",
-        "params": {
-          "subject_id": "SUB-330100-88217",
-          "new_limit": 4340000
-        },
-        "label": "授信额度压降 30%",
-        "action_label": "授信额度压降",
-        "action_tier": "L2",
-        "needs_approval": true,
-        "approver_roles": [
-          "风险经理"
-        ],
-        "idempotency_key": "idem-2968bf64bee852e5f6bc",
-        "rollback_point": "额度冲正至原值",
-        "reversible": true,
-        "rule_id": "G-08",
-        "reason": "授信额度压降 基线层级 L2"
-      },
-      {
-        "action": "add_guarantee",
-        "params": {
-          "subject_id": "SUB-330100-88217",
-          "guarantee_type": "实控人连带责任担保"
-        },
-        "label": "追加实控人连带责任担保",
-        "action_label": "追加担保要求",
-        "action_tier": "L2",
-        "needs_approval": true,
-        "approver_roles": [
-          "风险经理"
-        ],
-        "idempotency_key": "idem-9bd770faedfbda745f22",
-        "rollback_point": "解除追加要求",
-        "reversible": true,
-        "rule_id": "G-08",
-        "reason": "追加担保要求 基线层级 L2"
-      }
-    ],
-    "opinion_report": {
-      "template_id": "处置意见书",
-      "markdown": "# 风险处置意见书\n\n| 项目 | 内容 |\n|---|---|\n| 案件编号 | CASE-2026-0814-001 |\n| 客户名称 | 浙XX精密机械有限公司（SUB-330100-88217） |\n| 所属行业 | 通用设备制造 · 浙江杭州 |\n| 当前分类 | 正常 |\n| 当前敞口 | 6,200,000 元 |\n| 担保圈规模 | 3 户，传染敞口 8,300,000 元 |\n\n## 一、风险信号\n本次共接收预警信号 8 条，经归并降噪后保留 3 条，降噪率 62.5%。有效信号类型：judicial_new_case、registration_change、txn_concentrated_outflow。\n\n被归并或压降的信号（全部可回溯）：\n\n| 信号 | 来源 | 处理原因 |\n|---|---|---|\n| 新增涉诉信息 3 条（重复推送） | 内部预警平台 | 重复推送，与既有信号归并 |\n| 本地论坛提及公司名称（无实质内容） | 舆情监控 | 信号类型 media_mention 无实质风险指向 |\n| 行业资讯列表提及（无实质内容） | 舆情监控 | 信号类型 media_mention 无实质风险指向 |\n| 季度评级例行复核提醒 | 内部预警平台 | 信号类型 rating_periodic 无实质风险指向 |\n| 季度评级例行复核提醒（重复推送） | 内部预警平台 | 重复推送，与既有信号归并 |\n\n## 二、定性结论与依据\n**定性方结论**：主因判定为「资金用途异常」（置信度 0.62）：流水识别到 2 类异常模式（集中转出、整数化），存在资金用途偏离嫌疑。建议五级分类调整为「关注」。\n\n| 根因候选 | 置信度 | 依据 | 证据引用 |\n|---|---|---|---|\n| 资金用途异常 | 0.62 | 流水识别到 2 类异常模式（集中转出、整数化），存在资金用途偏离嫌疑 | [EV-001-0007] |\n| 实际控制人风险 | 0.58 | 报告期内发生法定代表人变更，需关注公司治理与实控人稳定性 | [EV-001-0006] |\n| 偿债能力恶化 | 0.55 | 报告期内新增涉诉 3 笔，标的合计占敞口 0.0%，存在对偿债能力形成压力的可能 | [EV-001-0003][EV-001-0004][EV-001-0005] |\n\n## 三、对抗质疑结论\n**质疑方结论**：已尝试逐条反驳但均不成立，定性结论成立（verdict = `SUPPORTED`）\n\n已尝试但未能成立的反驳（记录在案以支撑处置结论）：\n\n- 针对「偿债能力恶化」：尝试论证涉诉不具实质性 —— 未成立，原因：2 笔涉诉满足实质性条件（未结案、我方为被告、单笔标的占敞口 ≥ 5%），反驳不成立\n- 针对「资金用途异常」：尝试论证集中转出属正常经营资金调度 —— 未成立，原因：对手方经穿透确认为关联方，资金流向体外，无法用正常采购解释\n- 针对「实际控制人风险」：尝试论证法代变更属常规治理调整 —— 未成立，原因：变更时点与风险事件窗口重合\n\n## 四、裁决\n- **裁决结论**：`RISK_CONFIRMED`\n- **裁决依据**：质疑方已逐条尝试反驳但均不成立，定性结论采信\n- **裁决规则**：证据等级优先于置信度\n- **建议分类**：关注\n\n## 五、处置方案与执行闸门\n\n| 动作 | 层级 | 可逆 | 需审批 | 回滚手段 | 定级规则 | 判定理由 |\n|---|---|---|---|---|---|---|\n| 授信额度压降 30% | **L2** | 是 | 是 | 额度冲正至原值 | `G-08` | 授信额度压降 基线层级 L2 |\n| 追加实控人连带责任担保 | **L2** | 是 | 是 | 解除追加要求 | `G-08` | 追加担保要求 基线层级 L2 |\n\n## 六、证据清单\n\n共登记证据 15 条，证据充分度 **0.933**。\n\n| 证据编号 | 来源 | 类型 | 等级 | 定级理由 | 内容哈希 |\n|---|---|---|---|---|---|\n| EV-001-0001 | bureau-mcp | credit_report | 强 | 来源权威且原文可溯源 | `sha256:f31b85f93a414b2…` |\n| EV-001-0002 | bureau-mcp | credit_diff | 强 | 来源权威且原文可溯源 | `sha256:b71dd67b7dae02f…` |\n| EV-001-0003 | judicial-mcp | litigation_case | 强 | 来源权威且原文可溯源 | `sha256:f6534a7f13370e2…` |\n| EV-001-0004 | judicial-mcp | litigation_case | 强 | 来源权威且原文可溯源 | `sha256:42c81db5628c6a7…` |\n| EV-001-0005 | judicial-mcp | litigation_case | 强 | 来源权威且原文可溯源 | `sha256:4076c0f95ea5a50…` |\n| EV-001-0006 | judicial-mcp | registration_change | 强 | 来源权威且原文可溯源 | `sha256:1effdea83ead991…` |\n| EV-001-0007 | txn-mcp | flow_pattern | 强 | 来源权威且原文可溯源 | `sha256:8c75d65e834abce…` |\n| EV-001-0008 | credit-core-mcp | guarantee_ledger | 强 | 来源权威系统直取 | `sha256:1d0c02208e1acbe…` |\n| EV-001-0009 | - | financial_statement | 缺失 | 缺少最近一期财务报表，无法验证经营性现金流 | `sha256:454d2dc239cfc44…` |\n| EV-001-0010 | policy-kb | policy_clause | 强 | 政策条款原文可溯源、生效日期在案件时点之前 | `sha256:f6a720429077903…` |\n| EV-001-0011 | policy-kb | policy_clause | 强 | 政策条款原文可溯源、生效日期在案件时点之前 | `sha256:f08c5405a67a44e…` |\n| EV-001-0012 | policy-kb | policy_clause | 强 | 政策条款原文可溯源、生效日期在案件时点之前 | `sha256:d97c834038f4731…` |\n| EV-001-0013 | policy-kb | policy_clause | 强 | 政策条款原文可溯源、生效日期在案件时点之前 | `sha256:d97c834038f4731…` |\n| EV-001-0014 | policy-kb | policy_clause | 强 | 政策条款原文可溯源、生效日期在案件时点之前 | `sha256:f6a720429077903…` |\n| EV-001-0015 | policy-kb | policy_clause | 强 | 政策条款原文可溯源、生效日期在案件时点之前 | `sha256:83940b60ad8db56…` |\n\n> 本意见书由信衡 CreditSentry 自动生成。所有结论均挂载可溯源证据引用，证据原文快照存于证据账本，账本 append-only 不可篡改。",
-      "archive_uri": "s3://creditsentry-reports/CASE-2026-0814-001/处置意见书.md"
-    }
-  },
-  "approval": {
-    "token": "apv-CASE-2026-0814-001-e5f6bc",
-    "approver": "风险经理-赵",
-    "decision": "APPROVED",
-    "reason": "要求先补充最近一期财务报表后再议",
-    "channel": "Matrix room @risk-manager"
-  },
-  "execution": {
-    "status": "SUCCESS",
-    "results": [
-      {
-        "action": "reduce_limit",
-        "label": "授信额度压降 30%",
-        "status": "SUCCESS",
-        "old_limit": 8000000,
-        "new_limit": 4340000,
-        "rollback_point_id": "RP-001-001",
-        "audit_serial": "AUD-CASE-2026-0814-001-001",
-        "effective_at": "2026-08-14T10:23:41Z"
-      },
-      {
-        "action": "add_guarantee",
-        "label": "追加实控人连带责任担保",
-        "status": "SUCCESS",
-        "guarantee_type": "实控人连带责任担保",
-        "rollback_point_id": "RP-001-002",
-        "audit_serial": "AUD-CASE-2026-0814-001-002",
-        "effective_at": "2026-08-14T10:23:52Z"
-      }
-    ]
-  },
+  "gate": null,
+  "approval": null,
+  "execution": null,
   "audit": {
     "compliance": {
       "items": [
@@ -454,14 +277,14 @@
         {
           "rule_id": "C-02",
           "source": "《内部控制指引》授权审批",
-          "result": "PASS",
-          "detail": "L2 动作已取得有效审批令牌"
+          "result": "N/A",
+          "detail": "本次为 L0/L1 动作，无需审批"
         },
         {
           "rule_id": "C-03",
           "source": "《内部控制指引》不相容职务分离",
           "result": "PASS",
-          "detail": "执行方 {'disposition-executor'}，审计方 {'compliance-auditor'}，职责分离成立"
+          "detail": "执行方 无，审计方 {'compliance-auditor'}，职责分离成立"
         },
         {
           "rule_id": "C-04",
@@ -473,40 +296,65 @@
           "rule_id": "C-05",
           "source": "《贷后管理指引》留痕要求",
           "result": "PASS",
-          "detail": "全链路留痕 62 条 Span，含路由决策与裁决依据"
+          "detail": "全链路留痕 87 条 Span，含路由决策与裁决依据"
         },
         {
           "rule_id": "C-06",
           "source": "《贷后管理指引》处置结果核验",
-          "result": "PASS",
-          "detail": "处置状态 SUCCESS"
+          "result": "N/A",
+          "detail": "本次未产生处置动作"
         }
       ],
-      "passed": 6,
+      "passed": 4,
       "failed": 0,
       "remediation": []
     },
     "distilled": {
       "risk_pattern": {
         "pattern_id": "RP-CASE-2026-0814-001",
-        "description": "涉诉实质性 + 关联方集中转出 + 法代变更时点重合，三信号共振",
-        "trigger": "单笔涉诉标的占敞口 ≥ 5% 且未结案；资金集中转出对手方经穿透为关联方；法代变更落在风险窗口内",
-        "key_points": "三条线索需相互印证；仅凭其一不足以定性",
-        "counter_example": "若涉诉均已结案且我方为原告、转出对手方为稳定供应商，则不成立（见 CASE-2026-0821-002）",
-        "boundary": "适用于小微与对公信贷贷后；零售信贷不适用"
+        "description": "表面三信号齐发但个案层面均不具实质性的典型误报",
+        "trigger": "涉诉标的占比 < 5% 且已结案、我方为原告；转出对手方为非关联供应商且落在历史波动区间；法代变更早于风险窗口且股权未变",
+        "key_points": "聚合信号相似不代表风险相似，必须下钻个案层面",
+        "counter_example": "同主体 CASE-2026-0814-001 信号类型完全相同但个案实质性成立",
+        "boundary": "本模式用于抑制误报，不可用于放宽真实风险的判定"
       },
       "written_to": "knowledge_base/risk_patterns"
     },
     "report": {
-      "template_id": "审计报告",
-      "markdown": "# 贷后风险处置审计报告\n\n| 项目 | 内容 |\n|---|---|\n| 案件编号 | CASE-2026-0814-001 |\n| 客户名称 | 浙XX精密机械有限公司 |\n| 审计执行方 | compliance-auditor（与执行方职责分离） |\n| 合规项通过 | 6 / 6 |\n\n## 一、处置结果核验\n\n| 动作 | 执行状态 | 审计流水号 | 回滚点 |\n|---|---|---|---|\n| 授信额度压降 30% | SUCCESS | AUD-CASE-2026-0814-001-001 | RP-001-001 |\n| 追加实控人连带责任担保 | SUCCESS | AUD-CASE-2026-0814-001-002 | RP-001-002 |\n\n## 二、合规项逐条核查\n\n| 规则 | 条款出处 | 结论 | 核查详情 |\n|---|---|---|---|\n| `C-01` | 《内部控制指引》记录留存 | 通过 | 全部结论均挂载有效证据引用 |\n| `C-02` | 《内部控制指引》授权审批 | 通过 | L2 动作已取得有效审批令牌 |\n| `C-03` | 《内部控制指引》不相容职务分离 | 通过 | 执行方 {'disposition-executor'}，审计方 {'compliance-auditor'}，职责分离成立 |\n| `C-04` | 行内风险评审双人复核要求 | 通过 | 对抗质疑环节已执行 |\n| `C-05` | 《贷后管理指引》留痕要求 | 通过 | 全链路留痕 62 条 Span，含路由决策与裁决依据 |\n| `C-06` | 《贷后管理指引》处置结果核验 | 通过 | 处置状态 SUCCESS |\n\n## 三、证据链完备性\n\n- 证据总数 **15** 条：强 14 / 弱 0 / 缺失 1\n- 证据充分度 **0.933**\n- 无证据结论数 **0**　— 全部结论均可举证\n\n已登记的证据缺口：\n\n- [EV-001-0009] financial_statement：缺少最近一期财务报表，无法验证经营性现金流\n\n## 四、经验沉淀\n\n- **模式编号**：`RP-CASE-2026-0814-001`\n- **模式描述**：涉诉实质性 + 关联方集中转出 + 法代变更时点重合，三信号共振\n- **触发条件**：单笔涉诉标的占敞口 ≥ 5% 且未结案；资金集中转出对手方经穿透为关联方；法代变更落在风险窗口内\n- **判定要点**：三条线索需相互印证；仅凭其一不足以定性\n- **反例说明**：若涉诉均已结案且我方为原告、转出对手方为稳定供应商，则不成立（见 CASE-2026-0821-002）\n- **适用边界**：适用于小微与对公信贷贷后；零售信贷不适用\n\n已回流至：`knowledge_base/risk_patterns`\n\n## 五、阶段迁移轨迹\n\n| 从 | 到 | 迁移原因 |\n|---|---|---|\n| INTAKE | EVIDENCE | 新预警进入，先做信号归并与敞口测绘 |\n| EVIDENCE | ADJUDICATION | 证据充分，强制并行派发定性与质疑（质疑环节为硬约束，不可跳过） |\n| ADJUDICATION | DISPOSITION | 裁决风险成立，进入处置阶段执行闸门定级 |\n| DISPOSITION | AUDIT | L2 动作条件满足，派发执行后进入审计 |\n\n> 本审计报告由 compliance-auditor 独立生成，该 Agent 无任何处置执行权限，满足《商业银行内部控制指引》不相容职务分离要求。",
-      "archive_uri": "s3://creditsentry-reports/CASE-2026-0814-001/审计报告.md"
+      "template_id": "取证任务清单",
+      "markdown": "# 取证任务清单 · 转人工交接单\n\n| 项目 | 内容 |\n|---|---|\n| 案件编号 | CASE-2026-0814-001 |\n| 客户名称 | 浙XX精密机械有限公司（SUB-330100-88217） |\n| 当前分类 | 正常 |\n| 移交原因 | **推理环节失效**（devils-advocate、risk-analyst），按失败即阻断处置。注意证据充分度为 0.933，材料本身未必不足 |\n| 移交时状态 | 未定论（**系统未对本案作出任何风险结论**） |\n\n> ⚠ **本次移交不是因为材料不够，而是系统自身的推理环节没能产出合规结论。**\n> - risk-analyst 的 risk_root_cause（累计 2 次）：输出契约校验未通过且修复轮已用尽　→ conclusion=INSUFFICIENT 并回退补证\n> - devils-advocate 的 devils_advocate（累计 2 次）：输出契约校验未通过且修复轮已用尽　→ verdict=INSUFFICIENT_EVIDENCE 并阻断\n> 请先由技术侧核查该环节，再判断是否需要补充材料。\n\n## 一、为什么停在这里\n\n本案共回退补证 **1** 轮，每轮均因推理环节失效而未能完成裁决。\n\n阶段轨迹：\n\n```\nINTAKE → EVIDENCE → ADJUDICATION → EVIDENCE → ADJUDICATION → EVIDENCE_GAP\n```\n\n- **INTAKE → EVIDENCE**　新预警进入，先做信号归并与敞口测绘\n- **ADJUDICATION → EVIDENCE**　分歧源于证据缺失，回退 EVIDENCE 补证（全流程唯一回退边）\n- **ADJUDICATION → EVIDENCE_GAP**　裁决已连续 2 次判定证据不足，回退次数用尽，输出取证清单转人工\n\n> 系统在这里停下，是因为**证据不足时给结论就是编**。回退带重试上限，用尽即转人工——这是一条有界且失败即阻断的路径。\n\n## 二、已经查到了什么（不必重复劳动）\n\n已取得并登记 **7** 类材料（账本内共 28 条记录，含补证重取），证据充分度 **0.933**（进入裁决需 ≥ 0.7）。\n\n| 材料 | 来源 | 等级 | 证据编号 |\n|---|---|---|---|\n| 征信报告 | bureau-mcp | 强 | [EV-001-0001][EV-001-0016] |\n| 征信期间变动比对 | bureau-mcp | 强 | [EV-001-0002][EV-001-0017] |\n| 涉诉案件 | judicial-mcp | 强 | [EV-001-0003][EV-001-0004][EV-001-0005] 等 6 次 |\n| 工商登记变更 | judicial-mcp | 强 | [EV-001-0006][EV-001-0021] |\n| 账户交易流水 | txn-mcp | 强 | [EV-001-0007][EV-001-0022] |\n| 对外担保台账 | credit-core-mcp | 强 | [EV-001-0008][EV-001-0023] |\n| policy_clause | policy-kb | 强 | [EV-001-0010][EV-001-0011][EV-001-0012] 等 12 次 |\n\n触发本案的信号类型：judicial_new_case、registration_change、txn_concentrated_outflow。\n\n## 三、还缺什么，找谁补\n\n共 **1** 项待补，其中 **0** 项可由系统重取、**1** 项必须人工获取。\n\n| # | 缺失材料 | 去哪里取 | 授权要求 | 责任岗位 | 建议动作 |\n|---|---|---|---|---|---|\n| 1 ⚠ | 最近一期财务报表 | 客户提供（不在任何可查系统内） | 需客户配合 | 客户经理 | 联系客户索取最近一期资产负债表与利润表，用于验证经营性现金流 |\n\n- **最近一期财务报表**：缺少最近一期财务报表，无法验证经营性现金流\n\n> ⚠ 标记的 1 项**不在任何可查系统内**，系统重试多少次都拿不到，只能由 客户经理 去获取。这正是本案必须转人工的原因。\n\n## 四、补齐之后怎么办\n\n1. 按上表补齐材料，在系统内登记为证据；\n2. 证据充分度达到 0.7 以上后，案件可重新进入自动处置流程；\n3. 若确认材料无法取得，请在系统内标注原因并按人工流程出具处置意见——**此时不得引用本单子作为风险结论**，它只说明系统未能定论。\n\n## 五、本次流程的合规留痕\n\n| 结果 | 合规项 | 说明 |\n|---|---|---|\n| 通过 | C-01 《内部控制指引》记录留存 | 全部结论均挂载有效证据引用 |\n| 不适用 | C-02 《内部控制指引》授权审批 | 本次为 L0/L1 动作，无需审批 |\n| 通过 | C-03 《内部控制指引》不相容职务分离 | 执行方 无，审计方 {'compliance-auditor'}，职责分离成立 |\n| 通过 | C-04 行内风险评审双人复核要求 | 对抗质疑环节已执行 |\n| 通过 | C-05 《贷后管理指引》留痕要求 | 全链路留痕 87 条 Span，含路由决策与裁决依据 |\n| 不适用 | C-06 《贷后管理指引》处置结果核验 | 本次未产生处置动作 |\n\n> 「我们看过、没能定论、于是转人工」这个过程本身也要可举证——否则事后无法区分「查过但材料不足」与「根本没查」。\n\n---\n\n本单由 compliance-auditor 生成于案件移交时点；全过程轨迹见 `trace.json`，取数记录见 `mcp_audit.jsonl`。",
+      "archive_uri": "s3://creditsentry-reports/CASE-2026-0814-001/取证任务清单.md"
     }
   },
-  "handoff": null,
+  "handoff": {
+    "tasks": [
+      {
+        "label": "最近一期财务报表",
+        "system": "客户提供（不在任何可查系统内）",
+        "authorization": "需客户配合",
+        "owner": "客户经理",
+        "automatable": false,
+        "action": "联系客户索取最近一期资产负债表与利润表，用于验证经营性现金流",
+        "fact_type": "financial_statement",
+        "why": "缺少最近一期财务报表，无法验证经营性现金流",
+        "evidence_id": "EV-001-0009"
+      }
+    ],
+    "manual_required": 1,
+    "report": {
+      "template_id": "取证任务清单",
+      "markdown": "# 取证任务清单 · 转人工交接单\n\n| 项目 | 内容 |\n|---|---|\n| 案件编号 | CASE-2026-0814-001 |\n| 客户名称 | 浙XX精密机械有限公司（SUB-330100-88217） |\n| 当前分类 | 正常 |\n| 移交原因 | **推理环节失效**（devils-advocate、risk-analyst），按失败即阻断处置。注意证据充分度为 0.933，材料本身未必不足 |\n| 移交时状态 | 未定论（**系统未对本案作出任何风险结论**） |\n\n> ⚠ **本次移交不是因为材料不够，而是系统自身的推理环节没能产出合规结论。**\n> - risk-analyst 的 risk_root_cause（累计 2 次）：输出契约校验未通过且修复轮已用尽　→ conclusion=INSUFFICIENT 并回退补证\n> - devils-advocate 的 devils_advocate（累计 2 次）：输出契约校验未通过且修复轮已用尽　→ verdict=INSUFFICIENT_EVIDENCE 并阻断\n> 请先由技术侧核查该环节，再判断是否需要补充材料。\n\n## 一、为什么停在这里\n\n本案共回退补证 **1** 轮，每轮均因推理环节失效而未能完成裁决。\n\n阶段轨迹：\n\n```\nINTAKE → EVIDENCE → ADJUDICATION → EVIDENCE → ADJUDICATION → EVIDENCE_GAP\n```\n\n- **INTAKE → EVIDENCE**　新预警进入，先做信号归并与敞口测绘\n- **ADJUDICATION → EVIDENCE**　分歧源于证据缺失，回退 EVIDENCE 补证（全流程唯一回退边）\n- **ADJUDICATION → EVIDENCE_GAP**　裁决已连续 2 次判定证据不足，回退次数用尽，输出取证清单转人工\n\n> 系统在这里停下，是因为**证据不足时给结论就是编**。回退带重试上限，用尽即转人工——这是一条有界且失败即阻断的路径。\n\n## 二、已经查到了什么（不必重复劳动）\n\n已取得并登记 **7** 类材料（账本内共 28 条记录，含补证重取），证据充分度 **0.933**（进入裁决需 ≥ 0.7）。\n\n| 材料 | 来源 | 等级 | 证据编号 |\n|---|---|---|---|\n| 征信报告 | bureau-mcp | 强 | [EV-001-0001][EV-001-0016] |\n| 征信期间变动比对 | bureau-mcp | 强 | [EV-001-0002][EV-001-0017] |\n| 涉诉案件 | judicial-mcp | 强 | [EV-001-0003][EV-001-0004][EV-001-0005] 等 6 次 |\n| 工商登记变更 | judicial-mcp | 强 | [EV-001-0006][EV-001-0021] |\n| 账户交易流水 | txn-mcp | 强 | [EV-001-0007][EV-001-0022] |\n| 对外担保台账 | credit-core-mcp | 强 | [EV-001-0008][EV-001-0023] |\n| policy_clause | policy-kb | 强 | [EV-001-0010][EV-001-0011][EV-001-0012] 等 12 次 |\n\n触发本案的信号类型：judicial_new_case、registration_change、txn_concentrated_outflow。\n\n## 三、还缺什么，找谁补\n\n共 **1** 项待补，其中 **0** 项可由系统重取、**1** 项必须人工获取。\n\n| # | 缺失材料 | 去哪里取 | 授权要求 | 责任岗位 | 建议动作 |\n|---|---|---|---|---|---|\n| 1 ⚠ | 最近一期财务报表 | 客户提供（不在任何可查系统内） | 需客户配合 | 客户经理 | 联系客户索取最近一期资产负债表与利润表，用于验证经营性现金流 |\n\n- **最近一期财务报表**：缺少最近一期财务报表，无法验证经营性现金流\n\n> ⚠ 标记的 1 项**不在任何可查系统内**，系统重试多少次都拿不到，只能由 客户经理 去获取。这正是本案必须转人工的原因。\n\n## 四、补齐之后怎么办\n\n1. 按上表补齐材料，在系统内登记为证据；\n2. 证据充分度达到 0.7 以上后，案件可重新进入自动处置流程；\n3. 若确认材料无法取得，请在系统内标注原因并按人工流程出具处置意见——**此时不得引用本单子作为风险结论**，它只说明系统未能定论。\n\n## 五、本次流程的合规留痕\n\n| 结果 | 合规项 | 说明 |\n|---|---|---|\n| 通过 | C-01 《内部控制指引》记录留存 | 全部结论均挂载有效证据引用 |\n| 不适用 | C-02 《内部控制指引》授权审批 | 本次为 L0/L1 动作，无需审批 |\n| 通过 | C-03 《内部控制指引》不相容职务分离 | 执行方 无，审计方 {'compliance-auditor'}，职责分离成立 |\n| 通过 | C-04 行内风险评审双人复核要求 | 对抗质疑环节已执行 |\n| 通过 | C-05 《贷后管理指引》留痕要求 | 全链路留痕 87 条 Span，含路由决策与裁决依据 |\n| 不适用 | C-06 《贷后管理指引》处置结果核验 | 本次未产生处置动作 |\n\n> 「我们看过、没能定论、于是转人工」这个过程本身也要可举证——否则事后无法区分「查过但材料不足」与「根本没查」。\n\n---\n\n本单由 compliance-auditor 生成于案件移交时点；全过程轨迹见 `trace.json`，取数记录见 `mcp_audit.jsonl`。",
+      "archive_uri": "s3://creditsentry-reports/CASE-2026-0814-001/取证任务清单.md"
+    }
+  },
   "evidence_gaps": [
     {
       "evidence_id": "EV-001-0009",
+      "fact_type": "financial_statement",
+      "why": "缺少最近一期财务报表，无法验证经营性现金流"
+    },
+    {
+      "evidence_id": "EV-001-0024",
       "fact_type": "financial_statement",
       "why": "缺少最近一期财务报表，无法验证经营性现金流"
     }
@@ -525,53 +373,28 @@
     },
     {
       "from": "ADJUDICATION",
-      "to": "DISPOSITION",
-      "reason": "裁决风险成立，进入处置阶段执行闸门定级"
+      "to": "EVIDENCE",
+      "reason": "分歧源于证据缺失，回退 EVIDENCE 补证（全流程唯一回退边）"
     },
     {
-      "from": "DISPOSITION",
-      "to": "AUDIT",
-      "reason": "L2 动作条件满足，派发执行后进入审计"
+      "from": "EVIDENCE",
+      "to": "ADJUDICATION",
+      "reason": "证据充分，强制并行派发定性与质疑（质疑环节为硬约束，不可跳过）"
     },
     {
-      "from": "AUDIT",
-      "to": "CLOSED",
-      "reason": "执行审计核验、合规逐条校验与经验沉淀，案件闭环"
+      "from": "ADJUDICATION",
+      "to": "EVIDENCE_GAP",
+      "reason": "裁决已连续 2 次判定证据不足，回退次数用尽，输出取证清单转人工"
     }
   ],
   "retry_counts": {
-    "EVIDENCE": 1
+    "EVIDENCE": 2
   },
   "rebuttal_checklist": {
     "kind": "rebuttal",
     "coverage": 1.0,
     "complete": true,
-    "items": [
-      {
-        "item_id": "R1",
-        "target": "资金用途异常",
-        "why": "定性方以置信度 0.62 主张该主因成立，依据 ['EV-001-0007']",
-        "status": "ATTEMPTED_FAILED",
-        "resolution": "尝试论证集中转出属正常经营资金调度；对手方经穿透确认为关联方，资金流向体外，无法用正常采购解释",
-        "evidence_ids": []
-      },
-      {
-        "item_id": "R2",
-        "target": "实际控制人风险",
-        "why": "定性方以置信度 0.58 主张该主因成立，依据 ['EV-001-0006']",
-        "status": "ATTEMPTED_FAILED",
-        "resolution": "尝试论证法代变更属常规治理调整；变更时点与风险事件窗口重合",
-        "evidence_ids": []
-      },
-      {
-        "item_id": "R3",
-        "target": "偿债能力恶化",
-        "why": "定性方以置信度 0.55 主张该主因成立，依据 ['EV-001-0003', 'EV-001-0004', 'EV-001-0005']",
-        "status": "ATTEMPTED_FAILED",
-        "resolution": "尝试论证涉诉不具实质性；2 笔涉诉满足实质性条件（未结案、我方为被告、单笔标的占敞口 ≥ 5%），反驳不成立",
-        "evidence_ids": []
-      }
-    ],
+    "items": [],
     "unaddressed": []
   },
   "evidence_checklist": {
@@ -586,7 +409,7 @@
         "status": "COLLECTED",
         "resolution": "已取得，证据等级强",
         "evidence_ids": [
-          "EV-001-0005"
+          "EV-001-0020"
         ]
       },
       {
@@ -596,7 +419,7 @@
         "status": "COLLECTED",
         "resolution": "已取得，证据等级强",
         "evidence_ids": [
-          "EV-001-0006"
+          "EV-001-0021"
         ]
       },
       {
@@ -606,13 +429,81 @@
         "status": "COLLECTED",
         "resolution": "已取得，证据等级强",
         "evidence_ids": [
-          "EV-001-0007"
+          "EV-001-0022"
         ]
       }
     ],
     "unaddressed": []
   },
   "query_plans": [
+    {
+      "caller": "risk-analyst",
+      "stance": "PROVE",
+      "as_of": null,
+      "dimensions_used": [
+        "signal_topic",
+        "stance"
+      ],
+      "subqueries": [
+        {
+          "dimension": "stance",
+          "text": "涉诉 资金用途 五级分类 偿债能力 认定标准 构成要件 风险信号 应当 监测 处置",
+          "why": "求证方检索构成要件与认定标准",
+          "weight": 1.0,
+          "filters": {}
+        },
+        {
+          "dimension": "signal_topic",
+          "text": "偿债能力 公司治理 受托支付 实际控制人 涉诉信息 资金流向监测 资金用途真实性 重大事项报告 风险分类",
+          "why": "由信号类型 ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'] 展开条款主题，使检索由案件事实驱动",
+          "weight": 1.0,
+          "filters": {}
+        }
+      ],
+      "clarifications": []
+    },
+    {
+      "caller": "devils-advocate",
+      "stance": "REFUTE",
+      "as_of": null,
+      "dimensions_used": [
+        "negation",
+        "signal_topic",
+        "stance",
+        "terminology"
+      ],
+      "subqueries": [
+        {
+          "dimension": "stance",
+          "text": "涉诉认定口径 资金异常 波动区间 担保代偿 认定门槛 除外情形 不构成 豁免 不适用 例外",
+          "why": "证伪方检索认定门槛与除外情形——正向检索找不到除外条款",
+          "weight": 1.0,
+          "filters": {}
+        },
+        {
+          "dimension": "terminology",
+          "text": "或有负债 保证责任 担保代偿",
+          "why": "行内口语「代偿」映射为监管术语，否则检不到条款原文",
+          "weight": 0.9,
+          "filters": {}
+        },
+        {
+          "dimension": "signal_topic",
+          "text": "偿债能力 公司治理 受托支付 实际控制人 涉诉信息 资金流向监测 资金用途真实性 重大事项报告 风险分类",
+          "why": "由信号类型 ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'] 展开条款主题，使检索由案件事实驱动",
+          "weight": 1.0,
+          "filters": {}
+        },
+        {
+          "dimension": "negation",
+          "text": "涉诉认定口径 资金异常 波动区间 担保代偿 不构成 除外 豁免 不适用 认定门槛",
+          "why": "质疑方最容易漏的是除外条款；正向检索天然覆盖不到",
+          "weight": 1.1,
+          "filters": {}
+        }
+      ],
+      "clarifications": []
+    },
     {
       "caller": "risk-analyst",
       "stance": "PROVE",

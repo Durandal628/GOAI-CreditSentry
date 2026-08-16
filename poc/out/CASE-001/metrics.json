@@ -1,50 +1,93 @@
 {
   "case_id": "CASE-2026-0814-001",
   "label": "链路 A · 风险成立 → 分级处置",
-  "llm_mode": "stub",
+  "llm_mode": "live",
   "as_of_date": null,
   "model_usage": {
-    "mode": "stub",
+    "mode": "live",
     "by_caller": {
       "risk-analyst": {
-        "profile": "analyst-primary",
-        "family": "qwen",
-        "provider": "dashscope",
-        "declared_model": "qwen-max",
-        "actual_model": "deterministic-reasoner/v1",
-        "stubbed": true,
-        "calls": 1,
-        "tokens_in": 2124,
-        "tokens_out": 282,
+        "profile": "mock-analyst",
+        "family": "mock-alpha",
+        "provider": "local-mock",
+        "declared_model": "mock-alpha",
+        "actual_model": "mock-alpha",
+        "stubbed": false,
+        "calls": 2,
+        "tokens_in": 11042,
+        "tokens_out": 44,
         "cost_cny": 0.0,
         "repairs": 0,
-        "failures": 0,
-        "latency_ms": 0.1
+        "failures": 2,
+        "latency_ms": 4.4
       },
       "devils-advocate": {
-        "profile": "advocate-primary",
-        "family": "doubao",
-        "provider": "volcengine",
-        "declared_model": "doubao-1-5-pro-32k",
-        "actual_model": "deterministic-reasoner/v1",
-        "stubbed": true,
-        "calls": 1,
-        "tokens_in": 2685,
-        "tokens_out": 476,
+        "profile": "mock-advocate",
+        "family": "mock-beta",
+        "provider": "local-mock",
+        "declared_model": "mock-beta",
+        "actual_model": "mock-beta",
+        "stubbed": false,
+        "calls": 2,
+        "tokens_in": 13096,
+        "tokens_out": 44,
         "cost_cny": 0.0,
         "repairs": 0,
-        "failures": 0,
-        "latency_ms": 0.1
+        "failures": 2,
+        "latency_ms": 4.0
       }
     },
     "total_cost_cny": 0.0,
     "repair_rounds": 0,
-    "failed_calls": 0,
-    "degradations": []
+    "failed_calls": 4,
+    "degradations": [
+      {
+        "caller": "risk-analyst",
+        "task": "risk_root_cause",
+        "reason": "输出契约校验未通过且修复轮已用尽",
+        "attempts": 2,
+        "errors": [
+          "缺少必填字段 `conclusion`",
+          "缺少必填字段 `suggested_grade`"
+        ],
+        "fallback": "conclusion=INSUFFICIENT 并回退补证"
+      },
+      {
+        "caller": "devils-advocate",
+        "task": "devils_advocate",
+        "reason": "输出契约校验未通过且修复轮已用尽",
+        "attempts": 2,
+        "errors": [
+          "缺少必填字段 `verdict`"
+        ],
+        "fallback": "verdict=INSUFFICIENT_EVIDENCE 并阻断"
+      },
+      {
+        "caller": "risk-analyst",
+        "task": "risk_root_cause",
+        "reason": "输出契约校验未通过且修复轮已用尽",
+        "attempts": 2,
+        "errors": [
+          "缺少必填字段 `conclusion`",
+          "缺少必填字段 `suggested_grade`"
+        ],
+        "fallback": "conclusion=INSUFFICIENT 并回退补证"
+      },
+      {
+        "caller": "devils-advocate",
+        "task": "devils_advocate",
+        "reason": "输出契约校验未通过且修复轮已用尽",
+        "attempts": 2,
+        "errors": [
+          "缺少必填字段 `verdict`"
+        ],
+        "fallback": "verdict=INSUFFICIENT_EVIDENCE 并阻断"
+      }
+    ]
   },
   "llm_repair_rounds": 0,
-  "llm_failed_calls": 0,
-  "llm_degradations": 0,
+  "llm_failed_calls": 4,
+  "llm_degradations": 4,
   "expected": {
     "adjudication": "RISK_CONFIRMED",
     "suggested_grade": "关注",
@@ -52,9 +95,9 @@
     "note": "三类信号相互印证且逐条反驳均不成立，进入 L2 审批后执行"
   },
   "actual": {
-    "adjudication": "RISK_CONFIRMED",
-    "final_grade": "关注",
-    "action_tier": "L2"
+    "adjudication": "EVIDENCE_INSUFFICIENT",
+    "final_grade": null,
+    "action_tier": null
   },
   "denoise_rate": 0.625,
   "rebuttal_coverage": 1.0,
@@ -66,31 +109,29 @@
     "terminology"
   ],
   "clarifications": [],
-  "evidence_count": 15,
+  "evidence_count": 30,
   "evidence_sufficiency": 0.933,
   "evidence_completeness": 1.0,
   "unsupported_conclusions": 0,
   "approval_coverage": 1.0,
-  "compliance_passed": 6,
+  "compliance_passed": 4,
   "compliance_failed": 0,
   "phase_transitions": 5,
-  "span_count": 65,
+  "span_count": 90,
   "span_by_kind": {
     "case": 1,
-    "routing": 7,
-    "agent": 6,
-    "skill": 22,
-    "mcp": 16,
-    "rag": 6,
-    "llm": 2,
-    "adjudication": 2,
-    "approval": 1,
-    "execution": 2
+    "routing": 6,
+    "agent": 8,
+    "skill": 28,
+    "mcp": 26,
+    "rag": 12,
+    "llm": 4,
+    "adjudication": 5
   },
-  "failed_spans": 1,
-  "tool_calls": 38,
-  "tool_success_rate": 0.9737,
-  "tokens_in": 4809,
-  "tokens_out": 758,
-  "end_to_end_ms": 5.8
+  "failed_spans": 5,
+  "tool_calls": 54,
+  "tool_success_rate": 0.9815,
+  "tokens_in": 0,
+  "tokens_out": 0,
+  "end_to_end_ms": 15.7
 }

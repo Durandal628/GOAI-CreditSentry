@@ -91,5 +91,5 @@
   "tool_success_rate": 1.0,
   "tokens_in": 3263,
   "tokens_out": 487,
-  "end_to_end_ms": 1.7
+  "end_to_end_ms": 1.5
 }
