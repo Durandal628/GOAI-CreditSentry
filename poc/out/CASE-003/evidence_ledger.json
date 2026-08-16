@@ -15,7 +15,7 @@
       "fact_type": "credit_report",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0001.snapshot",
       "content_hash": "sha256:a62dee4acdee791705fa80bdad202a2fddc0384d429f8e50a1b6ee8d55f36768",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "强",
       "level_reason": "来源权威且原文可溯源",
       "extracted": {
@@ -42,7 +42,7 @@
       "fact_type": "credit_diff",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0002.snapshot",
       "content_hash": "sha256:754399bbfd67068cbccdc0c9b714fae33f767b1d1b27ed6491771779171ab627",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "强",
       "level_reason": "来源权威且原文可溯源",
       "extracted": {
@@ -64,7 +64,7 @@
       "fact_type": "registration_change",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0003.snapshot",
       "content_hash": "sha256:b6839295ef524f3c52a4e1e5ab0d5e72760ccf71986e5bfdd1d608c809772bda",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "强",
       "level_reason": "来源权威且原文可溯源",
       "extracted": {
@@ -88,7 +88,7 @@
       "fact_type": "flow_pattern",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0004.snapshot",
       "content_hash": "sha256:79733a20ac4e9be597868d985b6bf588fbf36022a1227c565b0f8cf4293371be",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "强",
       "level_reason": "来源权威且原文可溯源",
       "extracted": {
@@ -120,7 +120,7 @@
       "fact_type": "guarantee_entry",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0005.snapshot",
       "content_hash": "sha256:ba994af39e0b96d75c8e005fe569a0ab367415e540f2190a47e1810b6cae2dc9",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "强",
       "level_reason": "来源权威且原文可溯源",
       "extracted": {
@@ -157,7 +157,7 @@
       "fact_type": "financial_statement",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0006.snapshot",
       "content_hash": "sha256:5edf6b4bdf6ebab982c9c9d06caddf745158241d3a6c3cc519995fee7d3f0d6d",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "缺失",
       "level_reason": "as_of 时点无法取得该主体最近一期经审计财务报表，无法验证经营性现金流对或有代偿的覆盖能力",
       "extracted": {
@@ -172,7 +172,7 @@
       "fact_type": "guaranteed_party_financials",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0007.snapshot",
       "content_hash": "sha256:94fabfd42a75e3d4699758af62447df806a093d404543df4a4f2632e1ec782ec",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "缺失",
       "level_reason": "被担保方非本行客户，无法取得其财务数据与债务清单，代偿概率无法量化，只能按敞口净额保守估计",
       "extracted": {
@@ -187,7 +187,7 @@
       "fact_type": "policy_clause",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0008.snapshot",
       "content_hash": "sha256:f08c5405a67a44e5c782a039c933a9b8a604b24cb3b4c94281d32c4e6d53e9b5",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "强",
       "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
       "extracted": {
@@ -209,7 +209,7 @@
       "fact_type": "policy_clause",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0009.snapshot",
       "content_hash": "sha256:83940b60ad8db567dced25d2bd68a76262406180640781808bf0e85e488a5a82",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "强",
       "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
       "extracted": {
@@ -230,7 +230,7 @@
       "fact_type": "policy_clause",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0010.snapshot",
       "content_hash": "sha256:baa867b71fe2e03fc8e43f6851def9ae871a904fc221471e1dc7216dec56a11e",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "强",
       "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
       "extracted": {
@@ -250,7 +250,7 @@
       "fact_type": "policy_clause",
       "snapshot_uri": "s3://creditsentry-ledger/CASE-2017-0401-003/EV-003-0011.snapshot",
       "content_hash": "sha256:f08c5405a67a44e5c782a039c933a9b8a604b24cb3b4c94281d32c4e6d53e9b5",
-      "collected_at": "2026-08-15T14:18:43+00:00",
+      "collected_at": "2026-08-15T20:07:51+00:00",
       "level": "强",
       "level_reason": "政策条款原文可溯源、生效日期在案件时点之前",
       "extracted": {

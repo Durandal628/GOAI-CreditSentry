@@ -192,6 +192,110 @@ REQUIRED_FACTS: dict[str, list[tuple[str, str]]] = {
 }
 
 
+#: 每类事实**去哪儿取、要什么授权、谁能取**。
+#:
+#: 「输出取证清单转人工」这句话，只有当清单上的每一项都能直接派活时才成立。
+#: 一张只写着「缺 financial_statement」的清单，接手的人还得自己想去哪查、
+#: 找谁批——那不叫交接，叫把问题原样丢过去。
+#:
+#: ``automatable`` 是这张表里最重要的一列：它区分「系统重试还能拿到的」与
+#: 「只能靠人去要的」。财务报表就属于后者——它不在任何一个可查的系统里，
+#: 必须客户经理向客户索取。**这恰恰是转人工这条路径存在的理由。**
+FACT_SOURCING: dict[str, dict[str, Any]] = {
+    "credit_report": {
+        "label": "征信报告", "system": "人行征信系统",
+        "authorization": "《征信查询授权书》（需在有效期内）",
+        "owner": "尽调取证岗", "automatable": True,
+        "action": "取得授权编号后重新发起征信查询",
+    },
+    "credit_diff": {
+        "label": "征信期间变动比对", "system": "人行征信系统",
+        "authorization": "《征信查询授权书》", "owner": "尽调取证岗", "automatable": True,
+        "action": "指定比对基准日后重新拉取",
+    },
+    "litigation_case": {
+        "label": "涉诉案件", "system": "中国裁判文书网 / 执行信息公开网",
+        "authorization": "公开数据，无需授权", "owner": "尽调取证岗", "automatable": True,
+        "action": "按统一社会信用代码精确检索，排除重名主体",
+    },
+    "registration_change": {
+        "label": "工商登记变更", "system": "国家企业信用信息公示系统",
+        "authorization": "公开数据，无需授权", "owner": "尽调取证岗", "automatable": True,
+        "action": "拉取近 12 个月变更记录",
+    },
+    "flow_pattern": {
+        "label": "账户交易流水", "system": "行内账务系统",
+        "authorization": "账户查询权限", "owner": "尽调取证岗", "automatable": True,
+        "action": "扩大取数窗口或补齐分片，提升采样覆盖率",
+    },
+    "guarantee_entry": {
+        "label": "对外担保台账", "system": "行内信贷核心系统",
+        "authorization": "无需额外授权", "owner": "尽调取证岗", "automatable": True,
+        "action": "穿透关联主体后重新拉取担保明细与缓释措施",
+    },
+    "guarantee_ledger": {
+        "label": "对外担保台账", "system": "行内信贷核心系统",
+        "authorization": "无需额外授权", "owner": "尽调取证岗", "automatable": True,
+        "action": "重新拉取担保台账",
+    },
+    "financial_statement": {
+        "label": "最近一期财务报表", "system": "客户提供（不在任何可查系统内）",
+        "authorization": "需客户配合", "owner": "客户经理", "automatable": False,
+        "action": "联系客户索取最近一期资产负债表与利润表，用于验证经营性现金流",
+    },
+    "collateral": {
+        "label": "抵质押物状态", "system": "行内信贷核心系统",
+        "authorization": "无需额外授权", "owner": "尽调取证岗", "automatable": True,
+        "action": "重新核对押品状态与最新估值",
+    },
+}
+
+#: 兜底：不在表里的事实类型也要能派活，不能因为没登记就从清单里消失
+_UNKNOWN_SOURCE = {
+    "label": "", "system": "待确认", "authorization": "待确认",
+    "owner": "尽调取证岗", "automatable": False,
+    "action": "确认该项事实的取数来源后补取",
+}
+
+
+def sourcing_for(fact_type: str) -> dict[str, Any]:
+    spec = dict(FACT_SOURCING.get(fact_type) or _UNKNOWN_SOURCE)
+    spec.setdefault("label", fact_type)
+    spec["label"] = spec["label"] or fact_type
+    spec["fact_type"] = fact_type
+    return spec
+
+
+def handoff_tasks(gaps: Iterable[dict[str, Any]],
+                  ev_checklist: "Checklist | None" = None) -> list[dict[str, Any]]:
+    """把证据缺口翻译成**可直接派发的取证任务**。
+
+    去重是必要的：每一轮补证都会把同一个缺口重新登记一次，
+    交接单上出现三条一模一样的「缺财务报表」只会让人以为缺了三份材料。
+    """
+    seen: set[str] = set()
+    tasks: list[dict[str, Any]] = []
+    for g in gaps or []:
+        ft = g.get("fact_type")
+        if not ft or ft in seen:
+            continue
+        seen.add(ft)
+        tasks.append({**sourcing_for(ft), "why": g.get("why", ""),
+                      "evidence_id": g.get("evidence_id")})
+
+    # 清单上标为 GAP、但没进 evidence_gaps 的，也要补进来
+    for item in (ev_checklist.items if ev_checklist else []):
+        if item.status == GAP and item.target not in seen:
+            seen.add(item.target)
+            tasks.append({**sourcing_for(item.target), "why": item.why,
+                          "evidence_id": None})
+
+    # 能自动重取的排前面：接手的人先看到「点一下就能补」的，
+    # 再看到「必须去要」的，工作量一目了然
+    tasks.sort(key=lambda t: (not t["automatable"],))
+    return tasks
+
+
 def evidence_checklist(signal_types: Iterable[str]) -> Checklist:
     """从信号类型派生取证清单，去重后保序。"""
     cl = Checklist("evidence")

@@ -50,6 +50,13 @@ class Orchestrator:
                 if guard > 12:  # 防御性上限；正常链路 5~7 跳
                     raise RuntimeError("状态机未收敛，疑似路由表存在环路")
                 st = self._step(st)
+
+            # 转人工不等于「甩给人」。系统放弃自动处置时的最后一个动作，
+            # 是把工作交接清楚：为什么停、已查到什么、还缺什么、每项找谁补。
+            # 少了这一步，「输出取证清单转人工」就只是一句话——清单确实生成了，
+            # 但它只存在于内存里，接手的人什么也拿不到。
+            if st.phase == "EVIDENCE_GAP":
+                self._handoff(st)
         return st
 
     def _step(self, st: Any) -> Any:
@@ -441,6 +448,40 @@ class Orchestrator:
                                 **skills.safe_disposition(ctx, order)})
         ok = all(r["status"] in ("SUCCESS", "NO_ACTION", "PLAN_ONLY") for r in results)
         st.execution = {"status": "SUCCESS" if ok else "PARTIAL", "results": results}
+
+    # ---- Commander：转人工交接 -------------------------------------------
+    def _handoff(self, st: Any) -> None:
+        """案件移交人工前的收尾：产出取证任务清单，并留下合规痕迹。
+
+        由 compliance-auditor 执行而不是 due-diligence——交接单是**对本次流程的
+        交代**，不是又一轮取证。让取证方给自己写「我没取到」的结论，
+        与执行方自审是同一类问题。
+
+        刻意不产出任何风险结论：证据不足以定论时给结论就是编。
+        这份单子给的是工作交接，不是判断。
+        """
+        ctx = self.ctx.as_("compliance-auditor")
+        with self.tracer.span("agent", "compliance-auditor", caller="compliance-auditor"):
+            tasks = checklist.handoff_tasks(st.evidence_gaps, st.evidence_checklist)
+            manual = [t for t in tasks if not t["automatable"]]
+            with self.tracer.span("adjudication", "转人工交接",
+                                  tasks=len(tasks), manual_required=len(manual),
+                                  evidence_sufficiency=self.ledger.sufficiency()):
+                ctx.log("WARN", "handoff.escalated",
+                        tasks=len(tasks), manual_required=len(manual),
+                        owners=sorted({t["owner"] for t in manual}),
+                        missing=[t["fact_type"] for t in tasks])
+
+            compliance = skills.compliance_check(ctx, st, self.tracer)
+            distilled = skills.postmortem_distill(ctx, st)
+            # 降级记录要进交接单：同样是转人工，「材料确实不够」与
+            # 「推理环节失效」要人做的事完全不同，不能都写成「证据不足」
+            report = skills.report_compose(
+                ctx, "取证任务清单", st,
+                {"tasks": tasks, "compliance": compliance,
+                 "degradations": getattr(self.llm, "degradations", [])})
+        st.handoff = {"tasks": tasks, "manual_required": len(manual), "report": report}
+        st.audit = {"compliance": compliance, "distilled": distilled, "report": report}
 
     # ---- Worker：ComplianceAuditor ---------------------------------------
     def _run_compliance_auditor(self, st: Any) -> None:

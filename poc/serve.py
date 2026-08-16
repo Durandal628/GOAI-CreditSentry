@@ -291,12 +291,29 @@ def _persist(run: Run, world, st, orch, mcp, tracer, llm) -> None:
     with open(os.path.join(out, "mcp_audit.jsonl"), "w", encoding="utf-8") as f:
         for rec in mcp.audit_log:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    produced: dict[str, str] = {}
     if st.gate and st.gate.get("opinion_report"):
-        with open(os.path.join(out, "处置意见书.md"), "w", encoding="utf-8") as f:
-            f.write(st.gate["opinion_report"]["markdown"])
+        produced["处置意见书.md"] = st.gate["opinion_report"]["markdown"]
     if st.audit and st.audit.get("report"):
-        with open(os.path.join(out, "审计报告.md"), "w", encoding="utf-8") as f:
-            f.write(st.audit["report"]["markdown"])
+        name = ("取证任务清单.md" if st.phase == "EVIDENCE_GAP" else "审计报告.md")
+        produced[name] = st.audit["report"]["markdown"]
+    _write_reports(out, produced)
+
+
+#: 三种报告互斥：正常闭环出「处置意见书 + 审计报告」，转人工出「取证任务清单」。
+#: 目录里留着上一次运行的旧报告会直接打脸——一个声明「系统未作出任何风险结论」
+#: 的案件，目录里却躺着一份处置意见书。所以每次运行都要清掉本次没产出的那些。
+REPORT_FILES = ("处置意见书.md", "审计报告.md", "取证任务清单.md")
+
+
+def _write_reports(out_dir: str, produced: dict) -> None:
+    for name in REPORT_FILES:
+        path = os.path.join(out_dir, name)
+        if name in produced:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(produced[name])
+        elif os.path.exists(path):
+            os.remove(path)
 
 
 def _jsonable(obj: Any) -> Any:
@@ -363,6 +380,8 @@ def _snapshot(world, st, orch, mcp, llm, tracer) -> dict[str, Any]:
         "approval": st.approval,
         "execution": st.execution,
         "audit": st.audit,
+        # 转人工交接单。只在案件移交人工时存在——它给的是工作交接，不是风险结论
+        "handoff": st.handoff,
         "query_plans": st.query_plans,
         "model_usage": usage,
         "mcp_audit": mcp.audit_log,
@@ -1023,7 +1042,7 @@ class Handler(BaseHTTPRequestHandler):
         if st is not None:
             if kind == "opinion" and st.gate and st.gate.get("opinion_report"):
                 text = st.gate["opinion_report"]["markdown"]
-            elif kind == "audit" and st.audit and st.audit.get("report"):
+            elif kind in ("audit", "handoff") and st.audit and st.audit.get("report"):
                 text = st.audit["report"]["markdown"]
         return self._json(200, {"kind": kind, "markdown": text})
 

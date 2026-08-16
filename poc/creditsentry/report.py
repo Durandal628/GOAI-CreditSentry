@@ -30,7 +30,170 @@ def render(template_id: str, state: Any, ledger: EvidenceLedger, extra: dict[str
         return _opinion(state, ledger, extra)
     if template_id == "审计报告":
         return _audit(state, ledger, extra)
+    if template_id == "取证任务清单":
+        return _handoff(state, ledger, extra)
     raise ValueError(f"未知报告模板：{template_id}")
+
+
+def _handoff(state: Any, ledger: EvidenceLedger, extra: dict[str, Any]) -> str:
+    """转人工交接单。
+
+    「转人工」不等于「甩给人」。一个负责任的系统在放弃自动处置时，
+    至少要交代清楚四件事：**为什么停下来、已经查到了什么、还缺什么、
+    每一项该找谁去补**。少了最后一条，接手的人得从头再来一遍。
+
+    这份单子刻意**不给风险结论**——证据不足以定论时给结论就是编。
+    它给的是工作交接，不是判断。
+    """
+    from .checklist import FACT_SOURCING     # 延迟导入避免循环依赖
+
+    tasks = extra.get("tasks", [])
+    comp = extra.get("compliance", {})
+    degraded = extra.get("degradations", [])
+    subj = state.subject
+    ev = state.risk_event or {}
+    suff = ledger.sufficiency()
+    L: list[str] = []
+
+    # 移交原因必须**取自实际发生的事**，不能套一句模板话。
+    # 同样是转人工，「材料确实不够」与「质疑环节失效」是两码事：
+    # 前者要人去补材料，后者要人去看系统。写错了会把人引向错误的方向。
+    last = state.history[-1]["reason"] if state.history else ""
+    if degraded:
+        who = "、".join(sorted({d["caller"] for d in degraded}))
+        reason = (f"**推理环节失效**（{who}），按失败即阻断处置。"
+                  f"注意证据充分度为 {suff}，材料本身未必不足")
+    elif suff < 0.7:
+        reason = f"自动取证已达重试上限，证据充分度 {suff} 仍低于 0.7"
+    else:
+        reason = last or "回退次数用尽，转人工"
+
+    L.append("# 取证任务清单 · 转人工交接单")
+    L.append("")
+    L.append("| 项目 | 内容 |")
+    L.append("|---|---|")
+    L.append(f"| 案件编号 | {state.case_id} |")
+    L.append(f"| 客户名称 | {subj['name']}（{subj.get('subject_id', '—')}） |")
+    L.append(f"| 当前分类 | {subj.get('current_grade', '—')} |")
+    L.append(f"| 移交原因 | {reason} |")
+    L.append(f"| 移交时状态 | 未定论（**系统未对本案作出任何风险结论**） |")
+    L.append("")
+
+    if degraded:
+        L.append("> ⚠ **本次移交不是因为材料不够，而是系统自身的推理环节没能产出合规结论。**")
+        # 每轮补证都会把同一个环节的失败重记一次。交接单上列四遍同样的话，
+        # 读的人会以为出了四种毛病——按环节归并，改用次数表达
+        seen: dict[tuple, dict] = {}
+        for d in degraded:
+            k = (d["caller"], d["task"])
+            seen.setdefault(k, {**d, "times": 0})["times"] += 1
+        for d in seen.values():
+            rep = f"（累计 {d['times']} 次）" if d["times"] > 1 else ""
+            L.append(f"> - {d['caller']} 的 {d['task']}{rep}：{d['reason']}　→ {d['fallback']}")
+        L.append("> 请先由技术侧核查该环节，再判断是否需要补充材料。")
+        L.append("")
+
+    L.append("## 一、为什么停在这里")
+    L.append("")
+    back = [h for h in state.history if h["to"] == "EVIDENCE"]
+    rounds = max(0, len(back) - 1)
+    L.append(f"本案共回退补证 **{rounds}** 轮，"
+             + ("每轮均因推理环节失效而未能完成裁决。" if degraded
+                else "仍未达到进入裁决所需的证据充分度。"))
+    L.append("")
+    L.append("阶段轨迹：")
+    L.append("")
+    L.append("```")
+    L.append(" → ".join([state.history[0]["from"]] + [h["to"] for h in state.history])
+             if state.history else "（无迁移记录）")
+    L.append("```")
+    L.append("")
+    for h in state.history:
+        if h["to"] in ("EVIDENCE", "EVIDENCE_GAP"):
+            L.append(f"- **{h['from']} → {h['to']}**　{h['reason']}")
+    L.append("")
+    L.append("> 系统在这里停下，是因为**证据不足时给结论就是编**。"
+             "回退带重试上限，用尽即转人工——这是一条有界且失败即阻断的路径。")
+    L.append("")
+
+    L.append("## 二、已经查到了什么（不必重复劳动）")
+    L.append("")
+    collected = [e for e in ledger.all() if e.level != "缺失"]
+    # 账本是 append-only 的，每轮补证都会把同一类材料重新登记一次——这在账本层
+    # 是对的（保留了每一次取数的痕迹），但交接单上列出三份「征信报告」
+    # 只会让接手的人以为真有三份。按类型归并，标注取了几次。
+    grouped: dict[tuple, list] = {}
+    for e in collected:
+        grouped.setdefault((e.fact_type, e.source_system), []).append(e)
+    L.append(f"已取得并登记 **{len(grouped)}** 类材料（账本内共 {len(collected)} 条记录，"
+             f"含补证重取），证据充分度 **{suff}**（进入裁决需 ≥ 0.7）。")
+    L.append("")
+    L.append("| 材料 | 来源 | 等级 | 证据编号 |")
+    L.append("|---|---|---|---|")
+    for (ft, src), items in grouped.items():
+        label = (FACT_SOURCING.get(ft) or {}).get("label") or ft
+        ids = "".join(f"[{e.evidence_id}]" for e in items[:3])
+        more = f" 等 {len(items)} 次" if len(items) > 3 else ""
+        L.append(f"| {label} | {src} | {items[-1].level} | {ids}{more} |")
+    L.append("")
+    if ev.get("signal_types"):
+        L.append(f"触发本案的信号类型：{'、'.join(ev['signal_types'])}。")
+        L.append("")
+
+    L.append("## 三、还缺什么，找谁补")
+    L.append("")
+    if not tasks:
+        L.append("（无显式缺口登记，请人工复核证据充分度口径）")
+    else:
+        auto = [t for t in tasks if t["automatable"]]
+        manual = [t for t in tasks if not t["automatable"]]
+        L.append(f"共 **{len(tasks)}** 项待补，其中 **{len(auto)}** 项可由系统重取、"
+                 f"**{len(manual)}** 项必须人工获取。")
+        L.append("")
+        L.append("| # | 缺失材料 | 去哪里取 | 授权要求 | 责任岗位 | 建议动作 |")
+        L.append("|---|---|---|---|---|---|")
+        for i, t in enumerate(tasks, 1):
+            flag = "" if t["automatable"] else " ⚠"
+            L.append(f"| {i}{flag} | {t['label']} | {t['system']} | {t['authorization']} "
+                     f"| {t['owner']} | {t['action']} |")
+        L.append("")
+        for t in tasks:
+            if t.get("why"):
+                L.append(f"- **{t['label']}**：{t['why']}")
+        L.append("")
+        if manual:
+            L.append(f"> ⚠ 标记的 {len(manual)} 项**不在任何可查系统内**，"
+                     f"系统重试多少次都拿不到，只能由 "
+                     f"{'、'.join(sorted({t['owner'] for t in manual}))} 去获取。"
+                     f"这正是本案必须转人工的原因。")
+            L.append("")
+
+    L.append("## 四、补齐之后怎么办")
+    L.append("")
+    L.append("1. 按上表补齐材料，在系统内登记为证据；")
+    L.append("2. 证据充分度达到 0.7 以上后，案件可重新进入自动处置流程；")
+    L.append("3. 若确认材料无法取得，请在系统内标注原因并按人工流程出具处置意见——"
+             "**此时不得引用本单子作为风险结论**，它只说明系统未能定论。")
+    L.append("")
+
+    if comp.get("items"):
+        L.append("## 五、本次流程的合规留痕")
+        L.append("")
+        L.append("| 结果 | 合规项 | 说明 |")
+        L.append("|---|---|---|")
+        for it in comp["items"]:
+            mark = {"PASS": "通过", "FAIL": "**未通过**"}.get(it["result"], "不适用")
+            L.append(f"| {mark} | {it['rule_id']} {it['source']} | {it['detail']} |")
+        L.append("")
+        L.append("> 「我们看过、没能定论、于是转人工」这个过程本身也要可举证——"
+                 "否则事后无法区分「查过但材料不足」与「根本没查」。")
+        L.append("")
+
+    L.append("---")
+    L.append("")
+    L.append(f"本单由 compliance-auditor 生成于案件移交时点；"
+             f"全过程轨迹见 `trace.json`，取数记录见 `mcp_audit.jsonl`。")
+    return "\n".join(L)
 
 
 def _opinion(state: Any, ledger: EvidenceLedger, extra: dict[str, Any]) -> str:

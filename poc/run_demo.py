@@ -80,12 +80,15 @@ def run_case(case_key: str, llm_mode: str, auto_approve: bool,
         for rec in mcp.audit_log:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
+    produced: dict[str, str] = {}
     if state.gate and state.gate.get("opinion_report"):
-        with open(os.path.join(out_dir, "处置意见书.md"), "w", encoding="utf-8") as f:
-            f.write(state.gate["opinion_report"]["markdown"])
+        produced["处置意见书.md"] = state.gate["opinion_report"]["markdown"]
     if state.audit and state.audit.get("report"):
-        with open(os.path.join(out_dir, "审计报告.md"), "w", encoding="utf-8") as f:
-            f.write(state.audit["report"]["markdown"])
+        # 转人工的案件产出的是《取证任务清单》而不是审计报告——
+        # 前者是工作交接，后者是对已完成处置的核验，两者不能混为一谈
+        name = "取证任务清单.md" if state.phase == "EVIDENCE_GAP" else "审计报告.md"
+        produced[name] = state.audit["report"]["markdown"]
+    _write_reports(out_dir, produced)
 
     metrics = _metrics(world, state, orch, tracer, llm_mode, llm)
     with open(os.path.join(out_dir, "metrics.json"), "w", encoding="utf-8") as f:
@@ -93,6 +96,22 @@ def run_case(case_key: str, llm_mode: str, auto_approve: bool,
 
     _print_summary(case_key, world, state, orch, tracer, metrics, out_dir)
     return metrics
+
+
+#: 三种报告互斥：正常闭环出「处置意见书 + 审计报告」，转人工出「取证任务清单」。
+#: 目录里留着上一次运行的旧报告会直接打脸——一个声明「系统未作出任何风险结论」
+#: 的案件，目录里却躺着一份处置意见书。所以每次运行都要清掉本次没产出的那些。
+REPORT_FILES = ("处置意见书.md", "审计报告.md", "取证任务清单.md")
+
+
+def _write_reports(out_dir: str, produced: dict) -> None:
+    for name in REPORT_FILES:
+        path = os.path.join(out_dir, name)
+        if name in produced:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(produced[name])
+        elif os.path.exists(path):
+            os.remove(path)
 
 
 def _metrics(world, state, orch, tracer, llm_mode, llm) -> dict:

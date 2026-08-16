@@ -716,8 +716,12 @@ function render() {
   parts.push(cardKnowledge(s));
   if (s.assertion) parts.push(cardDuel(s));
   if (s.gate && Object.keys(s.gate).length) parts.push(cardGate(s));
+  if (s.handoff) parts.push(cardHandoff(s));
   if (s.execution) parts.push(cardExecution(s));
-  if (s.audit) parts.push(cardAudit(s));
+  // 转人工时不再单独出审计卡：合规留痕已经是交接单的第五节，
+  // 两张卡都带报告查看区会撞同一个 DOM id，而且「审计报告」这个抬头
+  // 用在一个未定论的案件上本身就不准确
+  if (s.audit && !s.handoff) parts.push(cardAudit(s));
   if (s.retrospective) parts.push(cardRetro(s));
 
   // 只重绘变化的部分会让代码复杂很多；卡片总数十来个，整体重绘更省心也更不易出错。
@@ -981,6 +985,52 @@ function cardGate(s) {
     </div>
     ${approvalBox}`, S.pendingApproval ? 'alert' : '',
     `<span class="tier ${g.action_tier}">${g.action_tier}</span>`);
+}
+
+/** 转人工交接单。
+ *  「转人工」不等于「甩给人」——系统放弃自动处置时的最后一个动作，
+ *  是把工作交接清楚：为什么停、已查到什么、还缺什么、每项找谁补。 */
+function cardHandoff(s) {
+  const h = s.handoff;
+  const rows = (h.tasks || []).map((t, i) => `
+    <tr>
+      <td>${i + 1}${t.automatable ? '' : ' <span class="lvl 弱">需人工</span>'}</td>
+      <td><b>${esc(t.label)}</b><br><span class="muted" style="font-size:11px">${esc(t.why || '')}</span></td>
+      <td>${esc(t.system)}</td>
+      <td class="muted" style="font-size:11.5px">${esc(t.authorization)}</td>
+      <td><b>${esc(t.owner)}</b></td>
+      <td class="muted" style="font-size:11.5px">${esc(t.action)}</td>
+    </tr>`).join('');
+  const manual = h.manual_required || 0;
+  const auto = (h.tasks || []).length - manual;
+  return card('转人工交接单', '系统未对本案作出任何风险结论', `
+    <div class="notice warn">
+      <b>本案已移交人工。</b>自动取证与裁决未能收敛，系统在这里停下——
+      <b>证据不足时给结论就是编</b>。回退带重试上限，用尽即转人工，
+      这是一条有界且失败即阻断的路径。
+    </div>
+    <div class="kpis" style="margin-top:12px">
+      <div class="kpi"><div class="kpi-k">待补材料</div><div class="kpi-v">${(h.tasks || []).length}</div>
+        <div class="kpi-n">每项都已派到具体岗位</div></div>
+      <div class="kpi"><div class="kpi-k">系统可重取</div><div class="kpi-v">${auto}</div>
+        <div class="kpi-n">补齐授权后可自动重试</div></div>
+      <div class="kpi"><div class="kpi-k">必须人工获取</div><div class="kpi-v">${manual}</div>
+        <div class="kpi-n">不在任何可查系统内</div></div>
+      <div class="kpi"><div class="kpi-k">已取得材料</div><div class="kpi-v">${(s.evidence.items || []).length}</div>
+        <div class="kpi-n">接手时不必重复劳动</div></div>
+    </div>
+    <h4 style="margin:16px 0 8px;font-size:12.5px">还缺什么，找谁补</h4>
+    <table class="grid">
+      <tr><th>#</th><th>缺失材料</th><th>去哪里取</th><th>授权要求</th><th>责任岗位</th><th>建议动作</th></tr>
+      ${rows || '<tr><td colspan="6" class="muted">无显式缺口登记</td></tr>'}
+    </table>
+    ${manual ? `<div class="notice danger">标了「需人工」的 ${manual} 项<b>不在任何可查系统内</b>，
+      系统重试多少次都拿不到——这正是本案必须转人工的原因。</div>` : ''}
+    <div class="reptabs" style="margin-top:14px">
+      <button class="btn btn-sm" onclick="loadReport('handoff',this)">查看完整交接单</button>
+    </div>
+    <div class="report" id="report-box">点上方按钮查看完整交接单（含阶段轨迹、已取材料清单与合规留痕）。</div>`,
+    'alert');
 }
 
 function cardExecution(s) {

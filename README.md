@@ -52,7 +52,7 @@ python3 poc/serve.py --open
 
 ```bash
 python3 poc/run_demo.py --all          # 跑通三条完整链路
-python3 poc/test_safety.py             # 69 项安全边界回归
+python3 poc/test_safety.py             # 74 项安全边界回归
 python3 tools/run_evals.py             # 906 组 Skill 回归评估
 python3 tools/check_pit.py             # 回溯案例的时点冻结校验（无前视信息）
 python3 tools/live_conformance.py      # live 代码路径的 13 个故障模式（离线，无需 key）
@@ -211,6 +211,9 @@ python3 tools/gen_skill_docs.py   # 真源：poc/creditsentry/skills.py 的 @ski
 | 31 | 结论由证据驱动：翻转决定性因子必须翻转对应主因的质疑结论 | `poc/test_safety.py` 因子驱动 |
 | 32 | 人工审批回调被驳回即降级 L0，全程零写操作 | `poc/test_safety.py` 审批回调 |
 | 33 | 可视化旁路抛错不影响业务链路，结果逐字段不变 | `poc/test_safety.py` 实时旁路 |
+| 34 | 转人工必须产出可派发的取证任务清单：每项含来源系统、授权要求与责任岗位 | `poc/test_safety.py` 转人工交接 |
+| 35 | 三种报告互斥：本次没产出的旧报告一律清掉，杜绝「未定论却有处置意见书」 | `poc/test_safety.py` 报告互斥 |
+| 36 | 原件可翻开且每次调取都重算哈希；篡改快照当场识破 | `poc/test_safety.py` 原件校验 |
 
 ---
 

@@ -1,4 +1,4 @@
-└─ CASE  CASE-2017-0401-003                            1.5ms
+└─ CASE  CASE-2017-0401-003                            1.7ms
     ├─ ROUTE INTAKE→EVIDENCE                               0.0ms
     │       · routing_key = {'phase': 'INTAKE', 'signal_type': [], 'evidence_sufficiency': 0.0, 'risk_tier': None, 'exposure_amount': None}
     │       · rule_id = R-01
@@ -38,7 +38,7 @@
     │   │   └─ RAG   case_memory.search                            0.0ms
     │   └─ SKILL RiskRootCause                                 0.2ms
     │       └─ LLM   risk_root_cause                               0.1ms
-    ├─ AGENT devils-advocate                               0.4ms
+    ├─ AGENT devils-advocate                               0.5ms
     │   ├─ SKILL QueryRewrite                                  0.1ms
     │   │   └─ RAG   query.rewrite                                 0.0ms
     │   ├─ SKILL PolicyRag                                     0.1ms

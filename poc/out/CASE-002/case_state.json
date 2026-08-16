@@ -437,6 +437,7 @@
       "archive_uri": "s3://creditsentry-reports/CASE-2026-0821-002/审计报告.md"
     }
   },
+  "handoff": null,
   "evidence_gaps": [],
   "idempotency_keys": {},
   "history": [

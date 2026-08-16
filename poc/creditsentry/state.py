@@ -41,6 +41,9 @@ class CaseState:
     approval: dict[str, Any] | None = None       # 审批结果
     execution: dict[str, Any] | None = None      # 执行回执
     audit: dict[str, Any] | None = None          # 审计结论
+    # 转人工交接单。只在案件移交人工时产生——它记录的是「工作交接」而非风险结论，
+    # 因为证据不足以定论时给结论就是编
+    handoff: dict[str, Any] | None = None
     evidence_gaps: list[dict[str, Any]] = field(default_factory=list)
     idempotency_keys: dict[str, str] = field(default_factory=dict)
     history: list[dict[str, Any]] = field(default_factory=list)

@@ -1202,6 +1202,98 @@ def _():
     assert st.assertion == base.assertion, "旁路观察者改变了业务结果"
 
 
+@check("转人工不是终点：移交时必须产出可派发的取证任务清单")
+def _():
+    """「输出取证清单转人工」这句话，只有当清单上的每一项都能直接派活时才成立。
+    一份只写着「缺 financial_statement」的清单，接手的人还得自己想去哪查、找谁批——
+    那不叫交接，叫把问题原样丢过去。
+
+    此前的实现里，案件一到 EVIDENCE_GAP 就退出循环：清单确实生成了，
+    但只存在于内存，既不落盘也不出报告，人什么都拿不到。"""
+    import threading as _th
+
+    from poc.creditsentry import modelconfig
+    from tools.mock_llm_server import DEFAULT_PORT, serve as _serve
+
+    # 模型持续违约 → 定性与质疑双双降级 → 回退用尽 → 必然转人工。
+    # 这是唯一能稳定复现转人工路径的办法：真实端点没法按需「表现不好」
+    srv = _serve("always-bad", DEFAULT_PORT)
+    _th.Thread(target=srv.serve_forever, daemon=True).start()
+    try:
+        cfg = modelconfig.resolve("offline-mock", None)
+        world = World.load("case_001")
+        tracer = Tracer()
+        st = Orchestrator(world, MCPClient(world, tracer),
+                          get_llm("live", cfg=cfg)).run()
+    finally:
+        srv.shutdown()
+        srv.server_close()
+
+    assert st.phase == "EVIDENCE_GAP", f"未走到转人工，实际停在 {st.phase}"
+    assert st.handoff, "转人工却没有产出交接单——清单只存在内存里等于没有交接"
+    tasks = st.handoff["tasks"]
+    assert tasks, "交接单上没有任何待补项"
+
+    for t_ in tasks:
+        for field in ("label", "system", "authorization", "owner", "action"):
+            assert t_.get(field), f"待补项 {t_.get('fact_type')} 缺少「{field}」，无法派活"
+        assert isinstance(t_["automatable"], bool)
+    # 去重：每轮补证都会重登记同一个缺口，交接单上不该出现三条一样的
+    fts = [t_["fact_type"] for t_ in tasks]
+    assert len(fts) == len(set(fts)), f"待补项未去重：{fts}"
+
+    # 财务报表是「系统重试多少次都拿不到」的典型，必须标为需人工
+    fin = next((t_ for t_ in tasks if t_["fact_type"] == "financial_statement"), None)
+    assert fin and not fin["automatable"], "财务报表应标记为必须人工获取"
+    assert fin["owner"] == "客户经理", f"财务报表的责任岗位不对：{fin['owner']}"
+
+    md = st.handoff["report"]["markdown"]
+    for must in ("为什么停在这里", "已经查到了什么", "还缺什么，找谁补", "补齐之后怎么办"):
+        assert must in md, f"交接单缺少「{must}」章节"
+    assert "未定论" in md and "系统未对本案作出任何风险结论" in md, \
+        "交接单必须声明系统未作出风险结论——证据不足时给结论就是编"
+    # 这次是模型失效而非材料不足，移交原因不能写成「证据不足」
+    assert "推理环节失效" in md, "移交原因未如实反映真实原因"
+    assert st.audit and st.audit.get("compliance"), "转人工也要留合规痕迹"
+    # 转人工全程不得产生任何写操作
+    writes = [a for a in tracer.spans if a.kind == "execution"]
+    assert not writes, f"转人工的案件却发生了 {len(writes)} 次执行"
+
+
+@check("三种报告互斥：本次没产出的旧报告必须被清掉")
+def _():
+    """一个声明「系统未对本案作出任何风险结论」的案件，产出目录里却躺着
+    上一次运行留下的《处置意见书》——这会直接打脸，而且是最难自查的那种：
+    每份文件单独看都没问题，错的是它们同时存在。"""
+    import shutil
+    import threading as _th
+
+    from poc.creditsentry import modelconfig
+    from poc.run_demo import OUT_ROOT, REPORT_FILES, run_case
+    from tools.mock_llm_server import DEFAULT_PORT, serve as _serve
+
+    out = os.path.join(OUT_ROOT, "CASE-001")
+    shutil.rmtree(out, ignore_errors=True)
+
+    run_case("CASE-001", "stub", auto_approve=True)
+    have = {f for f in os.listdir(out) if f in REPORT_FILES}
+    assert have == {"处置意见书.md", "审计报告.md"}, f"正常闭环产出不对：{have}"
+
+    srv = _serve("always-bad", DEFAULT_PORT)
+    _th.Thread(target=srv.serve_forever, daemon=True).start()
+    try:
+        run_case("CASE-001", "live", auto_approve=True,
+                 cfg=modelconfig.resolve("offline-mock", None))
+    finally:
+        srv.shutdown()
+        srv.server_close()
+
+    have = {f for f in os.listdir(out) if f in REPORT_FILES}
+    assert have == {"取证任务清单.md"}, (
+        f"转人工后目录里仍有旧报告：{have}——"
+        f"「未作出风险结论」与「目录里有处置意见书」不能同时成立")
+
+
 @check("原件可翻开且必须校验哈希：篡改快照会被当场识破")
 def _():
     """「结论有据可查」只有当复核的人能当场翻到那份材料时才成立。

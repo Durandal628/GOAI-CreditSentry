@@ -453,6 +453,7 @@
       "archive_uri": "s3://creditsentry-reports/CASE-2017-0401-003/审计报告.md"
     }
   },
+  "handoff": null,
   "evidence_gaps": [
     {
       "evidence_id": "EV-003-0006",

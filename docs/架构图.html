@@ -182,11 +182,11 @@ pre.trace .m{color:var(--ink-3)}
   <p class="lede">这不是一张示意图。图上每一个方块都对应仓库里一段可运行的代码，每一条约束都由回归测试强制。<strong>底色是一句话：Agent 的边界是工具权限边界，不是业务步骤边界。</strong></p>
   <div class="stats">
     <div class="stat"><b>1+1+6</b><span>Manager · Leader · Worker</span></div>
-    <div class="stat"><b>14</b><span>Skill（自研 10）</span></div>
+    <div class="stat"><b>16</b><span>Skill（领域自研 12）</span></div>
     <div class="stat"><b>4</b><span>MCP Server</span></div>
-    <div class="stat"><b>11</b><span>路由规则 v1.4.0</span></div>
+    <div class="stat"><b>12</b><span>路由规则 v1.4.0</span></div>
     <div class="stat"><b>10</b><span>Span 类型</span></div>
-    <div class="stat"><b>915</b><span>回归 + 评估用例</span></div>
+    <div class="stat"><b>993</b><span>回归 + 评估用例</span></div>
   </div>
 </header>
 
@@ -212,9 +212,10 @@ pre.trace .m{color:var(--ink-3)}
       <div class="band-body">
         <div class="node lead wide"><div class="nt">Team Leader · <code>risk-commander</code> <span class="tag a">零业务工具</span></div><div class="nd">它能派活、能裁决、能定级，但不持有任何取证或处置工具——编排者不下场，是内控要求，不是设计洁癖。</div></div>
         <div class="node"><div class="nt">SOP 五阶段状态机</div><div class="nd">INTAKE → EVIDENCE → ADJUDICATION → DISPOSITION → AUDIT</div></div>
-        <div class="node"><div class="nt">路由表 v1.4.0</div><div class="nd">11 条规则；Nacos 下发，可灰度可回滚；命中即落 Span</div></div>
+        <div class="node"><div class="nt">路由表 v1.4.0</div><div class="nd">12 条规则；Nacos 下发，可灰度可回滚；命中即落 Span</div></div>
         <div class="node"><div class="nt">对抗裁决器</div><div class="nd">纯规则，不用 LLM——裁决是责任分配的时刻</div></div>
         <div class="node exec"><div class="nt">RiskGate 执行闸门 <span class="tag w">L0–L3</span></div><div class="nd">风险等级 × 证据等级 × 敞口 × 可逆性；fail-safe</div></div>
+        <div class="node human"><div class="nt">转人工交接 <span class="tag p">有交付物</span></div><div class="nd">移交前产出取证任务清单：为什么停 · 已查到什么 · 还缺什么 · <b>每项找谁补</b></div></div>
       </div>
     </div>
 
@@ -239,6 +240,7 @@ pre.trace .m{color:var(--ink-3)}
         <div class="node"><div class="nt">MCP Server × 4</div><div class="nd"><code>credit-core</code> <code>bureau</code> <code>judicial</code> <code>txn</code> —— Mock 与真实<b>零 Schema 差异</b></div></div>
         <div class="node"><div class="nt">RAG 检索</div><div class="nd">监管政策库（8 条款）· 历史处置案例库</div></div>
         <div class="node"><div class="nt">推理后端</div><div class="nd"><code>stub</code> 确定性 ｜ <code>live</code> OpenAI 兼容；同一套输出 Schema</div></div>
+        <div class="node wide"><div class="nt">输出契约层 <span class="tag a">live 专有</span></div><div class="nd">抽 JSON → 归一化 → 结构校验 → 语义校验 → 至多一轮修复 → 失败策略。归一化只吸收表述差异（<code>"62%"</code>→<code>0.62</code>），<b>绝不伪造证据引用</b>；失败时降级方向恒为阻断，不为放行。</div></div>
       </div>
     </div>
 
@@ -246,6 +248,7 @@ pre.trace .m{color:var(--ink-3)}
       <div class="band-label"><span class="lid">L1</span><span class="lname">状态、轨迹与治理</span><span class="lnote">证据链在这里落地，也在这里被审计</span></div>
       <div class="band-body">
         <div class="node"><div class="nt">证据账本 <span class="tag a">append-only</span></div><div class="nd">sha256 原文存证 · 强/弱/缺失分级 · 无证据不决策的执行点</div></div>
+        <div class="node"><div class="nt">原文快照库</div><div class="nd">账本记哈希、快照存对象存储；<b>每次调取都当场重算并比对</b>，对不上即告警</div></div>
         <div class="node"><div class="nt">Case State</div><div class="nd">共享状态 · 阶段迁移轨迹 · 幂等键 · 审批结果</div></div>
         <div class="node"><div class="nt">Tracer · 10 类 Span</div><div class="nd">OTel GenAI 语义 + <code>routing</code> / <code>adjudication</code> 两类特有 Span</div></div>
         <div class="node"><div class="nt">MCP 审计日志</div><div class="nd">含<b>被拒调用</b>——越权尝试也必须留痕</div></div>
@@ -297,7 +300,7 @@ pre.trace .m{color:var(--ink-3)}
 
   <figure>
     <div class="scroll">
-      <svg viewBox="0 0 1040 320" role="img" aria-label="SOP 五阶段状态机与 11 条路由规则">
+      <svg viewBox="0 0 1040 320" role="img" aria-label="SOP 五阶段状态机与 12 条路由规则">
         <defs>
           <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
@@ -311,7 +314,10 @@ pre.trace .m{color:var(--ink-3)}
           <text x="243" y="67" text-anchor="middle" font-size="10.5" fill="var(--ink-2)">输出取证清单 · 转人工</text>
           <path d="M228 140 L228 78" fill="none" stroke="var(--warn)" stroke-width="1.4" marker-end="url(#ah)" color="var(--warn)"/>
           <text x="218" y="112" text-anchor="end" font-size="10.5" fill="var(--warn)" font-weight="600">R-03</text>
-          <text x="218" y="126" text-anchor="end" font-size="10" fill="var(--ink-3)">重试用尽</text>
+          <text x="218" y="126" text-anchor="end" font-size="10" fill="var(--ink-3)">充分度不达标</text>
+          <path d="M370 140 C 370 100, 300 78, 300 62 L 322 62" fill="none" stroke="var(--warn)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#ah)" color="var(--warn)"/>
+          <text x="386" y="110" text-anchor="start" font-size="10.5" fill="var(--warn)" font-weight="600">R-12</text>
+          <text x="386" y="124" text-anchor="start" font-size="10" fill="var(--ink-3)">裁决收敛不了</text>
 
           <!-- R-08 bypass arc -->
           <path d="M600 140 C 600 86, 790 86, 790 140" fill="none" stroke="var(--crit)" stroke-width="1.4" marker-end="url(#ah)" color="var(--crit)"/>
@@ -368,7 +374,9 @@ pre.trace .m{color:var(--ink-3)}
         </g>
       </svg>
     </div>
-    <figcaption>虚线 = 回退；橙色 = 人工必经；红色 = 不可逆动作的绕行路径。全部 11 条规则在 <code>routing.py</code> 与 <code>agentteams/routing-table.yaml</code> 中同构声明，测试断言两者不漂移。</figcaption>
+    <figcaption>虚线 = 回退；橙色 = 人工必经；红色 = 不可逆动作的绕行路径。
+    <b>R-03 与 R-12 是转人工的两条入口</b>：前者是材料确实不够，后者是证据够了但裁决反复收敛不了
+    （质疑器失效、清单覆盖不全）。只堵住前者会留下 R-04 ⇄ R-05 的环路——这是接真实模型后才暴露的。全部 12 条规则在 <code>routing.py</code> 与 <code>agentteams/routing-table.yaml</code> 中同构声明，测试断言两者不漂移。</figcaption>
   </figure>
 
   <p class="note"><b>可审计性的关键落点：</b>路由决策本身就是一条 Trace Span，携带 <code>routing_key</code>、命中规则 ID、规则版本三个字段。「为什么当时走了这条分支」不是靠日志拼凑推测出来的，是直接读出来的。</p>
@@ -424,20 +432,24 @@ pre.trace .m{color:var(--ink-3)}
       <thead><tr><th>架构要素</th><th>实现位置</th><th>怎么验证它真的成立</th></tr></thead>
       <tbody>
         <tr><td>权限矩阵 / Agent 身份</td><td><code>poc/creditsentry/permissions.py</code></td><td>唯一写触点、PII 触点唯一、定性官零工具——回归测试逐条断言</td></tr>
-        <tr><td>SOP 状态机 + 11 条路由</td><td><code>poc/creditsentry/routing.py</code></td><td>每个可产出的 rule_id 都必须在声明式镜像中登记</td></tr>
+        <tr><td>SOP 状态机 + 12 条路由</td><td><code>poc/creditsentry/routing.py</code></td><td>每个可产出的 rule_id 都必须在声明式镜像中登记</td></tr>
         <tr><td>对抗裁决</td><td><code>routing.adjudicate()</code></td><td>纯函数，证据等级优先于置信度；质疑方一票阻断可复现</td></tr>
         <tr><td>四维执行闸门</td><td><code>poc/creditsentry/gate.py</code></td><td>865 组全组合遍历，证明不可逆动作在任何入参下都不落 L0/L1</td></tr>
         <tr><td>证据账本</td><td><code>poc/creditsentry/ledger.py</code></td><td><code>assert_supported()</code> 对空引用 / 无效引用 / 仅缺失证据直接抛错</td></tr>
         <tr><td>Trace 与 Span</td><td><code>poc/creditsentry/tracing.py</code></td><td><code>poc/out/*/trace.json</code>，含 routing / adjudication 两类特有 Span</td></tr>
-        <tr><td>14 个 Skill</td><td><code>poc/creditsentry/skills.py</code></td><td><code>@skill</code> 装饰器从权限矩阵推导 callers，未授权即启动失败</td></tr>
+        <tr><td>16 个 Skill</td><td><code>poc/creditsentry/skills.py</code></td><td><code>@skill</code> 装饰器从权限矩阵推导 callers，未授权即启动失败</td></tr>
         <tr><td>4 个 MCP Server</td><td><code>mcp_servers/</code></td><td>中央授权 + 审计日志；越权调用被拒并留痕</td></tr>
         <tr><td>Worker CR / SOUL.md / 路由表</td><td><code>agentteams/</code>（生成物）</td><td>与权限矩阵逐字节比对，漂移即测试失败</td></tr>
-        <tr><td>Skill 规范三件套</td><td><code>skills/&lt;name&gt;/</code>（生成物）</td><td><code>tools/run_evals.py</code>：879 组用例，未接执行器的如实记为 SKIPPED</td></tr>
+        <tr><td>live 模式输出契约</td><td><code>poc/creditsentry/schemas.py</code></td><td>stub 输出也必须过同一套校验器；<code>tools/live_conformance.py</code> 13 个故障模式离线回归</td></tr>
+        <tr><td>转人工交接单</td><td><code>report.py</code> · <code>checklist.handoff_tasks()</code></td><td>每项待补都含来源系统、授权要求与责任岗位；断言「未定论却有处置意见书」不可能同时成立</td></tr>
+        <tr><td>风险处置工作台</td><td><code>poc/serve.py</code> · <code>web/</code></td><td>与命令行同一套代码同一份产出；旁路观察者抛错时业务结果必须逐字段不变</td></tr>
+        <tr><td>Skill 规范三件套</td><td><code>skills/&lt;name&gt;/</code>（生成物）</td><td><code>tools/run_evals.py</code>：906 组用例，未接执行器的如实记为 SKIPPED</td></tr>
       </tbody>
     </table>
   </div>
 
-  <p class="note">表里刻意留了两处「没做完」的诚实标记：9 个 Skill 的评估集仍是种子集、未接执行器；AgentTeams 真机部署尚未跑通。把差额写在明处，比把「没跑」粉饰成「通过」更经得起追问。</p>
+  <p class="note">表里刻意留了两处「没做完」的诚实标记：9 个 Skill 的评估集仍是种子集、未接执行器；
+  <code>--llm live</code> 已在故障注入伪端点上跑通全部 13 个模式与完整链路，但<b>尚未在真实商业端点上跑过</b>——那需要 Key，而 Key 在使用者手里。把差额写在明处，比把「没跑」粉饰成「通过」更经得起追问。</p>
 </section>
 
 </div>
