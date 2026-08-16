@@ -49,7 +49,8 @@ h2{font-size:34px;line-height:1.22;margin:0 0 10px;font-weight:700;letter-spacin
 h3{font-size:19px;line-height:1.35;margin:0 0 6px;font-weight:650;letter-spacing:-.01em;}
 .lead{font-size:15px;color:var(--ink-2);line-height:1.7;margin:0;max-width:82ch;}
 .body{flex:1;min-height:0;display:flex;flex-direction:column;}
-.mid{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;}
+.mid.ctr{justify-content:center;}
+.mid{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;padding-top:4px;}
 
 .kicker{display:inline-block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--accent);font-weight:700;margin-bottom:16px;}
@@ -161,9 +162,7 @@ svg{display:block;max-width:100%;}
 </style>
 </head>
 <body>
-<div id="deck">
-<!-- 01 封面 -->
-<section class="slide dk">
+<div id="deck"><section class="slide dk">
   <div class="rail"><span>GOAI 赛道一 · 新智基座｜Agent Infra</span><span>选题方向四 · 金融风控与理赔自动化</span><span>初赛方案</span></div>
   <div class="mid">
     <span class="kicker">贷后信贷风控与处置</span>
@@ -173,25 +172,34 @@ svg{display:block;max-width:100%;}
       从风险预警到授信处置<br>的多 Agent 可举证自主闭环
     </p>
   </div>
-  <div class="foot"><span>队伍 Durandal ｜ 成员 李家宝</span><span class="mono">github.com/Durandal628/GOAI-CreditSentry</span></div>
+  <div class="foot"><span>队伍 Durandal ｜ 成员 李家宝 · 刘泽苑</span><span class="mono">github.com/Durandal628/GOAI-CreditSentry</span></div>
 </section>
 
-<!-- 02 立问题 -->
 <section class="slide dk">
   <div class="rail"><span>问题</span><span><b>信衡 CreditSentry</b></span><span>02</span></div>
-  <div class="mid">
+  <div class="mid ctr">
     <h2 style="font-size:52px;line-height:1.22;max-width:24ch">银行不缺预警系统。<br>缺的是预警<span style="color:var(--accent-2)">之后</span>那一段。</h2>
     <p class="lead" style="margin-top:28px;font-size:17px;max-width:56ch">
       谁去取证、凭什么下结论、敢不敢自动执行、出了事怎么向监管交代——<br>
       这四个问题没答案，再准的预警也只能停在「给人看的建议」。
     </p>
   </div>
-  <div class="foot"><span>02 / 18</span><span>面向商业银行小微与对公信贷的贷后管理</span></div>
+  <div class="foot"><span>01 / 34</span><span>面向商业银行小微与对公信贷的贷后管理</span></div>
 </section>
 
-<!-- 03 一天 -->
+<section class="slide dk">
+  <div class="rail"><span>第一部分</span><span>信衡 CreditSentry</span><span>场景与价值</span></div>
+  <div class="body">
+    <span class="kicker">01</span>
+    <h1 style="font-size:50px;margin-top:14px">场景与价值</h1>
+    <div class="rule"></div>
+    <p class="lead" style="font-size:15.5px;max-width:74ch;color:#A9B6B9">目标场景来源、目标用户、核心痛点、真实需求、业务价值、输入输出与行业可复制性。</p>
+    <div style="margin-top:auto;display:flex;border-top:1px solid #223034"><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#35C0C8">01 场景与价值</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 04–09 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">02 方案设计</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 11–19 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">03 Skill 与工具集成</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 21–24 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;border-right:0;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">04 可行性与落地</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 26–34 页</div></div></div>
+  </div>
+</section>
+
 <section class="slide">
-  <div class="rail"><span>问题</span><span><b>信衡 CreditSentry</b></span><span>03 / 18</span></div>
+  <div class="rail"><span>问题</span><span><b>信衡 CreditSentry</b></span><span>02 / 34</span></div>
   <div class="body">
     <h2>一位风险经理的一天</h2>
     <p class="lead">预警系统很勤快，人跟不上。</p>
@@ -205,12 +213,49 @@ svg{display:block;max-width:100%;}
       <p class="quote" style="margin-top:44px">真风险淹在噪声里，<em>误报又把正常客户抽贷断贷</em>。</p>
     </div>
   </div>
-  <div class="foot"><span>03 · 场景与痛点</span><span>数据来自贷后作业的典型形态</span></div>
+  <div class="foot"><span>场景与痛点</span><span>数据来自贷后作业的典型形态</span></div>
 </section>
 
-<!-- 04 四痛点 -->
 <section class="slide">
-  <div class="rail"><span>问题</span><span><b>信衡 CreditSentry</b></span><span>04 / 18</span></div>
+  <div class="rail"><span>一 · 场景与价值</span><span><b>信衡 CreditSentry</b></span><span>03 / 34</span></div>
+  <div class="body">
+    <h2>场景怎么定位到的，给谁用</h2>
+    <p class="lead">我们没有从「哪个环节适合上 AI」出发，而是从<b>一条断裂的作业链</b>上找断点。</p>
+    <div class="mid">
+      <div style="display:flex;align-items:stretch;gap:0;margin-bottom:30px">
+        <div style="flex:1;padding:14px 16px;background:#F7F9F8;border:1px solid var(--rule)">
+          <b style="font-size:13.5px">① 预警产生</b><div class="small" style="margin-top:4px">银行已有系统</div></div>
+        <div style="flex:1.15;padding:14px 16px;background:var(--accent-soft);border:1px solid var(--accent);border-left:0">
+          <b style="font-size:13.5px;color:var(--accent)">② 核实取证</b><div class="small" style="margin-top:4px;color:var(--accent)">人工跨系统查</div></div>
+        <div style="flex:1.15;padding:14px 16px;background:var(--accent-soft);border:1px solid var(--accent);border-left:0">
+          <b style="font-size:13.5px;color:var(--accent)">③ 风险定性</b><div class="small" style="margin-top:4px;color:var(--accent)">人工判断</div></div>
+        <div style="flex:1.15;padding:14px 16px;background:var(--accent-soft);border:1px solid var(--accent);border-left:0">
+          <b style="font-size:13.5px;color:var(--accent)">④ 出处置方案</b><div class="small" style="margin-top:4px;color:var(--accent)">人工撰写</div></div>
+        <div style="flex:1;padding:14px 16px;background:var(--gold-soft);border:1px solid var(--gold);border-left:0">
+          <b style="font-size:13.5px;color:var(--gold)">⑤ 审批</b><div class="small" style="margin-top:4px;color:var(--gold)">必须留给人</div></div>
+        <div style="flex:1.15;padding:14px 16px;background:var(--accent-soft);border:1px solid var(--accent);border-left:0">
+          <b style="font-size:13.5px;color:var(--accent)">⑥ 执行与留痕</b><div class="small" style="margin-top:4px;color:var(--accent)">人工 + 事后补材料</div></div>
+      </div>
+      <div class="cards g23">
+        <div class="card flat"><div class="n">目标用户</div>
+          <ul class="clean">
+            <li><b>贷后风险经理</b>　主用户。每天面对成百上千条预警，逐条核实</li>
+            <li><b>客户经理</b>　协同方。只有他能向客户索取财务报表这类不在任何系统里的材料</li>
+            <li><b>合规与内审</b>　监督方。他们不看结论，看的是「这个结论怎么来的」</li>
+          </ul></div>
+        <div class="card tint"><div class="n">真实需求 · 不是「更准的预警」</div>
+          <p><b>把噪声压下去，但不能漏高危</b>——被丢弃的每一条都要能回溯。</p>
+          <p><b>把证据固定下来</b>——事后能翻回原件，而不是「我记得当时看过」。</p>
+          <p><b>敢自动执行的那部分要分级</b>——哪些能自主、哪些必须人批、哪些永远不碰。</p>
+          <p><b>每个结论都要能指回具体证据与具体规则</b>——内审问得出，我们答得上。</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>场景来源与目标用户</span><span>青色三段 = 本方案接管范围；① 与 ⑤ 刻意不碰</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>问题</span><span><b>信衡 CreditSentry</b></span><span>04 / 34</span></div>
   <div class="body">
     <h2>四个痛点，两种性质</h2>
     <p class="lead">前两条是<b>效率问题</b>，后两条是<b>责任问题</b>——责任问题解决不了，效率做得再好也上不了生产。</p>
@@ -227,11 +272,120 @@ svg{display:block;max-width:100%;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>04 · 场景与痛点</span><span>后两条才是这套系统存在的理由</span></div>
+  <div class="foot"><span>场景与痛点</span><span>后两条才是这套系统存在的理由</span></div>
 </section>
-<!-- 05 为什么难 -->
+
 <section class="slide">
-  <div class="rail"><span>为什么难</span><span><b>信衡 CreditSentry</b></span><span>05 / 18</span></div>
+  <div class="rail"><span>一 · 场景与价值</span><span><b>信衡 CreditSentry</b></span><span>05 / 34</span></div>
+  <div class="body">
+    <h2>一条预警进去，一套可举证的处置材料出来</h2>
+    <p class="lead">系统的对外契约。左边是它需要什么，右边是它<b>每次都必须交付</b>什么。</p>
+    <div class="mid">
+      <div class="cards g2">
+        <div class="card flat"><div class="n">输入</div>
+          <ul class="clean">
+            <li><b>预警信号</b>　来源 · 主体 · 类型 · 时间 · 详情（可多条、可重复）</li>
+            <li><b>主体标识</b>　统一社会信用代码 / 行内主体号</li>
+            <li><b>取数授权</b>　征信查询授权编号。<b>缺失即判为证据缺口，不降级绕过</b></li>
+            <li><b>决策时点</b>　可选。回溯场景下冻结时点，只喂入该日之前的信息</li>
+          </ul></div>
+        <div class="card tint"><div class="n">输出 · 9 个文件</div>
+          <ul class="clean">
+            <li><b>处置意见书</b>　正文每处结论带证据角标，可点开看原件</li>
+            <li><b>审计报告</b>　合规项逐条举证 + 风险模式沉淀</li>
+            <li><b>证据账本</b>　只可追加，含哈希、来源、等级与定级理由</li>
+            <li><b>全链路轨迹</b>　含路由决策与裁决依据两类专有记录</li>
+            <li><b>取数留痕</b>　<b>含被拒调用</b>——越权尝试也必须留痕</li>
+            <li><b>运行指标</b>　降噪率 · 证据充分度 · 质疑覆盖率 · 用量与成本</li>
+          </ul></div>
+      </div>
+      <div class="cards g3" style="margin-top:22px">
+        <div class="card good"><div class="n">结局 A</div><p><b>风险成立</b>　出分级处置方案，需审批的停下等人，批准后执行并回执</p></div>
+        <div class="card flat"><div class="n">结局 B</div><p><b>风险不成立</b>　出「维持原状 + 加强监测」并留痕——<b>看过并决定不动也要有据可查</b></p></div>
+        <div class="card gold"><div class="n">结局 C</div><p><b>未能定论</b>　出取证任务清单转人工，<b>不给风险结论</b>——证据不足时给结论就是编</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>输入输出契约</span><span>poc/out/&lt;case&gt;/</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>一 · 场景与价值</span><span><b>信衡 CreditSentry</b></span><span>06 / 34</span></div>
+  <div class="body">
+    <h2>业务价值分两层</h2>
+    <p class="lead">第一层容易量化但不稀缺；<b>第二层难量化，却决定这套系统能不能真的上生产</b>。</p>
+    <div class="mid">
+      <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+        <div><b class="num">18 ms</b><span>单案端到端（规则推理）<br>对照：人工以<b>天</b>计</span></div>
+        <div><b class="num">62.5%</b><span>降噪率上限（三条实测链路）<br>每条丢弃都可回溯</span></div>
+        <div><b class="num">￥0.015</b><span>单案模型成本<br>日均 2000 件 ≈ ￥31/天</span></div>
+        <div><b class="num">30+</b><span>单案自动取数次数<br>跨 4 个系统，全部留痕</span></div>
+      </div>
+      <div class="cards g4" style="margin-top:30px">
+        <div class="card tint"><p><b>每个结论都能指回证据</b><br>无源结论会让报告拒绝生成，而不是打印出来</p></div>
+        <div class="card tint"><p><b>每次分支都能说清为什么</b><br>路由决策带规则编号与版本，不靠日志拼凑</p></div>
+        <div class="card tint"><p><b>越权尝试也留痕</b><br>只在成功路径留痕，答不了「有没有人试过绕过去」</p></div>
+        <div class="card tint"><p><b>不可逆动作永不自动执行</b><br>这一条让「自动化」在信贷场景变得可谈</p></div>
+      </div>
+      <p class="small" style="margin-top:20px;font-size:12.5px">
+        成本口径取自真实的上下文装配结果而非经验估值；不含修复轮——该发生率要接真实模型跑过才有实数。</p>
+    </div>
+  </div>
+  <div class="foot"><span>业务价值</span><span>第二层才是这套系统的护城河</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>一 · 场景与价值</span><span><b>信衡 CreditSentry</b></span><span>07 / 34</span></div>
+  <div class="body">
+    <h2>换个行业，什么能带走，什么必须重写</h2>
+    <p class="lead">四个场景共享同一组骨架。<b>可迁移的是骨架，不可迁移的是判定口径。</b></p>
+    <div class="mid">
+      <div style="display:flex;align-items:center;gap:0;padding:18px 0 22px;justify-content:center">
+        <span class="chip a" style="font-size:13px;padding:8px 16px">信号归并</span>
+        <span style="color:var(--rule-2);padding:0 10px">→</span>
+        <span class="chip a" style="font-size:13px;padding:8px 16px">证据固定</span>
+        <span style="color:var(--rule-2);padding:0 10px">→</span>
+        <span class="chip a" style="font-size:13px;padding:8px 16px">对抗式判定</span>
+        <span style="color:var(--rule-2);padding:0 10px">→</span>
+        <span class="chip a" style="font-size:13px;padding:8px 16px">按可逆性分级处置</span>
+        <span style="color:var(--rule-2);padding:0 10px">→</span>
+        <span class="chip a" style="font-size:13px;padding:8px 16px">留痕审计</span>
+      </div>
+      <div class="cards g4">
+        <div class="card flat"><div class="n">保险核赔</div>
+          <p>报案归并去重 → 单证取证 → 定损定性 ⇄ 反欺诈质疑 → 分级赔付</p>
+          <p class="small" style="margin-top:8px">小额自动、大额人核，与 L0–L3 天然对应</p></div>
+        <div class="card flat"><div class="n">供应链金融</div>
+          <p>贸易背景真实性核验：多源单据交叉验证 + 对抗质疑</p>
+          <p class="small" style="margin-top:8px">处置动作换成放款闸门</p></div>
+        <div class="card flat"><div class="n">工业设备运维</div>
+          <p>告警降噪 → 多源取证 → 根因定位 ⇄ 反驳 → 分级处置</p>
+          <p class="small" style="margin-top:8px">远程复位可自主、停机必须人批</p></div>
+        <div class="card flat"><div class="n">内容与账号风控</div>
+          <p>信号聚合 → 证据固定 → 判定 ⇄ 申诉视角质疑 → 分级处置</p>
+          <p class="small" style="margin-top:8px">限流可逆、封禁不可逆</p></div>
+      </div>
+      <p class="quote" style="margin-top:26px;font-size:18px">
+        换行业要改的是<b>取数接口与判定口径</b>；<em>架构、闸门、账本、审计不动</em>。
+      </p>
+    </div>
+  </div>
+  <div class="foot"><span>行业可复制性</span><span>判定口径绑定具体监管条款，必须重写</span></div>
+</section>
+
+<section class="slide dk">
+  <div class="rail"><span>第二部分</span><span>信衡 CreditSentry</span><span>方案设计</span></div>
+  <div class="body">
+    <span class="kicker">02</span>
+    <h1 style="font-size:50px;margin-top:14px">方案设计</h1>
+    <div class="rule"></div>
+    <p class="lead" style="font-size:15.5px;max-width:74ch;color:#A9B6B9">系统架构、Agent 分工、任务拆解、协作流程、上下文传递、结果验证与异常分支处理。</p>
+    <div style="margin-top:auto;display:flex;border-top:1px solid #223034"><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">01 场景与价值</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 04–09 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#35C0C8">02 方案设计</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 11–19 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">03 Skill 与工具集成</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 21–24 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;border-right:0;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">04 可行性与落地</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 26–34 页</div></div></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>为什么难</span><span><b>信衡 CreditSentry</b></span><span>08 / 34</span></div>
   <div class="body">
     <h2>那为什么不直接上大模型？</h2>
     <p class="lead">因为信贷处置动作要动客户额度。<b>不可复现，就不可审计。</b></p>
@@ -255,12 +409,11 @@ svg{display:block;max-width:100%;}
         但在信贷处置这个场景，这个交换很划算。</p>
     </div>
   </div>
-  <div class="foot"><span>05 · 关键取舍</span><span>牺牲灵活性，换取可举证性</span></div>
+  <div class="foot"><span>关键取舍</span><span>牺牲灵活性，换取可举证性</span></div>
 </section>
 
-<!-- 06 答案 -->
 <section class="slide dk">
-  <div class="rail"><span>解决方案</span><span><b>信衡 CreditSentry</b></span><span>06 / 18</span></div>
+  <div class="rail"><span>解决方案</span><span><b>信衡 CreditSentry</b></span><span>09 / 34</span></div>
   <div class="body">
     <span class="kicker">我们的答案</span>
     <h2 style="font-size:40px;max-width:30ch">1 个 Manager + 1 个 Team Leader<br>+ 6 个职能 Worker 的端到端闭环</h2>
@@ -298,11 +451,63 @@ svg{display:block;max-width:100%;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>06 · 总体方案</span><span>以 AgentTeams 为协同基点</span></div>
+  <div class="foot"><span>总体方案</span><span>以 AgentTeams 为协同基点</span></div>
 </section>
-<!-- 07 主张一 -->
+
 <section class="slide">
-  <div class="rail"><span>主张 一 · 内控即拓扑</span><span><b>信衡 CreditSentry</b></span><span>07 / 18</span></div>
+  <div class="rail"><span>二 · 方案设计</span><span><b>信衡 CreditSentry</b></span><span>10 / 34</span></div>
+  <div class="body">
+    <h2>五层系统架构</h2>
+    <p class="lead">金色 = 人工必经点，红色 = 有副作用或不可逆的位置。<b>全图只有这几处，是刻意收敛的结果。</b></p>
+    <div class="mid">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:grid;grid-template-columns:132px 1fr;border:1px solid var(--rule)">
+          <div style="padding:11px 14px;background:#F7F9F8;border-right:1px solid var(--rule)">
+            <b style="font-size:13px">L5 接入与人机</b><div class="small" style="font-size:11px">人只在这里介入</div></div>
+          <div style="padding:11px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <span class="chip">预警源接入</span><span class="chip w">Matrix 一案一房间 · 人在环</span>
+            <span class="chip w">审批回调 · 需审批档必经</span><span class="chip">Manager（极薄，唯一可跨 Team 移交）</span>
+            <span class="chip a">风险处置工作台</span></div></div>
+        <div style="display:grid;grid-template-columns:132px 1fr;border:1px solid var(--rule)">
+          <div style="padding:11px 14px;background:#F7F9F8;border-right:1px solid var(--rule)">
+            <b style="font-size:13px">L4 协同编排</b><div class="small" style="font-size:11px">流程骨架确定性</div></div>
+          <div style="padding:11px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <span class="chip a">Team Leader · 零业务工具</span><span class="chip">SOP 五阶段状态机</span>
+            <span class="chip">路由表 12 条规则 v1.4.0</span><span class="chip">对抗裁决器（纯规则）</span>
+            <span class="chip c">RiskGate 四维闸门</span><span class="chip w">转人工交接（有交付物）</span></div></div>
+        <div style="display:grid;grid-template-columns:132px 1fr;border:1px solid var(--rule)">
+          <div style="padding:11px 14px;background:#F7F9F8;border-right:1px solid var(--rule)">
+            <b style="font-size:13px">L3 Agent 执行</b><div class="small" style="font-size:11px">6 个职能 Worker</div></div>
+          <div style="padding:11px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <span class="chip">signal-hub 内部只读</span><span class="chip w">due-diligence 唯一 PII 触点</span>
+            <span class="chip">risk-analyst 零工具</span><span class="chip a">devils-advocate 一票阻断</span>
+            <span class="chip c">disposition-executor 唯一写</span><span class="chip">compliance-auditor 只报告不修复</span></div></div>
+        <div style="display:grid;grid-template-columns:132px 1fr;border:1px solid var(--rule)">
+          <div style="padding:11px 14px;background:#F7F9F8;border-right:1px solid var(--rule)">
+            <b style="font-size:13px">L2 能力层</b><div class="small" style="font-size:11px">判断自研 · 云操作复用</div></div>
+          <div style="padding:11px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <span class="chip a">Skill L3 领域判断 × 12 全自研</span><span class="chip">Skill L2 领域封装 × 4</span>
+            <span class="chip">Skill L1 云操作（官方）</span><span class="chip">MCP Server × 4</span>
+            <span class="chip">RAG 政策库 + 案例库</span><span class="chip a">输出契约层</span></div></div>
+        <div style="display:grid;grid-template-columns:132px 1fr;border:1px solid var(--rule)">
+          <div style="padding:11px 14px;background:#F7F9F8;border-right:1px solid var(--rule)">
+            <b style="font-size:13px">L1 状态与治理</b><div class="small" style="font-size:11px">证据链在这里落地</div></div>
+          <div style="padding:11px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <span class="chip">证据账本 只可追加</span><span class="chip">原文快照库 每次调取重算哈希</span>
+            <span class="chip">Case State 共享状态</span><span class="chip">Tracer 10 类轨迹</span>
+            <span class="chip c">取数留痕 含被拒调用</span><span class="chip">Nacos 治理</span><span class="chip">Higress 网关</span></div></div>
+      </div>
+      <div class="card tint" style="margin-top:20px">
+        <p><b>贯穿三层的脊柱是一份权限矩阵。</b>同一份声明同时驱动四处——运行时取数授权、Skill 授权、
+          Worker 配置与身份文件的生成、以及回归断言。测试逐字节比对磁盘配置与矩阵生成结果，
+          因此「权限矩阵即部署配置」是<b>可校验的事实，不是修辞</b>。</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>系统架构</span><span>docs/架构图.html</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>主张 一 · 内控即拓扑</span><span><b>信衡 CreditSentry</b></span><span>11 / 34</span></div>
   <div class="body">
     <h2>为什么是 6 个 Agent，不是 3 个或 10 个</h2>
     <p class="lead">把《商业银行内部控制指引》的「不相容职务分离」<b>编译成权限矩阵</b>，数量就数得出来。</p>
@@ -337,12 +542,125 @@ svg{display:block;max-width:100%;}
       </p>
     </div>
   </div>
-  <div class="foot"><span>07 · 主张一</span><span>同一份矩阵驱动运行时授权、配置生成与回归断言</span></div>
+  <div class="foot"><span>主张一</span><span>同一份矩阵驱动运行时授权、配置生成与回归断言</span></div>
 </section>
 
-<!-- 08 主张二 -->
 <section class="slide">
-  <div class="rail"><span>主张 二 · 无证据不决策</span><span><b>信衡 CreditSentry</b></span><span>08 / 18</span></div>
+  <div class="rail"><span>二 · 方案设计</span><span><b>信衡 CreditSentry</b></span><span>12 / 34</span></div>
+  <div class="body">
+    <h2>一个案子怎么拆成任务，谁在什么时候接手</h2>
+    <p class="lead">五阶段状态机 + 12 条路由规则。<b>模型只做阶段内判定，不决定流程走向。</b></p>
+    <div class="mid">
+      <figure style="margin:0">
+      <svg viewBox="0 0 1140 250" role="img" aria-label="SOP 五阶段状态机与 12 条路由规则">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker></defs>
+        <g font-family="ui-monospace,Menlo,monospace">
+          <rect x="150" y="6" width="182" height="42" rx="2" fill="#F7EEDA" stroke="#9A6B12" stroke-width="1.5"/>
+          <text x="241" y="24" text-anchor="middle" font-size="13" fill="#101619" font-weight="600">EVIDENCE_GAP</text>
+          <text x="241" y="39" text-anchor="middle" font-size="10.5" fill="#465158">出取证任务清单 · 转人工</text>
+          <path d="M215 116 L215 52" fill="none" stroke="#9A6B12" stroke-width="1.5" marker-end="url(#ar)" color="#9A6B12"/>
+          <text x="206" y="80" text-anchor="end" font-size="11" fill="#9A6B12" font-weight="700">R-03</text>
+          <text x="206" y="94" text-anchor="end" font-size="10" fill="#8C979C">材料不够</text>
+          <path d="M330 116 C 330 84, 300 60, 300 52" fill="none" stroke="#9A6B12" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ar)" color="#9A6B12"/>
+          <text x="344" y="82" font-size="11" fill="#9A6B12" font-weight="700">R-12</text>
+          <text x="344" y="96" font-size="10" fill="#8C979C">裁决收敛不了</text>
+          <path d="M640 116 C 640 66, 830 66, 830 116" fill="none" stroke="#AE3226" stroke-width="1.5" marker-end="url(#ar)" color="#AE3226"/>
+          <text x="735" y="60" text-anchor="middle" font-size="11" fill="#AE3226" font-weight="700">R-08　最高档 · 只出方案，不派执行</text>
+          <g>
+            <rect x="14" y="116" width="120" height="46" rx="2" fill="#F7F9F8" stroke="#C3CCC9"/>
+            <text x="74" y="138" text-anchor="middle" font-size="12.5" fill="#101619" font-weight="600">INTAKE</text>
+            <text x="74" y="152" text-anchor="middle" font-size="9.5" fill="#8C979C">signal-hub</text>
+            <rect x="182" y="116" width="120" height="46" rx="2" fill="#F7F9F8" stroke="#C3CCC9"/>
+            <text x="242" y="138" text-anchor="middle" font-size="12.5" fill="#101619" font-weight="600">EVIDENCE</text>
+            <text x="242" y="152" text-anchor="middle" font-size="9.5" fill="#8C979C">due-diligence</text>
+            <rect x="350" y="116" width="156" height="46" rx="2" fill="#E4F0F0" stroke="#0B6B72" stroke-width="1.5"/>
+            <text x="428" y="136" text-anchor="middle" font-size="12.5" fill="#101619" font-weight="600">ADJUDICATION</text>
+            <text x="428" y="151" text-anchor="middle" font-size="9.5" fill="#0B6B72">强制并行 · 质疑不可跳过</text>
+            <rect x="554" y="116" width="136" height="46" rx="2" fill="#F7F9F8" stroke="#C3CCC9"/>
+            <text x="622" y="138" text-anchor="middle" font-size="12.5" fill="#101619" font-weight="600">DISPOSITION</text>
+            <text x="622" y="152" text-anchor="middle" font-size="9.5" fill="#8C979C">闸门定档</text>
+            <rect x="770" y="116" width="120" height="46" rx="2" fill="#F7F9F8" stroke="#C3CCC9"/>
+            <text x="830" y="138" text-anchor="middle" font-size="12.5" fill="#101619" font-weight="600">AUDIT</text>
+            <text x="830" y="152" text-anchor="middle" font-size="9.5" fill="#8C979C">compliance-auditor</text>
+            <rect x="938" y="116" width="112" height="46" rx="2" fill="#FFFFFF" stroke="#C3CCC9" stroke-dasharray="4 3"/>
+            <text x="994" y="143" text-anchor="middle" font-size="12.5" fill="#465158" font-weight="600">CLOSED</text>
+          </g>
+          <g stroke="#8C979C" stroke-width="1.5" fill="none" color="#8C979C">
+            <path d="M134 139 L178 139" marker-end="url(#ar)"/><path d="M302 139 L346 139" marker-end="url(#ar)"/>
+            <path d="M506 139 L550 139" marker-end="url(#ar)"/><path d="M690 139 L766 139" marker-end="url(#ar)"/>
+            <path d="M890 139 L934 139" marker-end="url(#ar)"/>
+          </g>
+          <g font-size="10.5" font-weight="700" fill="#0B6B72" text-anchor="middle">
+            <text x="156" y="132">R-01</text><text x="324" y="132">R-04</text>
+            <text x="528" y="132">R-06/07</text><text x="728" y="132">R-10</text><text x="912" y="132">R-11</text>
+          </g>
+          <path d="M208 162 C 198 200, 276 200, 266 162" fill="none" stroke="#8C979C" stroke-width="1.5" marker-end="url(#ar)" color="#8C979C"/>
+          <text x="242" y="212" text-anchor="middle" font-size="10.5" fill="#0B6B72" font-weight="700">R-02 补证 ≤ 2 轮</text>
+          <path d="M588 162 C 578 200, 656 200, 646 162" fill="none" stroke="#9A6B12" stroke-width="1.5" marker-end="url(#ar)" color="#9A6B12"/>
+          <text x="617" y="212" text-anchor="middle" font-size="10.5" fill="#9A6B12" font-weight="700">R-09 等人工审批</text>
+          <path d="M400 162 L400 232 L262 232 L262 166" fill="none" stroke="#0B6B72" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#ar)" color="#0B6B72"/>
+          <text x="336" y="246" text-anchor="middle" font-size="10.5" fill="#0B6B72" font-weight="700">R-05　全流程唯一回退边 · 质疑方行使一票阻断</text>
+        </g>
+      </svg>
+      </figure>
+      <div class="cards g3" style="margin-top:18px">
+        <div class="card flat"><div class="n">任务怎么拆</div>
+          <p>按<b>阶段</b>拆而不是按步骤拆。每阶段由路由表决定派给谁、能否并行——
+            取证阶段一个 Worker 串行取四类材料，裁决阶段两个 Worker <b>强制并行</b>。</p></div>
+        <div class="card flat"><div class="n">谁来接手</div>
+          <p>Team Leader 只做路由与裁决，<b>不持有任何业务工具</b>。
+            派活依据是路由键（阶段 · 信号类型 · 证据充分度 · 风险等级 · 敞口），不是模型的自由发挥。</p></div>
+        <div class="card tint"><div class="n">可审计性的落点</div>
+          <p>路由决策<b>本身就是一条轨迹记录</b>，带路由键、命中规则编号、规则版本。
+            「为什么当时走了这条分支」是直接读出来的，不是靠日志拼凑。</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>任务拆解与协作流程</span><span>12 条规则在代码与声明式配置中同构，测试断言不漂移且无死规则</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>二 · 方案设计</span><span><b>信衡 CreditSentry</b></span><span>13 / 34</span></div>
+  <div class="body">
+    <h2>上下文传递：三个坑，逐个用代码堵</h2>
+    <p class="lead">最容易出问题的不是「装不下」，而是<b>装丢了却看不出来</b>。三条堵法都留痕，不留痕等于没堵。</p>
+    <div class="mid">
+      <div class="cards g3">
+        <div class="card crit"><div class="n">坑 一 · 静默截断</div>
+          <p>超预算时悄悄丢尾部，模型看不到关键事实却照样给结论。</p>
+          <p style="margin-top:10px"><b>堵法</b>　裁剪必须留痕：丢了什么、为什么丢，都记进装配账单并进轨迹。
+            必需块不参与裁剪，本身超预算则直接抛错，<b>不硬塞</b>。</p></div>
+        <div class="card crit"><div class="n">坑 二 · 原文灌入</div>
+          <p>裁判文书全文进上下文，既爆预算，又让「模型看的是哪一份」无法举证。</p>
+          <p style="margin-top:10px"><b>堵法</b>　证据只放编号 + 抽取字段，检测到长文本直接抛错。
+            <b>原文靠哈希锚定，给人看不给模型看</b>。</p></div>
+        <div class="card crit"><div class="n">坑 三 · 关键块被挤掉</div>
+          <p>预算压力下把清单、输出契约裁掉，模型不知道自己要做完什么。</p>
+          <p style="margin-top:10px"><b>堵法</b>　排序原则是<b>目标与契约在前、事实在中、参考在后</b>。
+            把「做完的标准」挤到中段是最糟的情况。</p></div>
+      </div>
+      <div class="cards g2" style="margin-top:22px">
+        <div class="card tint"><div class="n">待办清单：不是提示技巧，是完成性契约</div>
+          <p>清单的根本弱点是<b>它通常由模型自己维护</b>——模型可以偷偷改、悄悄划掉。</p>
+          <p>所以我们的清单是：<b>由系统从上游产物派生 → 注入提示词告知标准 → 模型返回后由代码逐项核对</b>。
+            提示词里的清单只是告知契约，真正起作用的是事后那次核对。</p>
+          <p style="margin-top:10px">这堵住了一个真实漏洞：质疑方原本可以只反驳 3 条主因里的 1 条、对另外 2 条保持沉默。
+            <b>未被质疑的主因 ≠ 质疑通过。</b></p></div>
+        <div class="card flat"><div class="n">六维查询改写</div>
+          <p><b>立场</b>（求证方找构成要件，证伪方找认定门槛）·
+            <b>术语规范化</b>（行内口语 → 监管术语）· <b>信号主题</b> ·
+            <b>条款直查</b>（精确引用不走语义）· <b>否定式</b>（仅证伪方，主动找除外与豁免）· <b>时效</b>。</p>
+          <p style="margin-top:10px"><b>时效维修复了一个真实缺陷</b>：2017 年的回溯案件曾召回 2025 年才生效的行内制度。
+            这是知识维度的前视污染，比证据层更隐蔽——条款看起来「一直都在」。</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>上下文传递</span><span>澄清不默认追问用户：能自动的自动决、能派任务的派任务、确需人判断的给选项</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>主张 二 · 无证据不决策</span><span><b>信衡 CreditSentry</b></span><span>14 / 34</span></div>
   <div class="body">
     <h2>让 Agent 敢说「这不是风险」</h2>
     <p class="lead">比让它报警难得多。误杀正常客户会直接抽贷断贷、引发投诉与监管问责。</p>
@@ -372,12 +690,11 @@ svg{display:block;max-width:100%;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>08 · 主张二</span><span>证据账本只可追加 · 哈希锚定 · 强/弱/缺失三级</span></div>
+  <div class="foot"><span>主张二</span><span>证据账本只可追加 · 哈希锚定 · 强/弱/缺失三级</span></div>
 </section>
 
-<!-- 09 主张三 -->
 <section class="slide">
-  <div class="rail"><span>主张 三 · 分级执行</span><span><b>信衡 CreditSentry</b></span><span>09 / 18</span></div>
+  <div class="rail"><span>主张 三 · 分级执行</span><span><b>信衡 CreditSentry</b></span><span>15 / 34</span></div>
   <div class="body">
     <h2>零人工，不等于无限自动化</h2>
     <p class="lead">风险等级 × 证据等级 × 敞口金额 × <b>可逆性</b> → 四档。纯规则，不联网、不问模型。</p>
@@ -406,110 +723,11 @@ svg{display:block;max-width:100%;}
       </p>
     </div>
   </div>
-  <div class="foot"><span>09 · 主张三</span><span>幂等键 + 回滚点 · 执行方与审计方不是同一角色</span></div>
-</section>
-<!-- 10 三条链路 -->
-<section class="slide">
-  <div class="rail"><span>看它跑</span><span><b>信衡 CreditSentry</b></span><span>10 / 18</span></div>
-  <div class="body">
-    <h2>三条链路，三种结局</h2>
-    <p class="lead">A 与 B 是<b>同一类主体、完全相同的三类信号</b>，差别只在个案细节。</p>
-    <div class="mid">
-      <div class="cards g3">
-        <div class="card" style="border-top:4px solid var(--gold)">
-          <div class="n" style="color:var(--gold)">链路 A · 风险成立</div>
-          <p style="font-size:14px"><b>涉诉 3 笔 · 集中转出 480 万 · 法代变更</b></p>
-          <p>三类信号相互印证，质疑逐条尝试反驳但均不成立。</p>
-          <p style="margin-top:14px"><span class="chip w">L2 需审批</span></p>
-          <p class="small" style="margin-top:10px">额度压降 30% + 追加担保<br>审批通过后执行，回执与审计留痕</p></div>
-        <div class="card" style="border-top:4px solid var(--good)">
-          <div class="n" style="color:var(--good)">链路 B · 风险不成立</div>
-          <p style="font-size:14px"><b>同样三类信号</b></p>
-          <p>但逐笔下钻：涉诉已结案且我方为原告、转出对手方是稳定供应商、法代变更早于风险窗口。</p>
-          <p style="margin-top:14px"><span class="chip g">L0 维持原状</span></p>
-          <p class="small" style="margin-top:10px">出「加强监测」结论并留痕——<br><b>「看过并决定不动」也必须有据可查</b></p></div>
-        <div class="card" style="border-top:4px solid var(--crit)">
-          <div class="n" style="color:var(--crit)">链路 C · 真实历史回溯</div>
-          <p style="font-size:14px"><b>2017 年担保圈风险传染</b></p>
-          <p>时点冻结在 2017-04-01，只喂入该日之前的公开信息。</p>
-          <p style="margin-top:14px"><span class="chip c">L3 只出方案</span></p>
-          <p class="small" style="margin-top:10px">直接敞口 6.5 亿触发大额升档<br>系统全程不执行任何写操作</p></div>
-      </div>
-      <p class="quote" style="margin-top:32px">链路 B 才是技术难点。<em>让 Agent 敢说「这不是风险」，比让它报警难得多。</em></p>
-    </div>
-  </div>
-  <div class="foot"><span>10 · 演示链路</span><span>python3 poc/run_demo.py --all</span></div>
+  <div class="foot"><span>主张三</span><span>幂等键 + 回滚点 · 执行方与审计方不是同一角色</span></div>
 </section>
 
-<!-- 11 回溯 -->
-<section class="slide dk">
-  <div class="rail"><span>看它跑</span><span><b>信衡 CreditSentry</b></span><span>11 / 18</span></div>
-  <div class="body">
-    <span class="kicker">链路 C · 真实历史案例回测</span>
-    <h2 style="max-width:26ch">把时钟拨回 2017 年 4 月，它看出来了吗</h2>
-    <div class="mid">
-      <div style="display:flex;align-items:center;gap:0;margin:20px 0 34px">
-        <div style="flex:0 0 auto;text-align:center;padding-right:34px">
-          <div style="font-size:13px;color:#7E8B8F;letter-spacing:.1em">决策时点</div>
-          <div style="font-size:30px;font-weight:700;color:#EDF2F1;margin-top:6px" class="mono">2017-04-01</div>
-          <div style="font-size:12.5px;color:#8F9C9F;margin-top:8px">只喂入该日之前的公开信息</div>
-        </div>
-        <div style="flex:1;height:2px;background:linear-gradient(90deg,var(--accent-2),#3A4B4E);position:relative">
-          <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:13px;color:var(--accent-2);font-weight:650;white-space:nowrap">提前量 31 个月</div>
-        </div>
-        <div style="flex:0 0 auto;text-align:center;padding-left:34px">
-          <div style="font-size:13px;color:#7E8B8F;letter-spacing:.1em">历史结局</div>
-          <div style="font-size:30px;font-weight:700;color:#E4796A;margin-top:6px" class="mono">2019-10</div>
-          <div style="font-size:12.5px;color:#8F9C9F;margin-top:8px">债券违约，引发全面债务危机</div>
-        </div>
-      </div>
-      <div class="cards g3">
-        <div class="card"><div class="n">系统当时的判定</div>
-          <p><b>风险成立 · 关注类</b><br>净未覆盖代偿敞口达直接敞口的 <b>2.02 倍</b></p></div>
-        <div class="card"><div class="n">但档位是 L3</div>
-          <p>直接敞口 6.5 亿触发大额升档，<b>只出方案不执行</b>。历史上该主体当时确有阶段性缓释（覆盖 54.6%）——<b>方向对不等于处置对</b>。</p></div>
-        <div class="card"><div class="n">怎么保证没作弊</div>
-          <p>每条证据标注首次公开日并逐条校验；<b>历史结局在数据构造时即被摘出</b>，任何环节结构上取不到。</p></div>
-      </div>
-    </div>
-  </div>
-  <div class="foot"><span>11 · 真实历史回溯</span><span>只回溯已有公开定论的事件 · 不对存续未定论主体输出风险结论</span></div>
-</section>
-
-<!-- 12 工作台 -->
 <section class="slide">
-  <div class="rail"><span>看它跑</span><span><b>信衡 CreditSentry</b></span><span>12 / 18</span></div>
-  <div class="body">
-    <h2>它现在就能打开，而且可以被当场检验</h2>
-    <p class="lead"><span class="mono" style="font-size:14px;background:#F0F3F2;padding:3px 9px">python3 poc/serve.py --open</span>　零依赖、零云账号、零网络。</p>
-    <div class="mid">
-      <div class="cards g23" style="align-items:stretch">
-        <div class="card tint">
-          <div class="n">最有说服力的三个动作</div>
-          <ul class="clean" style="margin-top:4px">
-            <li><b>点开任一证据 → 翻开原件</b><br>裁判文书、征信报告直接展开，并当场重算防篡改校验码</li>
-            <li><b>审批时它真的停下来等你</b><br>后端线程阻塞在那里，不是走过场的确认框。驳回 → 降级只读，额度未被修改</li>
-            <li><b>改一个案情要素 → 当场翻案</b><br>结论随之改变。改了却不变，说明它不是从证据推出来的</li>
-          </ul>
-        </div>
-        <div class="card flat">
-          <div class="n">界面上看得到什么</div>
-          <p><b>左栏</b>　预警池 · 判断方式 · 案情要素调节</p>
-          <p><b>中栏</b>　五阶段流水线随处置推进逐段点亮；证据、对抗视图、闸门定档、执行回执按顺序长出来</p>
-          <p><b>右栏</b>　办理过程 · 办理日志 · 取数留痕 · 岗位与权限</p>
-          <p style="margin-top:16px"><b>另外四个动作</b>：并排看定性⇄质疑的逐条分歧　·　敞口改 2 亿看档位升级　·　
-            让零权限岗位去改额度看它被拒<b>且留痕</b>　·　接自己的大模型 API</p>
-          <p class="small" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--rule)">
-            工作台与命令行是<b>同一套代码、同一份产出</b>，没有为演示另造一条链路。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="foot"><span>12 · 可运行 Demo</span><span>docs/工作台使用说明.md</span></div>
-</section>
-<!-- 13 出问题往哪倒 -->
-<section class="slide">
-  <div class="rail"><span>可信度</span><span><b>信衡 CreditSentry</b></span><span>13 / 18</span></div>
+  <div class="rail"><span>可信度</span><span><b>信衡 CreditSentry</b></span><span>16 / 34</span></div>
   <div class="body">
     <h2>一个系统的可信度，看它出问题时往哪个方向倒</h2>
     <p class="lead">三条失败路径，降级方向<b style="color:var(--crit)">恒为阻断</b>，不为放行。</p>
@@ -530,75 +748,136 @@ svg{display:block;max-width:100%;}
       </p>
     </div>
   </div>
-  <div class="foot"><span>13 · 异常分支</span><span>降级必须留痕：进轨迹、进日志、进指标，并在界面显式打出</span></div>
+  <div class="foot"><span>异常分支</span><span>降级必须留痕：进轨迹、进日志、进指标，并在界面显式打出</span></div>
 </section>
 
-<!-- 14 数字墙 -->
 <section class="slide dk">
-  <div class="rail"><span>证据</span><span><b>信衡 CreditSentry</b></span><span>14 / 18</span></div>
+  <div class="rail"><span>第三部分</span><span>信衡 CreditSentry</span><span>Skill 与工具集成</span></div>
   <div class="body">
-    <span class="kicker">不是承诺，是可以现场跑的断言</span>
-    <h2 style="max-width:28ch">每一条约束都由回归测试强制</h2>
-    <div class="mid">
-      <div class="stats" style="grid-template-columns:repeat(6,1fr)">
-        <div><b class="num">74</b><span>安全边界回归<br>全绿</span></div>
-        <div><b class="num">906</b><span>Skill 评估用例<br>全绿</span></div>
-        <div><b class="num">865</b><span>闸门全组合遍历<br>穷举非抽样</span></div>
-        <div><b class="num">13</b><span>接大模型的<br>故障模式回归</span></div>
-        <div><b class="num">36</b><span>可逐条复核的<br>验收断言</span></div>
-        <div><b class="num">0</b><span>第三方运行时<br>依赖</span></div>
-      </div>
-      <div class="cards g4" style="margin-top:34px">
-        <div class="card"><p><b>写权限唯一</b><br>只有一个角色能改额度</p></div>
-        <div class="card"><p><b>PII 触点唯一</b><br>只有一个角色能读征信与流水</p></div>
-        <div class="card"><p><b>越权尝试也留痕</b><br>被拒的调用同样进审计日志</p></div>
-        <div class="card"><p><b>配置零漂移</b><br>部署配置与权限矩阵逐字节比对</p></div>
-      </div>
-      <p class="small" style="margin-top:24px;color:#7E8B8F;font-size:12.5px">
-        其中带「含反向验证」的断言不只测「合法输入能通过」，还测「非法输入真的会被拒」——<b style="color:#EDF2F1">只测正向的约束等于没有约束</b>。
-      </p>
-    </div>
+    <span class="kicker">03</span>
+    <h1 style="font-size:50px;margin-top:14px">Skill 与工具集成</h1>
+    <div class="rule"></div>
+    <p class="lead" style="font-size:15.5px;max-width:74ch;color:#A9B6B9">核心 Skill 设计、复用价值，工具 / 云产品 / 企业系统集成路径，以及 MCP、RAG、可观测能力规划。</p>
+    <div style="margin-top:auto;display:flex;border-top:1px solid #223034"><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">01 场景与价值</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 04–09 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">02 方案设计</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 11–19 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#35C0C8">03 Skill 与工具集成</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 21–24 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;border-right:0;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">04 可行性与落地</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 26–34 页</div></div></div>
   </div>
-  <div class="foot"><span>14 · 运行证据</span><span>5 条命令，数秒内完成且全绿</span></div>
 </section>
 
-<!-- 15 赛题要求映射 -->
 <section class="slide">
-  <div class="rail"><span>技术栈</span><span><b>信衡 CreditSentry</b></span><span>15 / 18</span></div>
+  <div class="rail"><span>三 · Skill 与工具集成</span><span><b>信衡 CreditSentry</b></span><span>17 / 34</span></div>
   <div class="body">
-    <h2>逐条映射到赛题要求的能力</h2>
-    <p class="lead">不是「用到了」，而是「用在哪、怎么验」。</p>
+    <h2>16 个 Skill 分三层，分层依据只有一句话</h2>
+    <p class="lead">「这件事换个行业还成立吗」——<b>不成立的必须自研，成立的没必要重复造。</b></p>
     <div class="mid">
-      <table>
-        <thead><tr><th style="width:15%">能力</th><th style="width:43%">我们怎么用</th><th style="width:42%">怎么验证它真的成立</th></tr></thead>
-        <tbody>
-          <tr><td class="k">AgentTeams</td>
-            <td>1 Manager + 1 Team Leader + 6 Worker；身份、权限、模型绑定全部声明式</td>
-            <td>配置由权限矩阵生成，磁盘文件与矩阵逐字节比对，漂移即测试失败</td></tr>
-          <tr><td class="k">Skill</td>
-            <td>16 个。领域判断 12 个全自研，通用云操作复用官方并标注开源等价替代</td>
-            <td>三件套（文档 + Schema + 评估集）全部由代码元数据生成；评估集是发布门禁</td></tr>
-          <tr><td class="k">MCP</td>
-            <td>4 个 Server、17 个工具，覆盖信贷核心 / 征信 / 司法工商 / 账务流水</td>
-            <td>Mock 与真实接入<b>零 Schema 差异</b>；中央授权 + 审计留痕，越权调用被拒并留痕</td></tr>
-          <tr><td class="k">RAG</td>
-            <td>监管政策库 + 历史案例库；六维查询改写、时点过滤、结果融合、经验回流</td>
-            <td>条款生效日 ≤ 案件时点，防知识维前视污染；每条命中记录由哪几维召回</td></tr>
-          <tr><td class="k">可观测</td>
-            <td>10 类轨迹，对齐 OTel GenAI 语义；另加路由决策与对抗裁决两类专有记录</td>
-            <td>「为什么走了这条分支」直接读出来——带路由键、规则编号与版本</td></tr>
-          <tr><td class="k">治理与网关</td>
-            <td>Nacos 版本化与灰度回滚；Higress 凭证透传与 PII 出站脱敏</td>
-            <td>凭证一律是引用而非明文，配置可进版本库、密钥不进　<span class="chip">配置层已预留，网关侧未落地</span></td></tr>
-        </tbody>
-      </table>
+      <div class="cards g3">
+        <div class="card tint"><div class="n">L3 领域判断 · 12 个，全自研</div>
+          <p class="small" style="line-height:1.8;font-size:11.5px">SignalFusion · ExposureMapping ·
+            CreditReportProbe · LitigationProbe · TxnFlowAnalyze · GuaranteeProbe · QueryRewrite ·
+            RiskRootCause · RiskGate · ComplianceCheck · SafeDisposition · PostmortemDistill</p>
+          <p style="margin-top:10px">承载信贷领域知识与监管条款绑定。<b>不可能复用现成能力</b>——
+            「单笔涉诉标的占敞口 ≥5% 且未结案才构成偿债能力信号」只能自己写。</p></div>
+        <div class="card flat"><div class="n">L2 领域封装 · 4 个，自研外壳</div>
+          <p class="small">EvidenceLedger · PolicyRag · CaseMemory · ReportCompose</p>
+          <p style="margin-top:10px"><b>语义自研，底层存取复用官方能力</b>。
+            账本的分级规则与哈希校验是自研的；对象存储与索引直接用云能力。</p></div>
+        <div class="card flat"><div class="n">L1 云操作 · 直接用官方</div>
+          <p class="small">对象存储 · 向量检索 · 日志 · 监控</p>
+          <p style="margin-top:10px">不重复造轮子。<b>全部标注开源等价替代</b>（MinIO / pgvector / Loki / Prometheus），
+            PoC 默认走替代，本地即可复现。</p></div>
+      </div>
+      <div class="cards g2" style="margin-top:22px">
+        <div class="card"><div class="n">CreditSkill Spec · 让 Skill 可分发、可评估、可回滚</div>
+          <p>每个 Skill 交付三件套：<b>说明文档 + 输入输出 Schema + 评估集</b>，
+            三者都由代码里的元数据生成——因此<b>文档不会与实现漂移</b>。</p>
+          <p style="margin-top:10px">每个 Skill 显式声明：触发条件、依赖、<b>失败策略</b>、安全等级、
+            绑定的监管条款、评估集规模、复用价值。</p></div>
+        <div class="card gold"><div class="n">评估集是发布门禁</div>
+          <p>不全绿不允许经 Nacos 灰度发布。</p>
+          <p style="margin-top:10px"><b>覆盖度差额如实记录</b>：906 组用例全绿，但其中 865 组来自闸门的全组合遍历；
+            还有 9 个 Skill 的评估集仍是种子集、未接执行器——这些在清单里记为 SKIPPED，
+            <b>不把「没跑」粉饰成「通过」</b>。</p></div>
+      </div>
     </div>
   </div>
-  <div class="foot"><span>15 · 技术栈映射</span><span>四项 RAG 能力全做（赛题要求至少两项）</span></div>
+  <div class="foot"><span>核心 Skill 设计</span><span>skills/&lt;name&gt;/ 由 @skill 元数据生成</span></div>
 </section>
-<!-- 16 能拿走什么 -->
+
 <section class="slide">
-  <div class="rail"><span>开放</span><span><b>信衡 CreditSentry</b></span><span>16 / 18</span></div>
+  <div class="rail"><span>三 · Skill 与工具集成</span><span><b>信衡 CreditSentry</b></span><span>18 / 34</span></div>
+  <div class="body">
+    <h2>集成路径：Mock 与真实接入<span style="color:var(--accent)">零 Schema 差异</span></h2>
+    <p class="lead">Demo 用 Mock 是常态，风险在于「Demo 能跑、接真系统要重写」。我们用结构约束消除这个风险。</p>
+    <div class="mid">
+      <div class="cards g23">
+        <div class="card flat" style="padding:0;overflow:hidden">
+          <table>
+            <thead><tr><th style="width:26%">MCP Server</th><th>工具</th><th style="width:20%">性质</th></tr></thead>
+            <tbody>
+              <tr><td class="k">信贷核心</td><td>额度 · 敞口穿透 · 押品 · 担保台账 ／ 调额 · 追加担保 · 回滚</td><td><span class="chip c">含写操作</span></td></tr>
+              <tr><td class="k">人行征信</td><td>征信报告 · 期间变动比对 · 被查询记录</td><td><span class="chip w">高敏 PII</span></td></tr>
+              <tr><td class="k">司法工商</td><td>涉诉检索 · 裁判文书原文 · 工商登记 · 变更历史</td><td><span class="chip">只读</span></td></tr>
+              <tr><td class="k">账务流水</td><td>流水明细（自动分片）· 对手方汇总 · 异常模式识别</td><td><span class="chip w">PII</span></td></tr>
+            </tbody>
+          </table>
+          <p class="small" style="padding:14px 16px 16px">共 17 个工具。征信类<b>必须带授权编号，缺失即拒绝，不降级绕过</b>。</p></div>
+        <div class="card tint">
+          <div class="n">替换点只有一处</div>
+          <p>把进程内直连换成<b>经网关的 MCP 客户端</b>。工具名称、入参 Schema、返回结构、错误码
+            <b>完全不变</b>——Agent、Skill、路由表与契约测试均无需改动。</p>
+          <p style="margin-top:14px"><b>为什么能做到</b>　所有调用统一收敛在一处，因此三件事只实现一次：
+            权限校验、审计留痕、失败策略。</p>
+          <p style="margin-top:14px"><b>失败策略也统一</b>　只有限流类错误值得重试；
+            权限与授权类错误立即上抛，<b>不重试不降级</b>。</p>
+          <p style="margin-top:14px;padding-top:14px;border-top:1px solid var(--rule-2)">
+            <b>企业系统落地</b>　Higress 统一出口与凭证透传，Worker 只持消费方令牌，
+            真实密钥留在网关侧；PII 出站脱敏因取证触点唯一而<b>范围可收敛、可验证</b>。</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>工具与企业系统集成路径</span><span>mcp_servers/ · 中央授权 + 审计留痕</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>三 · Skill 与工具集成</span><span><b>信衡 CreditSentry</b></span><span>19 / 34</span></div>
+  <div class="body">
+    <h2>RAG 四项能力全做，可观测多两类专有记录</h2>
+    <p class="lead">赛题要求 RAG 至少两项。<b>我们做了四项，因为少任何一项都会在这个场景出问题。</b></p>
+    <div class="mid">
+      <div class="cards g2">
+        <div class="card flat"><div class="n">RAG · 两库四能力</div>
+          <ul class="clean">
+            <li><b>查询改写</b>　六维子查询，各带独立过滤与权重；每条命中记录由哪几维召回</li>
+            <li><b>时点过滤</b>　条款生效日 ≤ 案件时点，<b>防知识维前视污染</b></li>
+            <li><b>结果融合</b>　多维召回后排序融合；空集时区分「库里没有」与「被时效过滤掉了」</li>
+            <li><b>经验回流</b>　确认的风险模式写回案例库，<b>可追溯哪次案件产生了哪条经验</b></li>
+          </ul>
+          <p class="small" style="margin-top:12px">沉淀的不只是「什么算风险」，还有<b>「什么不算」</b>——风险模式里专门有一条反例字段。</p></div>
+        <div class="card flat"><div class="n">可观测 · 10 类轨迹</div>
+          <p>对齐 OpenTelemetry GenAI 语义约定，属性命名保持一致——
+            接真实 Collector 时只需替换记录器，不改调用方。</p>
+          <p style="margin-top:12px"><b>另加两类本方案特有的记录：</b></p>
+          <p><span class="chip a">routing</span>　路由决策：路由键 · 命中规则编号 · 规则版本</p>
+          <p><span class="chip a">adjudication</span>　对抗裁决：双方结论 · 分歧点 · 采信理由</p>
+          <p style="margin-top:12px">这两类是「为什么当时这么判」能被读出来的原因。
+            通用 APM 不会记这些，因为它们是<b>业务语义</b>而非技术指标。</p></div>
+      </div>
+      <div class="cards g3" style="margin-top:22px">
+        <div class="card"><div class="n">治理规划 · Nacos</div>
+          <p>Skill、提示词、路由表<b>版本化</b>，支持标签灰度与一键回滚。提示词版本号进轨迹——
+            复核三个月前的处置结论时，能重建当时的全部输入。</p></div>
+        <div class="card"><div class="n">网关规划 · Higress</div>
+          <p>统一出口、凭证透传、PII 出站脱敏。配置里凭证一律是<b>引用</b>而非明文，
+            因此配置可进版本库、密钥不进。</p></div>
+        <div class="card" style="border-style:dashed"><div class="n">这一层的进度</div>
+          <p><b>已实现</b>　4 个 Mock Server（含限流、授权缺失等错误码）· 统一授权与留痕 · 10 类轨迹落盘 · 凭证引用四种形态</p>
+          <p style="margin-top:8px"><b>未实现</b>　真实行内系统接入；Nacos 与 Higress 尚在配置层预留，网关侧未落地</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>MCP / RAG / 可观测能力规划</span><span>tracing.py · config/providers.yaml</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>开放</span><span><b>信衡 CreditSentry</b></span><span>20 / 34</span></div>
   <div class="body">
     <h2>把「信贷」两个字去掉，还成立的部分</h2>
     <p class="lead">这是我们挑选开源内容的唯一标准。成立的才有被别人拿走的价值。</p>
@@ -630,12 +909,267 @@ svg{display:block;max-width:100%;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>16 · 开放与复用</span><span>把边界说清楚，比声称「全面可复用」更有用</span></div>
+  <div class="foot"><span>开放与复用</span><span>把边界说清楚，比声称「全面可复用」更有用</span></div>
 </section>
 
-<!-- 17 边界与计划 -->
+<section class="slide dk">
+  <div class="rail"><span>第四部分</span><span>信衡 CreditSentry</span><span>可行性与落地</span></div>
+  <div class="body">
+    <span class="kicker">04</span>
+    <h1 style="font-size:50px;margin-top:14px">可行性与落地</h1>
+    <div class="rule"></div>
+    <p class="lead" style="font-size:15.5px;max-width:74ch;color:#A9B6B9">评估指标、可运行 Demo 计划、安全边界、风险控制、开放与开源计划及边界。</p>
+    <div style="margin-top:auto;display:flex;border-top:1px solid #223034"><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">01 场景与价值</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 04–09 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">02 方案设计</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 11–19 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;"><div style="font-size:12.5px;font-weight:650;color:#EDF2F1">03 Skill 与工具集成</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 21–24 页</div></div><div style="flex:1;padding:16px 18px;border-right:1px solid #223034;border-right:0;"><div style="font-size:12.5px;font-weight:650;color:#35C0C8">04 可行性与落地</div><div style="font-size:11px;color:#7E8B8F;margin-top:4px">第 26–34 页</div></div></div>
+  </div>
+</section>
+
 <section class="slide">
-  <div class="rail"><span>边界</span><span><b>信衡 CreditSentry</b></span><span>17 / 18</span></div>
+  <div class="rail"><span>看它跑</span><span><b>信衡 CreditSentry</b></span><span>21 / 34</span></div>
+  <div class="body">
+    <h2>三条链路，三种结局</h2>
+    <p class="lead">A 与 B 是<b>同一类主体、完全相同的三类信号</b>，差别只在个案细节。</p>
+    <div class="mid">
+      <div class="cards g3">
+        <div class="card" style="border-top:4px solid var(--gold)">
+          <div class="n" style="color:var(--gold)">链路 A · 风险成立</div>
+          <p style="font-size:14px"><b>涉诉 3 笔 · 集中转出 480 万 · 法代变更</b></p>
+          <p>三类信号相互印证，质疑逐条尝试反驳但均不成立。</p>
+          <p style="margin-top:14px"><span class="chip w">L2 需审批</span></p>
+          <p class="small" style="margin-top:10px">额度压降 30% + 追加担保<br>审批通过后执行，回执与审计留痕</p></div>
+        <div class="card" style="border-top:4px solid var(--good)">
+          <div class="n" style="color:var(--good)">链路 B · 风险不成立</div>
+          <p style="font-size:14px"><b>同样三类信号</b></p>
+          <p>但逐笔下钻：涉诉已结案且我方为原告、转出对手方是稳定供应商、法代变更早于风险窗口。</p>
+          <p style="margin-top:14px"><span class="chip g">L0 维持原状</span></p>
+          <p class="small" style="margin-top:10px">出「加强监测」结论并留痕——<br><b>「看过并决定不动」也必须有据可查</b></p></div>
+        <div class="card" style="border-top:4px solid var(--crit)">
+          <div class="n" style="color:var(--crit)">链路 C · 真实历史回溯</div>
+          <p style="font-size:14px"><b>2017 年担保圈风险传染</b></p>
+          <p>时点冻结在 2017-04-01，只喂入该日之前的公开信息。</p>
+          <p style="margin-top:14px"><span class="chip c">L3 只出方案</span></p>
+          <p class="small" style="margin-top:10px">直接敞口 6.5 亿触发大额升档<br>系统全程不执行任何写操作</p></div>
+      </div>
+      <p class="quote" style="margin-top:32px">链路 B 才是技术难点。<em>让 Agent 敢说「这不是风险」，比让它报警难得多。</em></p>
+    </div>
+  </div>
+  <div class="foot"><span>演示链路</span><span>python3 poc/run_demo.py --all</span></div>
+</section>
+
+<section class="slide dk">
+  <div class="rail"><span>看它跑</span><span><b>信衡 CreditSentry</b></span><span>22 / 34</span></div>
+  <div class="body">
+    <span class="kicker">链路 C · 真实历史案例回测</span>
+    <h2 style="max-width:26ch">把时钟拨回 2017 年 4 月，它看出来了吗</h2>
+    <div class="mid">
+      <div style="display:flex;align-items:center;gap:0;margin:20px 0 34px">
+        <div style="flex:0 0 auto;text-align:center;padding-right:34px">
+          <div style="font-size:13px;color:#7E8B8F;letter-spacing:.1em">决策时点</div>
+          <div style="font-size:30px;font-weight:700;color:#EDF2F1;margin-top:6px" class="mono">2017-04-01</div>
+          <div style="font-size:12.5px;color:#8F9C9F;margin-top:8px">只喂入该日之前的公开信息</div>
+        </div>
+        <div style="flex:1;height:2px;background:linear-gradient(90deg,var(--accent-2),#3A4B4E);position:relative">
+          <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:13px;color:var(--accent-2);font-weight:650;white-space:nowrap">提前量 31 个月</div>
+        </div>
+        <div style="flex:0 0 auto;text-align:center;padding-left:34px">
+          <div style="font-size:13px;color:#7E8B8F;letter-spacing:.1em">历史结局</div>
+          <div style="font-size:30px;font-weight:700;color:#E4796A;margin-top:6px" class="mono">2019-10</div>
+          <div style="font-size:12.5px;color:#8F9C9F;margin-top:8px">债券违约，引发全面债务危机</div>
+        </div>
+      </div>
+      <div class="cards g3">
+        <div class="card"><div class="n">系统当时的判定</div>
+          <p><b>风险成立 · 关注类</b><br>净未覆盖代偿敞口达直接敞口的 <b>2.02 倍</b></p></div>
+        <div class="card"><div class="n">但档位是 L3</div>
+          <p>直接敞口 6.5 亿触发大额升档，<b>只出方案不执行</b>。历史上该主体当时确有阶段性缓释（覆盖 54.6%）——<b>方向对不等于处置对</b>。</p></div>
+        <div class="card"><div class="n">怎么保证没作弊</div>
+          <p>每条证据标注首次公开日并逐条校验；<b>历史结局在数据构造时即被摘出</b>，任何环节结构上取不到。</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>真实历史回溯</span><span>只回溯已有公开定论的事件 · 不对存续未定论主体输出风险结论</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>看它跑</span><span><b>信衡 CreditSentry</b></span><span>23 / 34</span></div>
+  <div class="body">
+    <h2>它现在就能打开，而且可以被当场检验</h2>
+    <p class="lead"><span class="mono" style="font-size:14px;background:#F0F3F2;padding:3px 9px">python3 poc/serve.py --open</span>　零依赖、零云账号、零网络。</p>
+    <div class="mid">
+      <div class="cards g23" style="align-items:stretch">
+        <div class="card tint">
+          <div class="n">最有说服力的三个动作</div>
+          <ul class="clean" style="margin-top:4px">
+            <li><b>点开任一证据 → 翻开原件</b><br>裁判文书、征信报告直接展开，并当场重算防篡改校验码</li>
+            <li><b>审批时它真的停下来等你</b><br>后端线程阻塞在那里，不是走过场的确认框。驳回 → 降级只读，额度未被修改</li>
+            <li><b>改一个案情要素 → 当场翻案</b><br>结论随之改变。改了却不变，说明它不是从证据推出来的</li>
+          </ul>
+        </div>
+        <div class="card flat">
+          <div class="n">界面上看得到什么</div>
+          <p><b>左栏</b>　预警池 · 判断方式 · 案情要素调节</p>
+          <p><b>中栏</b>　五阶段流水线随处置推进逐段点亮；证据、对抗视图、闸门定档、执行回执按顺序长出来</p>
+          <p><b>右栏</b>　办理过程 · 办理日志 · 取数留痕 · 岗位与权限</p>
+          <p style="margin-top:16px"><b>另外四个动作</b>：并排看定性⇄质疑的逐条分歧　·　敞口改 2 亿看档位升级　·　
+            让零权限岗位去改额度看它被拒<b>且留痕</b>　·　接自己的大模型 API</p>
+          <p class="small" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--rule)">
+            工作台与命令行是<b>同一套代码、同一份产出</b>，没有为演示另造一条链路。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>可运行 Demo</span><span>docs/工作台使用说明.md</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>四 · 可行性与落地</span><span><b>信衡 CreditSentry</b></span><span>24 / 34</span></div>
+  <div class="body">
+    <h2>评估指标：怎么证明它真的有用，而不是看起来有用</h2>
+    <p class="lead">准确率在这个场景没有意义——「一律报警」也能有高召回。<b>主指标必须防得住偷懒策略。</b></p>
+    <div class="mid">
+      <div class="cards g2">
+        <div class="card tint"><div class="n">主指标 · 配对翻转率</div>
+          <p>同一主体、同样的信号类型，<b>只改一个决定性因子</b>，结论必须随之翻转。</p>
+          <p style="margin-top:10px">配对数据集能测<b>决策是否由正确的因子驱动</b>。系统在一对样本上给出相同结论，
+            说明它压根没看那个因子——不管准确率多高，都是失败。</p>
+          <p style="margin-top:10px"><b>它防得住偷懒</b>　「一律报警」与「一律放行」的翻转率<b>都是 0</b>。
+            目标 ≥ 95%，已在工作台做成可现场操作的动作。</p>
+          <div style="margin-top:auto;padding-top:14px;border-top:1px solid var(--rule-2)">
+            <div class="n" style="margin-bottom:6px">对照基线（复赛执行）</div>
+            <p class="small" style="font-size:11.5px;line-height:1.75">
+              <b>B1</b> 单 Agent 直判　·　<b>B2</b> 去掉质疑官　·　<b>B3</b> 纯规则引擎<br>
+              <b>预期结论提前写在这里</b>：B1 在召回上大概率与本方案接近，胜势应出现在
+              <b>误杀率、配对翻转率、证据完备率、可举证性</b>四项。若 B1 在这四项也不差，
+              说明立论有问题，<b>应如实报告而不是换指标</b>。</p></div></div>
+        <div class="card flat" style="padding:16px 18px"><div class="n">过程指标 · 每次运行自动产出</div>
+          <table style="margin-top:2px;font-size:12px">
+            <tbody>
+              <tr><td class="k">降噪率</td><td>归并后保留条数 / 入池条数<br><span class="small">实测 50–62.5%，且每条丢弃可回溯</span></td></tr>
+              <tr><td class="k">证据充分度</td><td>低于 0.7 不得进入裁决阶段<br><span class="small">实测 0.875–0.933</span></td></tr>
+              <tr><td class="k">质疑覆盖率</td><td><b>目标恒为 100%</b>，不满即回退补证<br><span class="small">未被质疑的主因不算通过</span></td></tr>
+              <tr><td class="k">无源结论数</td><td><b>目标恒为 0</b><br><span class="small">出现即报告拒绝生成</span></td></tr>
+              <tr><td class="k">修复轮次数</td><td>模型输出不合规的发生率<br><span class="small">质量信号，不该被吞掉</span></td></tr>
+              <tr><td class="k">单案成本与时延</td><td>按 Agent 粒度分解<br><span class="small">用于推算规模化年成本</span></td></tr>
+            </tbody>
+          </table></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>评估指标</span><span>一个不可能失败的实验，不构成证据</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>四 · 可行性与落地</span><span><b>信衡 CreditSentry</b></span><span>25 / 34</span></div>
+  <div class="body">
+    <h2>安全边界与风险控制</h2>
+    <p class="lead">每一条都对应一段可执行的断言。带<b>反向验证</b>的不只测「合法输入能通过」，还测「非法输入真的会被拒」。</p>
+    <div class="mid">
+      <div class="cards g3" style="flex:0 0 auto">
+        <div class="card flat" style="padding:16px 18px"><div class="n">权限与职责边界</div>
+          <p class="small" style="line-height:2.05;font-size:12px">
+            写权限唯一：只有一个角色能改额度<br>
+            PII 触点唯一：只有一个角色能读征信与流水<br>
+            定性岗零工具权限（防边查边下结论）<br>
+            执行方与审计方不是同一角色<br>
+            编排者不持有任何业务工具<br>
+            越权调用一律拒绝，<b>且被拒调用进留痕</b><br>
+            部署配置与权限矩阵零漂移</p></div>
+        <div class="card flat" style="padding:16px 18px"><div class="n">执行与数据边界</div>
+          <p class="small" style="line-height:2.05;font-size:12px">
+            不可逆动作在<b>任何</b>入参组合下都不落进自主档<br>
+            入参缺失时降为最高管控档，而非放行<br>
+            白名单外动作一律拒绝<br>
+            幂等重放不重复执行；回滚可恢复原值<br>
+            审批被拒即降级只读，额度不被修改<br>
+            无证据 / 引用无效证据的结论一律被拒<br>
+            原文不入模型上下文；配置无明文密钥</p></div>
+        <div class="card flat" style="padding:16px 18px"><div class="n">模型使用边界</div>
+          <p class="small" style="line-height:2.05;font-size:12px">
+            对抗双方必须异构，同源即<b>拒绝启动</b>　<span class="chip a">反向验证</span><br>
+            PII 触点的模型不得越出数据驻留白名单　<span class="chip a">反向验证</span><br>
+            无模型入口的角色不得绑定模型档位<br>
+            两种推理模式产出<b>同一套输出契约</b><br>
+            归一化绝不伪造证据引用　<span class="chip a">反向验证</span><br>
+            模型失效时降级方向恒为阻断<br>
+            密钥只存本次运行内存</p></div>
+      </div>
+      <div class="cards g2" style="margin-top:18px;flex:0 0 auto">
+        <div class="card gold" style="padding:14px 18px"><div class="n">回溯伦理边界</div>
+          <p class="small" style="font-size:12px">只回溯<b>已有公开定论</b>的历史事件，
+            <b>不对当前存续且未定论的主体输出风险结论</b>。新闻报道只用于定位案件与时间线，不进证据账本——
+            这恰好符合我们自己的证据等级规则。</p></div>
+        <div class="card flat" style="padding:14px 18px"><div class="n">数据来源披露</div>
+          <p class="small" style="font-size:12px"><b>合成数据 + 公开数据，不含任何真实银行客户数据。</b>
+            回溯链路逐字段标注来源——<b>用真实公开事件做骨架，只在法律禁止公开的两个模态上做受约束的合成</b>。</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>安全边界与风险控制</span><span>poc/test_safety.py 74 项 · tools/check_pit.py</span></div>
+</section>
+
+<section class="slide dk">
+  <div class="rail"><span>证据</span><span><b>信衡 CreditSentry</b></span><span>26 / 34</span></div>
+  <div class="body">
+    <span class="kicker">不是承诺，是可以现场跑的断言</span>
+    <h2 style="max-width:28ch">每一条约束都由回归测试强制</h2>
+    <div class="mid">
+      <div class="stats" style="grid-template-columns:repeat(6,1fr)">
+        <div><b class="num">74</b><span>安全边界回归<br>全绿</span></div>
+        <div><b class="num">906</b><span>Skill 评估用例<br>全绿</span></div>
+        <div><b class="num">865</b><span>闸门全组合遍历<br>穷举非抽样</span></div>
+        <div><b class="num">13</b><span>接大模型的<br>故障模式回归</span></div>
+        <div><b class="num">36</b><span>可逐条复核的<br>验收断言</span></div>
+        <div><b class="num">0</b><span>第三方运行时<br>依赖</span></div>
+      </div>
+      <div class="cards g4" style="margin-top:34px">
+        <div class="card"><p><b>写权限唯一</b><br>只有一个角色能改额度</p></div>
+        <div class="card"><p><b>PII 触点唯一</b><br>只有一个角色能读征信与流水</p></div>
+        <div class="card"><p><b>越权尝试也留痕</b><br>被拒的调用同样进审计日志</p></div>
+        <div class="card"><p><b>配置零漂移</b><br>部署配置与权限矩阵逐字节比对</p></div>
+      </div>
+      <p class="small" style="margin-top:24px;color:#7E8B8F;font-size:12.5px">
+        其中带「含反向验证」的断言不只测「合法输入能通过」，还测「非法输入真的会被拒」——<b style="color:#EDF2F1">只测正向的约束等于没有约束</b>。
+      </p>
+    </div>
+  </div>
+  <div class="foot"><span>运行证据</span><span>5 条命令，数秒内完成且全绿</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>技术栈</span><span><b>信衡 CreditSentry</b></span><span>27 / 34</span></div>
+  <div class="body">
+    <h2>逐条映射到赛题要求的能力</h2>
+    <p class="lead">不是「用到了」，而是「用在哪、怎么验」。</p>
+    <div class="mid">
+      <table>
+        <thead><tr><th style="width:15%">能力</th><th style="width:43%">我们怎么用</th><th style="width:42%">怎么验证它真的成立</th></tr></thead>
+        <tbody>
+          <tr><td class="k">AgentTeams</td>
+            <td>1 Manager + 1 Team Leader + 6 Worker；身份、权限、模型绑定全部声明式</td>
+            <td>配置由权限矩阵生成，磁盘文件与矩阵逐字节比对，漂移即测试失败</td></tr>
+          <tr><td class="k">Skill</td>
+            <td>16 个。领域判断 12 个全自研，通用云操作复用官方并标注开源等价替代</td>
+            <td>三件套（文档 + Schema + 评估集）全部由代码元数据生成；评估集是发布门禁</td></tr>
+          <tr><td class="k">MCP</td>
+            <td>4 个 Server、17 个工具，覆盖信贷核心 / 征信 / 司法工商 / 账务流水</td>
+            <td>Mock 与真实接入<b>零 Schema 差异</b>；中央授权 + 审计留痕，越权调用被拒并留痕</td></tr>
+          <tr><td class="k">RAG</td>
+            <td>监管政策库 + 历史案例库；六维查询改写、时点过滤、结果融合、经验回流</td>
+            <td>条款生效日 ≤ 案件时点，防知识维前视污染；每条命中记录由哪几维召回</td></tr>
+          <tr><td class="k">可观测</td>
+            <td>10 类轨迹，对齐 OTel GenAI 语义；另加路由决策与对抗裁决两类专有记录</td>
+            <td>「为什么走了这条分支」直接读出来——带路由键、规则编号与版本</td></tr>
+          <tr><td class="k">治理与网关</td>
+            <td>Nacos 版本化与灰度回滚；Higress 凭证透传与 PII 出站脱敏</td>
+            <td>凭证一律是引用而非明文，配置可进版本库、密钥不进　<span class="chip">配置层已预留，网关侧未落地</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>技术栈映射</span><span>四项 RAG 能力全做（赛题要求至少两项）</span></div>
+</section>
+
+<section class="slide">
+  <div class="rail"><span>边界</span><span><b>信衡 CreditSentry</b></span><span>28 / 34</span></div>
   <div class="body">
     <h2>还没做的，写在明处</h2>
     <p class="lead">把差额写清楚，比事后被追问更经得起看。</p>
@@ -667,13 +1201,12 @@ svg{display:block;max-width:100%;}
       </div>
     </div>
   </div>
-  <div class="foot"><span>17 · 实现边界与计划</span><span>README 依赖披露与当前边界</span></div>
+  <div class="foot"><span>实现边界与计划</span><span>README 依赖披露与当前边界</span></div>
 </section>
 
-<!-- 18 收尾 -->
 <section class="slide dk">
-  <div class="rail"><span>信衡 CreditSentry</span><span>GOAI 赛道一 · 新智基座｜Agent Infra</span><span>18 / 18</span></div>
-  <div class="mid">
+  <div class="rail"><span>信衡 CreditSentry</span><span>GOAI 赛道一 · 新智基座｜Agent Infra</span><span>29 / 34</span></div>
+  <div class="mid ctr">
     <h2 style="font-size:44px;line-height:1.28;max-width:30ch">
       这套系统的价值不在于它跑得多快，<br>
       <span style="color:var(--accent-2)">而在于它出问题时往哪个方向倒。</span>
@@ -691,7 +1224,7 @@ svg{display:block;max-width:100%;}
         <div class="mono" style="font-size:14.5px;color:#EDF2F1;margin-top:7px">python3 poc/test_safety.py</div></div>
     </div>
   </div>
-  <div class="foot"><span>队伍 Durandal ｜ 成员 李家宝</span><span class="mono">github.com/Durandal628/GOAI-CreditSentry</span></div>
+  <div class="foot"><span>队伍 Durandal ｜ 成员 李家宝 · 刘泽苑</span><span class="mono">github.com/Durandal628/GOAI-CreditSentry</span></div>
 </section>
 </div>
 </body>

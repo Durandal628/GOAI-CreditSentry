@@ -1,4 +1,4 @@
-└─ CASE  CASE-2026-0821-002                            1.8ms
+└─ CASE  CASE-2026-0821-002                            1.9ms
     ├─ ROUTE INTAKE→EVIDENCE                               0.0ms
     │       · routing_key = {'phase': 'INTAKE', 'signal_type': [], 'evidence_sufficiency': 0.0, 'risk_tier': None, 'exposure_amount': None}
     │       · rule_id = R-01
@@ -11,7 +11,7 @@
     │       · routing_key = {'phase': 'EVIDENCE', 'signal_type': ['judicial_new_case', 'registration_change', 'txn_concentrated_outflow'], 'evidence_sufficiency': 0.0, 'risk_tier': None, 'exposure_amount': 6200000}
     │       · rule_id = R-02
     │       · rule_version = v1.4.0
-    ├─ AGENT due-diligence                                 0.3ms
+    ├─ AGENT due-diligence                                 0.4ms
     │   ├─ SKILL CreditReportProbe                             0.1ms
     │   │   ├─ MCP   bureau-mcp.get_credit_report                  0.0ms
     │   │   └─ MCP   bureau-mcp.diff_report                        0.0ms
@@ -41,7 +41,7 @@
     │   └─ SKILL RiskRootCause                                 0.2ms
     │       └─ LLM   risk_root_cause                               0.1ms
     ├─ AGENT devils-advocate                               0.5ms
-    │   ├─ SKILL QueryRewrite                                  0.0ms
+    │   ├─ SKILL QueryRewrite                                  0.1ms
     │   │   └─ RAG   query.rewrite                                 0.0ms
     │   ├─ SKILL PolicyRag                                     0.1ms
     │   │   └─ RAG   policy.search                                 0.1ms

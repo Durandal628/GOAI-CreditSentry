@@ -38,7 +38,7 @@
     │   │   └─ RAG   case_memory.search                            0.0ms
     │   └─ SKILL RiskRootCause                                 0.2ms
     │       └─ LLM   risk_root_cause                               0.1ms
-    ├─ AGENT devils-advocate                               0.5ms
+    ├─ AGENT devils-advocate                               0.4ms
     │   ├─ SKILL QueryRewrite                                  0.1ms
     │   │   └─ RAG   query.rewrite                                 0.0ms
     │   ├─ SKILL PolicyRag                                     0.1ms
